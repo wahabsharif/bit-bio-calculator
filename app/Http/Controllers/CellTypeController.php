@@ -12,4 +12,15 @@ class CellTypeController extends Controller
         $cellTypes = CellType::all();
         return response()->json($cellTypes);
     }
+
+    public function show($id)
+    {
+        $cellType = CellType::find($id);
+
+        if (!$cellType) {
+            return response()->json(['message' => 'Cell type not found'], 404);
+        }
+
+        return response()->json($cellType);
+    }
 }
