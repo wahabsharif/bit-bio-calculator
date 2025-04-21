@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CellTypesTableSeeder::class,
         ]);
+
+        $this->call(CultureVesselsTableSeeder::class);
     }
 }
