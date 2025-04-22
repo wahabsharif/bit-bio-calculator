@@ -49,10 +49,10 @@
             <div class="flex items-center space-x-4">
                 <!-- Search Bar -->
                 <input type="text" x-model="search" placeholder="Search products..."
-                    class="w-full md:w-64 border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                    class="w-full md:w-64 border border-gray-300 rounded-md px-2 py-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
                 <!-- Add New Product Button -->
                 <button @click="showAddModal = true"
-                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition cursor-pointer">
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-1 px-4 rounded-lg transition cursor-pointer">
                     Add New Product
                 </button>
             </div>

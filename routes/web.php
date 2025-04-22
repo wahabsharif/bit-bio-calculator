@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CultureVesselController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\Products;
 
 // Public routes
 Route::get('/', function () {
@@ -25,9 +26,11 @@ Route::get('/culture-vessels/{id}', [CultureVesselController::class, 'show']);
 // Protected dashboard routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard.index');
+        $products = Products::orderBy('created_at', 'desc')->get();
+        return view('dashboard.index', compact('products'));
     })->name('dashboard');
 
+    // Keep only one definition for /dashboard/products
     Route::get('/dashboard/products', [ProductsController::class, 'dashboardIndex'])
         ->name('dashboard.products');
 });
