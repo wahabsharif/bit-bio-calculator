@@ -14,9 +14,10 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Public resources
-Route::get('/products', [ProductsController::class, 'index']);
-Route::get('/products/{id}', [ProductsController::class, 'show']);
+
+Route::resource('products', ProductsController::class)
+    ->only(['index', 'show', 'store', 'edit', 'create', 'update', 'destroy']);
+
 
 Route::get('/culture-vessels', [CultureVesselController::class, 'index']);
 Route::get('/culture-vessels/{id}', [CultureVesselController::class, 'show']);
@@ -27,7 +28,6 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.index');
     })->name('dashboard');
 
-    // Add your protected dashboard routes here
-    // Example:
-    // Route::get('/dashboard/products', [ProductsController::class, 'dashboardIndex']);
+    Route::get('/dashboard/products', [ProductsController::class, 'dashboardIndex'])
+        ->name('dashboard.products');
 });
