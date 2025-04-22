@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         // Seed cell types
         $this->call([
-            CellTypesTableSeeder::class,
+            ProductsTableSeeder::class,
         ]);
 
         $this->call(CultureVesselsTableSeeder::class);

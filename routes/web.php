@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CellTypeController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CultureVesselController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -15,8 +15,8 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Public resources
-Route::get('/cell-types', [CellTypeController::class, 'index']);
-Route::get('/cell-types/{id}', [CellTypeController::class, 'show']);
+Route::get('/cell-types', [ProductsController::class, 'index']);
+Route::get('/cell-types/{id}', [ProductsController::class, 'show']);
 
 Route::get('/culture-vessels', [CultureVesselController::class, 'index']);
 Route::get('/culture-vessels/{id}', [CultureVesselController::class, 'show']);
@@ -29,5 +29,5 @@ Route::middleware(['auth'])->group(function () {
 
     // Add your protected dashboard routes here
     // Example:
-    // Route::get('/dashboard/cell-types', [CellTypeController::class, 'dashboardIndex']);
+    // Route::get('/dashboard/cell-types', [ProductsController::class, 'dashboardIndex']);
 });

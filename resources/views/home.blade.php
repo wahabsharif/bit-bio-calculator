@@ -268,7 +268,7 @@
             });
             search.addEventListener('input', () => {
                 const val = search.value.toLowerCase();
-                renderOptions(cellTypes.filter(ct => ct.product_name_sku.toLowerCase().includes(val)));
+                renderOptions(cellTypes.filter(ct => ct.product_name.toLowerCase().includes(val)));
             });
 
             function renderOptions(list) {
@@ -280,12 +280,12 @@
                 }
                 list.forEach(ct => {
                     const d = document.createElement('div');
-                    d.textContent = ct.product_name_sku;
+                    d.textContent = `${ct.product_name} (${ct.sku})`;
                     d.className = 'px-4 py-2 hover:bg-blue-100 cursor-pointer';
                     d.addEventListener('click', () => {
-                        selectedText.textContent = ct.product_name_sku;
+                        selectedText.textContent = `${ct.product_name} (${ct.sku})`;
                         menu.classList.add('hidden');
-                        seedingInput.value = ct.recommended_seeding_density || '';
+                        seedingInput.value = ct.seeding_density || '';
                     });
                     optionsContainer.appendChild(d);
                 });

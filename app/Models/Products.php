@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CellType extends Model
+class Products extends Model
 {
     use HasFactory;
 
-    protected $table = 'cell_types';
+    protected $table = 'products';
 
     protected $fillable = [
-        'product_name_sku',
-        'recommended_seeding_density',
+        'product_name',
+        'sku',
+        'seeding_density',
     ];
 }
