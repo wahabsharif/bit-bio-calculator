@@ -219,7 +219,7 @@
 
             // Fetch cell types
             try {
-                const response = await fetch('/cell-types');
+                const response = await fetch('/products');
                 cellTypes = await response.json();
                 renderOptions(cellTypes);
             } catch (err) {
