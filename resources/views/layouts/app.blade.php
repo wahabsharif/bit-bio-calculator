@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Bit Bio Calculator')</title>
+    <title>@yield('title', 'Bit Bio - Calculator')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
@@ -13,14 +14,27 @@
 
 <body class="bg-gray-100 text-gray-800 font-sans">
     <header class="fixed top-0 left-0 right-0 z-50 bg-white shadow rounded-b-3xl">
-        <div class="max-w-2xl mx-auto px-4 py-4 text-center">
-            <h1 class="text-xl uppercase font-bold">Bit Bio Calculator</h1>
-            <p class="text-sm text-gray-600">
-                This calculator has been designed to help scientists determine how many cells and how much volume is
-                needed for seeding those cells. Follow the steps below and get your results instantly!
-            </p>
+        <div class="max-w-8xl mx-auto flex items-center justify-between px-6 py-2">
+            <!-- Logo aligned left and vertically centered -->
+            <div class="flex items-center">
+                <img src="{{ asset('assets/images/bitbio-logotype-no_tagline-color-positive-RGB.webp') }}"
+                    alt="Dashboard Logo" class="h-5 w-auto">
+            </div>
+
+            <!-- Centered title and description -->
+            <div class="flex-1 text-center max-w-2xl">
+                <h1 class="text-xl uppercase font-bold">Bit Bio Calculator</h1>
+                <p class="text-sm text-gray-600">
+                    This calculator has been designed to help scientists determine how many cells and how much volume is
+                    needed for seeding those cells. Follow the steps below and get your results instantly!
+                </p>
+            </div>
+
+            <!-- Empty div for spacing symmetry with logo -->
+            <div class="w-20"></div>
         </div>
     </header>
+
 
     <main class="pt-30 py-6 min-h-screen">
         <div class="max-w-7xl mx-auto px-4">

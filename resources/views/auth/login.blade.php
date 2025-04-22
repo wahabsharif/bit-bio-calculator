@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Bit Bio - Login</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     @vite('resources/css/app.css')
 </head>
 
