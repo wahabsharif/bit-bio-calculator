@@ -9,6 +9,7 @@
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">
@@ -18,7 +19,7 @@
         <nav class="h-full">
             <ul class="space-y-2 p-2">
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
+                    <a href="/dashboard" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div
                             class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
                                   bg-gray-700">
@@ -31,7 +32,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
+                    <a href="/dashboard/products"
+                        class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div
                             class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
                                   bg-gray-700">
@@ -85,7 +87,7 @@
             </nav>
         </header>
 
-        <div class="max-w-7xl mx-auto px-4 pt-16"> <!-- Added pt-16 for header spacing -->
+        <div class="max-w-7xl mx-auto px-4"> <!-- Added pt-16 for header spacing -->
             @yield('content')
         </div>
     </main>
