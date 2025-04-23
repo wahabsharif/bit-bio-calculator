@@ -28,9 +28,10 @@
 
             <div class="mb-4">
                 <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                <input type="text" id="username" name="username"
+                <input type="text" id="username" name="username" oninput="this.value = this.value.toLowerCase()"
                     class="mt-1 block w-full rounded-md p-2 border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                     required autofocus>
+
             </div>
 
             <div class="mb-6">
@@ -46,6 +47,16 @@
             </button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const usernameField = document.getElementById('username');
+            usernameField.addEventListener('input', function() {
+                this.value = this.value.toLowerCase();
+            });
+        });
+    </script>
+
 </body>
 
 </html>

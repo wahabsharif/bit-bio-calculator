@@ -93,7 +93,7 @@
                             </button>
 
                             <!-- Mobile Menu Dropdown -->
-                            <div x-show="isOpen" x-cloak @click.away="isOpen = false"
+                            <div x-show="isOpen" x-cloak style="display: none;" @click.away="isOpen = false"
                                 x-transition:enter="transition ease-out duration-200"
                                 x-transition:enter-start="opacity-0 scale-95"
                                 x-transition:enter-end="opacity-100 scale-100"
@@ -143,12 +143,6 @@
         </div>
     </main>
 
-    <style>
-        /* Alpine's x-cloak directive for initial hiding of elements */
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
 </body>
 
 </html>
