@@ -16,7 +16,7 @@
 <body class="bg-gray-100 text-gray-800 font-sans">
 
     <aside
-        class="group peer fixed left-0 h-full w-16 bg-white shadow-lg transition-all duration-300 hover:w-64 overflow-x-hidden z-40">
+        class="group peer hidden md:block fixed left-0 h-full w-16 bg-white shadow-lg transition-all duration-300 hover:w-64 overflow-x-hidden z-40">
         <nav class="h-full">
             <ul class="space-y-2 p-2">
                 <li>
@@ -64,18 +64,67 @@
         </nav>
     </aside>
 
-    <main class="py-6 min-h-screen ml-16 transition-all duration-300 peer-hover:ml-64">
-        <header class="sticky top-0 mx-4 mb-6 bg-white/80 shadow-lg rounded-full backdrop-blur-sm z-40">
+    <main class="py-4 min-h-screen md:ml-16 transition-all duration-300 md:peer-hover:ml-64">
+        <header class="sticky top-2 mx-4 mb-6 bg-white/80 shadow-lg rounded-full backdrop-blur-sm z-40">
             <nav>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
+                    <div class="flex justify-between py-2 px-2">
                         <div class="flex items-center">
                             <img src="{{ asset('assets/images/bitbio-logotype-no_tagline-color-positive-RGB.webp') }}"
-                                alt="Dashboard Logo" class="h-5 w-auto"><span class="text-2xl font-bold mx-3">-</span>
-                            <div class="text-xl font-semibold text-gray-800">Dashboard</div>
+                                alt="Dashboard Logo" class="md:h-6 h-4 w-auto"><span
+                                class="text-2xl hidden md:block font-bold mx-3">-</span>
+                            <div class="text-xl hidden md:block font-semibold text-gray-800">Dashboard</div>
                         </div>
+                        <div x-data="{ isOpen: false }" class="relative">
+                            <!-- Hamburger Button -->
+                            <button @click="isOpen = !isOpen" class="flex items-center space-x-1 md:hidden">
+                                <!-- Hamburger Icon when closed -->
+                                <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                                <!-- X Icon when open -->
+                                <svg x-show="isOpen" x-cloak xmlns="http://www.w3.org/2000/svg" class="h-6 w-6"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
 
-                        <div class="flex items-center">
+                            <!-- Mobile Menu Dropdown -->
+                            <div x-show="isOpen" x-cloak @click.away="isOpen = false"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-150"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-95"
+                                class="absolute -right-4 mt-4 w-36 rounded-md shadow-lg bg-white py-1">
+
+                                <a href="{{ url('/dashboard') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Dashboard
+                                </a>
+                                <a href="{{ url('/dashboard/products') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Products
+                                </a>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Culture Vessel
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <div class="p-2">
+                                        <button type="submit"
+                                            class="block w-full tracking-widest px-4 rounded-md text-center py-2 text-sm text-gray-100 bg-red-500">
+                                            Logout
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="items-center hidden md:flex">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
@@ -89,10 +138,17 @@
             </nav>
         </header>
 
-        <div class="max-w-7xl mx-auto px-4"> <!-- Added pt-16 for header spacing -->
+        <div class="max-w-7xl mx-auto px-4">
             @yield('content')
         </div>
     </main>
+
+    <style>
+        /* Alpine's x-cloak directive for initial hiding of elements */
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
 </body>
 
 </html>
