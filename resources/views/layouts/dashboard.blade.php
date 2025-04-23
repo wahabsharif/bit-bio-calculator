@@ -20,7 +20,8 @@
         <nav class="h-full">
             <ul class="space-y-2 p-2">
                 <li>
-                    <a href="/dashboard" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
+                    <a href="{{ url('/dashboard') }}"
+                        class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div
                             class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
                                   bg-gray-700">
@@ -33,7 +34,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/dashboard/products"
+                    <a href="{{ url('/dashboard/products') }}"
                         class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div
                             class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white

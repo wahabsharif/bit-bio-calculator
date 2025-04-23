@@ -27,7 +27,7 @@
                     </div>
                     @if ($products->count() > 5)
                         <div class="flex justify-end mt-4">
-                            <a href="/dashboard/products"
+                            <a href="{{ url('/dashboard/products') }}"
                                 class="bg-blue-500 text-white px-4 py-1 rounded-lg hover:bg-blue-600">Load More</a>
                         </div>
                     @endif

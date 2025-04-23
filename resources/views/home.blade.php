@@ -219,7 +219,7 @@
 
             // Fetch cell types
             try {
-                const response = await fetch('/products');
+                const response = await fetch('{{ url('products') }}');
                 cellTypes = await response.json();
                 renderOptions(cellTypes);
             } catch (err) {
@@ -227,7 +227,7 @@
             }
             // Fetch culture vessels
             try {
-                const resp2 = await fetch('/culture-vessels');
+                const resp2 = await fetch('{{ url('culture-vessels') }}');
                 cultureVessels = await resp2.json();
                 populateCultureVessels(cultureVessels);
             } catch (err) {
