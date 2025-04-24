@@ -17,56 +17,51 @@
 
 <body class="bg-gray-100 text-gray-800 font-sans">
 
-    <aside
-        class="group peer hidden md:block fixed left-0 h-full w-16 bg-white shadow-lg transition-all duration-300 hover:w-64 overflow-x-hidden z-40">
+    <aside class="fixed left-0 h-full w-44 hidden md:block bg-white rounded-r-xl shadow-lg overflow-x-hidden z-40">
         <nav class="h-full">
             <ul class="space-y-2 p-2">
                 <li>
                     <a href="{{ url('/dashboard') }}"
                         class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
-                        <div
-                            class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
-                                  bg-gray-700">
-                            D
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                            <x-ri-dashboard-fill />
                         </div>
-                        <span
-                            class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                            Dashboard
-                        </span>
+                        <span class="ml-3 whitespace-nowrap">Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('/dashboard/products') }}"
                         class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
-                        <div
-                            class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
-                                  bg-gray-700">
-                            P
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                            <x-carbon-carbon-for-ibm-product />
                         </div>
-                        <span
-                            class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                            Products
-                        </span>
+                        <span class="ml-3 whitespace-nowrap">Products</span>
                     </a>
                 </li>
                 <li>
                     <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
-                        <div
-                            class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white
-                                  bg-gray-700">
-                            CV
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                            <x-healthicons-f-blood-vessel />
                         </div>
-                        <span
-                            class="ml-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                            Culture Vessel
-                        </span>
+                        <span class="ml-3 whitespace-nowrap">Culture Vessel</span>
                     </a>
                 </li>
             </ul>
+            <ul class="absolute bottom-0 border-t-2 border-gray-700 left-0 w-full p-2">
+                <li>
+                    <a href="{{ url('/dashboard/settings') }}"
+                        class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
+                        <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+                            <x-eva-settings />
+                        </div>
+                        <span class="ml-3 whitespace-nowrap">Settings</span>
+                    </a>
+                </li>
         </nav>
     </aside>
 
-    <main class="py-4 min-h-screen md:ml-16 transition-all duration-300 md:peer-hover:ml-64">
+
+    <main class="py-4 min-h-screen md:ml-48 transition-all duration-300">
         <header class="sticky top-2 mx-4 mb-6 bg-white/80 shadow-lg rounded-full backdrop-blur-sm z-40">
             <nav>
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,7 +70,15 @@
                             <img src="{{ asset('assets/images/bitbio-logotype-no_tagline-color-positive-RGB.webp') }}"
                                 alt="Dashboard Logo" class="md:h-6 h-4 w-auto"><span
                                 class="text-2xl hidden md:block font-bold mx-3">-</span>
-                            <div class="text-xl hidden md:block font-semibold text-gray-800">Dashboard</div>
+                            @php
+                                $segments = request()->segments();
+                                $crumbs = array_map('ucfirst', $segments);
+                                $title = implode(' - ', $crumbs);
+                            @endphp
+
+                            <div class="text-xl hidden md:block font-semibold text-gray-800">
+                                {{ $title }}
+                            </div>
                         </div>
                         <div x-data="{ isOpen: false }" class="relative">
                             <!-- Hamburger Button -->
@@ -130,8 +133,8 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="cursor-pointer bg-red-500 text-gray-50 hover:bg-red-700 px-4 py-1 rounded-lg font-semibold">
-                                    Logout
+                                    class="cursor-pointer flex items-center bg-red-500 text-gray-50 hover:bg-red-700 px-4 py-1 rounded-lg font-semibold">
+                                    <x-tabler-logout /> <span class="mx-1">Logout</span>
                                 </button>
                             </form>
                         </div>
