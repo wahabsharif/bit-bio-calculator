@@ -9,6 +9,8 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 
 <body class="bg-gray-100 text-gray-800 font-sans">

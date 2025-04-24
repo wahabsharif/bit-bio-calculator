@@ -7,6 +7,8 @@
     <title>Bit Bio - Login</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     @vite('resources/css/app.css')
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </head>
 
 <body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
