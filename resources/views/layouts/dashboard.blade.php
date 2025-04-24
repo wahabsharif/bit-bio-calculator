@@ -39,7 +39,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
+                    <a href="{{ url('/dashboard/culture-vessels') }}"
+                        class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                             <x-healthicons-f-blood-vessel />
                         </div>

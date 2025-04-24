@@ -142,7 +142,7 @@
         <!-- Calculate Button -->
         <div class="flex justify-center">
             <button id="calculateBtn"
-                class="w-full md:w-auto px-6 py-2 text-sm md:text-lg bg-gray-700 hover:bg-gray-900 text-white rounded-lg uppercase tracking-wide transition">
+                class="w-full md:w-auto px-6 py-2 text-sm cursor-pointer md:text-lg bg-gray-700 hover:bg-gray-900 text-white rounded-lg uppercase tracking-wide transition">
                 Calculate Results
             </button>
         </div>
@@ -203,7 +203,7 @@
 
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                         <button id="downloadCsv"
-                            class="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-800 text-white rounded-lg">
+                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-blue-600 hover:bg-blue-800 text-white rounded-lg">
                             Download CSV
                         </button>
                         <p class="text-sm text-gray-500 text-center sm:text-left">
