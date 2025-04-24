@@ -1,15 +1,27 @@
 <IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
     RewriteEngine On
 
-    # 1. If the request is already pointing into /public/, do nothing
-    RewriteCond %{REQUEST_URI} !^/public/
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-    # 2. Redirect the root URL (/) to /public/
-    RewriteRule ^$ public/ [L]
+    RewriteRule ^assets/images/(.*)$ public/assets/images/$1 [L]
+    RewriteRule ^assets/icons/(.*)$ public/assets/icons/$1 [L]
+    RewriteRule ^assets/css/(.*)$ public/assets/css/$1 [L]
+    RewriteRule ^assets/js/(.*)$ public/assets/js/$1 [L]
 
-    # 3. Rewrite *anything else* that isn’t a real file or directory
-    #    into /public/<that-path>
-    RewriteCond %{REQUEST_FILENAME} !-f
+    # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
 </IfModule>

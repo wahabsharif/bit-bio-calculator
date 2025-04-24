@@ -121,7 +121,9 @@
                         <button @click="showEditModal = false"
                             class="text-gray-600 hover:text-gray-800 text-xl cursor-pointer">&times;</button>
                     </div>
-                    <form :action="'/culture-vessels/' + editVesselId" method="POST" class="px-4 sm:px-6 py-4">
+                    <!-- filepath: culture-vessels.blade.php -->
+                    <form :action="`{{ url('/culture-vessels') }}/${editVesselId}`" method="POST"
+                        class="px-4 sm:px-6 py-4">
                         @csrf
                         @method('PUT')
                         <div class="mb-4">

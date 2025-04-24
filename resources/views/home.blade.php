@@ -244,7 +244,11 @@
             }
             // Fetch culture vessels
             try {
-                const resp2 = await fetch('{{ url('culture-vessels') }}');
+                const resp2 = await fetch('{{ route('culture-vessels.index') }}', {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
                 cultureVessels = await resp2.json();
                 populateCultureVessels(cultureVessels);
             } catch (err) {

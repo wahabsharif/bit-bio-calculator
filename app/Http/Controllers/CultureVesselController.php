@@ -8,18 +8,19 @@ use Illuminate\Http\Request;
 class CultureVesselController extends Controller
 {
     // Get all culture vessels
-    public function index()
+    public function index(Request $request)
     {
         $vessels = CultureVessel::orderBy('updated_at', 'desc')->get();
+
+        // return JSON if this is an AJAX request
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json($vessels);
+        }
+
         return view('culture-vessels', compact('vessels'));
     }
 
-    // In CultureVesselController
-    public function apiIndex()
-    {
-        $vessels = CultureVessel::orderBy('updated_at', 'desc')->get();
-        return response()->json($vessels);
-    }
+
 
     // Dashboard index method, ordered by updated_at desc
     public function dashboardIndex()
@@ -68,7 +69,13 @@ class CultureVesselController extends Controller
 
         $vessel->update($validated);
 
-        return redirect()->route('dashboard.culture-vessels')
+        // Check if request came from dashboard and redirect accordingly
+        if (str_contains(url()->previous(), 'dashboard')) {
+            return redirect()->route('dashboard.culture-vessels')
+                ->with('success', 'Culture vessel updated successfully!');
+        }
+
+        return redirect()->route('culture-vessels.index')
             ->with('success', 'Culture vessel updated successfully!');
     }
 
