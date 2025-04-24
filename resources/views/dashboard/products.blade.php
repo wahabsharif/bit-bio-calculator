@@ -2,7 +2,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="container mx-auto px-4 py-6 sm:py-8" x-data="{
+    <div class="container mx-auto" x-data="{
         showAddModal: false,
         search: '',
         hasSearchResults() {

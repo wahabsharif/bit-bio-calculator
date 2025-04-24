@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # Preserve Authorization and XSRF headers
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Serve your assets exactly as before
+    RewriteRule ^assets/images/(.*)$ assets/images/$1 [L]
+    RewriteRule ^assets/icons/(.*)$  assets/icons/$1  [L]
+    RewriteRule ^assets/css/(.*)$    assets/css/$1    [L]
+    RewriteRule ^assets/js/(.*)$     assets/js/$1     [L]
+
+    # Redirect trailing slashes if not a folder
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # **Front controller:** route everything else to public/index.php
+    # (since we're already inside /public, this file exists here)
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

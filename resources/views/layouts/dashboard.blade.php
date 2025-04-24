@@ -50,7 +50,7 @@
             </ul>
             <ul class="absolute bottom-0 border-t-2 border-gray-700 left-0 w-full p-2">
                 <li>
-                    <a href="{{ url('/dashboard/settings') }}"
+                    <a href="#" {{-- <a href="{{ url('/dashboard/settings') }}" --}}
                         class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100">
                         <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
                             <x-eva-settings />
@@ -73,13 +73,16 @@
                                 class="text-2xl hidden md:block font-bold mx-3">-</span>
                             @php
                                 $segments = request()->segments();
-                                $crumbs = array_map('ucfirst', $segments);
+                                $crumbs = array_map(function ($segment) {
+                                    return ucwords(str_replace('-', ' ', $segment));
+                                }, $segments);
                                 $title = implode(' - ', $crumbs);
                             @endphp
 
                             <div class="text-xl hidden md:block font-semibold text-gray-800">
                                 {{ $title }}
                             </div>
+
                         </div>
                         <div x-data="{ isOpen: false }" class="relative">
                             <!-- Hamburger Button -->
