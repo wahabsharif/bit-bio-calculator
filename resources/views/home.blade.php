@@ -10,7 +10,7 @@
                 </label>
                 <div class="relative" id="custom-dropdown-wrapper">
                     <div id="dropdown-toggle"
-                        class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg bg-white/50 cursor-pointer focus:ring-blue-500 focus:border-blue-500">
+                        class="w-full px-4 py-2 border cursor-pointer text-xs md:text-sm border-gray-300 rounded-lg bg-white/50  focus:ring-blue-500 focus:border-blue-500">
                         <span id="selected-cell-type">-- Select a Cell Type --</span>
                     </div>
                     <div id="dropdown-menu"
@@ -55,7 +55,7 @@
                     Select your culture vessel format
                 </label>
                 <select id="culture_vessel"
-                    class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg bg-white/50 cursor-pointer focus:ring-blue-500 focus:border-blue-500">
+                    class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg bg-white/50  focus:ring-blue-500 focus:border-blue-500">
                 </select>
                 <p class="text-xs md:text-sm text-gray-500 mt-1">
                     If using multiple plate formats, calculate seeding volumes separately.
@@ -142,7 +142,7 @@
         <!-- Calculate Button -->
         <div class="flex justify-center">
             <button id="calculateBtn"
-                class="w-full md:w-auto px-6 py-2 text-sm cursor-pointer md:text-lg bg-gray-700 hover:bg-gray-900 text-white rounded-lg uppercase tracking-wide transition">
+                class="w-full md:w-auto px-6 py-2 text-sm  md:text-lg bg-gray-700 hover:bg-gray-900 text-white rounded-lg uppercase tracking-wide transition">
                 Calculate Results
             </button>
         </div>
@@ -153,7 +153,7 @@
                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
                   w-full max-w-md md:max-w-2xl  p-5 bg-white rounded-lg shadow-lg max-h-[95vh] overflow-auto">
                 <button id="closeModal"
-                    class="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-700 focus:outline-none">
+                    class="absolute top-4 right-4  text-gray-500 hover:text-gray-700 focus:outline-none">
                     <!-- X icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -203,7 +203,7 @@
 
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                         <button id="downloadCsv"
-                            class="w-full sm:w-auto px-6 py-2 cursor-pointer bg-blue-600 hover:bg-blue-800 text-white rounded-lg">
+                            class="w-full sm:w-auto px-6 py-2  bg-blue-600 hover:bg-blue-800 text-white rounded-lg">
                             Download CSV
                         </button>
                         <p class="text-sm text-gray-500 text-center sm:text-left">
@@ -302,7 +302,7 @@
                 list.forEach(ct => {
                     const d = document.createElement('div');
                     d.textContent = `${ct.product_name} (${ct.sku})`;
-                    d.className = 'px-4 py-2 hover:bg-blue-100 cursor-pointer';
+                    d.className = 'px-4 py-2 hover:bg-blue-100 ';
                     d.addEventListener('click', () => {
                         selectedText.textContent = `${ct.product_name} (${ct.sku})`;
                         menu.classList.add('hidden');

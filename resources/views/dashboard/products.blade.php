@@ -49,10 +49,10 @@
             <div class="flex flex-col sm:flex-row w-full sm:w-auto items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <!-- Search Bar -->
                 <input type="text" x-model="search" placeholder="Search products..."
-                    class="w-full sm:w-64 border text-xs md:text-sm border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                    class="w-full sm:w-64 border text-xs md:text-sm border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500 " />
                 <!-- Add New Product Button -->
                 <button @click="showAddModal = true"
-                    class="w-full sm:w-auto bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition cursor-pointer mt-2 sm:mt-0">
+                    class="w-full sm:w-auto bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition  mt-2 sm:mt-0">
                     Add New Product
                 </button>
             </div>
@@ -65,30 +65,30 @@
                     <div class="px-4 sm:px-6 py-4 border-b flex justify-between items-center">
                         <h2 class="text-lg font-semibold">Add New Product</h2>
                         <button @click="showAddModal = false"
-                            class="text-gray-600 hover:text-gray-800 text-xl cursor-pointer">&times;</button>
+                            class="text-gray-600 hover:text-gray-800 text-xl ">&times;</button>
                     </div>
                     <form action="{{ route('products.store') }}" method="POST" class="px-4 sm:px-6 py-4">
                         @csrf
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 text-start">Name</label>
                             <input type="text" name="product_name" required
-                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 text-start">SKU</label>
                             <input type="text" name="sku" required
-                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 text-start">Seeding Density</label>
                             <input type="number" name="seeding_density" min="0" step="any" required
-                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                         </div>
                         <div class="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-2">
                             <button type="button" @click="showAddModal = false"
-                                class="w-full sm:w-auto px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer">Cancel</button>
+                                class="w-full sm:w-auto px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 ">Cancel</button>
                             <button type="submit"
-                                class="w-full sm:w-auto px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer">Save</button>
+                                class="w-full sm:w-auto px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 ">Save</button>
                         </div>
                     </form>
                 </div>
@@ -143,13 +143,13 @@
                                 <td class="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-right">
                                     <div class="flex items-center justify-end space-x-4">
                                         <button @click="showEditModal = true"
-                                            class="text-indigo-600 hover:text-indigo-900 cursor-pointer whitespace-nowrap">Edit</button>
+                                            class="text-indigo-600 hover:text-indigo-900  whitespace-nowrap">Edit</button>
                                         <form action="{{ route('products.destroy', $product) }}" method="POST"
                                             class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" onclick="confirmDelete(this)"
-                                                class="text-red-600 hover:text-red-900 cursor-pointer whitespace-nowrap">Delete</button>
+                                                class="text-red-600 hover:text-red-900  whitespace-nowrap">Delete</button>
                                         </form>
                                     </div>
 
@@ -162,7 +162,7 @@
                                                 <div class="px-4 sm:px-6 py-4 border-b flex justify-between items-center">
                                                     <h2 class="text-lg font-semibold">Edit Product</h2>
                                                     <button @click="showEditModal = false"
-                                                        class="text-gray-600 hover:text-gray-800 text-xl cursor-pointer">&times;</button>
+                                                        class="text-gray-600 hover:text-gray-800 text-xl ">&times;</button>
                                                 </div>
                                                 <form action="{{ route('products.update', $product) }}" method="POST"
                                                     class="px-4 sm:px-6 py-4">
@@ -173,13 +173,13 @@
                                                             class="block text-sm font-medium text-gray-700 text-start">Name</label>
                                                         <input type="text" name="product_name"
                                                             value="{{ $product->product_name }}" required
-                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                                                     </div>
                                                     <div class="mb-4">
                                                         <label
                                                             class="block text-sm font-medium text-gray-700 text-start">SKU</label>
                                                         <input type="text" name="sku" value="{{ $product->sku }}"
-                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                                                     </div>
                                                     <div class="mb-4">
                                                         <label
@@ -188,14 +188,14 @@
                                                         <input type="number" name="seeding_density"
                                                             value="{{ $product->seeding_density }}" min="0"
                                                             step="any"
-                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer" />
+                                                            class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500 " />
                                                     </div>
                                                     <div
                                                         class="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-2">
                                                         <button type="button" @click="showEditModal = false"
-                                                            class="w-full sm:w-auto px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer">Cancel</button>
+                                                            class="w-full sm:w-auto px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 ">Cancel</button>
                                                         <button type="submit"
-                                                            class="w-full sm:w-auto px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer">Update</button>
+                                                            class="w-full sm:w-auto px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 ">Update</button>
                                                     </div>
                                                 </form>
                                             </div>

@@ -137,7 +137,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="cursor-pointer flex items-center bg-red-500 text-gray-50 hover:bg-red-700 px-4 py-1 rounded-lg font-semibold">
+                                    class=" flex items-center bg-red-500 text-gray-50 hover:bg-red-700 px-4 py-1 rounded-lg font-semibold">
                                     <x-tabler-logout /> <span class="mx-1">Logout</span>
                                 </button>
                             </form>
