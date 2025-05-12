@@ -37,6 +37,12 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     Route::get('/products', [ProductsController::class, 'dashboardIndex'])
         ->name('products');
 
+    Route::post('products/import', [ProductsController::class, 'import'])
+        ->name('products.import');
+
+    Route::get('products/export', [ProductsController::class, 'export'])
+        ->name('products.export');
+
     Route::get('/culture-vessels', [CultureVesselController::class, 'dashboardIndex'])
         ->name('culture-vessels');
 

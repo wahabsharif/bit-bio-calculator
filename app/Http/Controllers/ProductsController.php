@@ -6,6 +6,7 @@ use App\Models\Products;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
@@ -64,5 +65,117 @@ class ProductsController extends Controller
     {
         $products = Products::orderBy('created_at', 'desc')->get();
         return view('dashboard.products', compact('products'));
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|file|mimes:xlsx,xls,csv'
+        ]);
+
+        $file = $request->file('import_file');
+
+        try {
+            // Validate and process the imported data
+            $importedData = $this->processImportedData($file);
+
+            // Bulk update or insert products
+            foreach ($importedData as $productData) {
+                Products::updateOrCreate(
+                    ['sku' => $productData['sku']],
+                    $productData
+                );
+            }
+
+            return redirect()->route('dashboard.products')
+                ->with('success', count($importedData) . ' Products imported successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Error importing products: ' . $e->getMessage());
+        }
+    }
+
+    // Helper method to process imported data
+    private function processImportedData($file)
+    {
+        $importedData = [];
+
+        // Validate file and extract data
+        $validator = Validator::make(
+            ['file' => $file],
+            ['file' => 'required|file|mimes:xlsx,xls,csv']
+        );
+
+        if ($validator->fails()) {
+            throw new \Exception('Invalid file type');
+        }
+
+        // Read the file
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+        $highestColumn = $worksheet->getHighestColumn();
+
+        // Skip header row
+        for ($row = 2; $row <= $highestRow; $row++) {
+            $rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE)[0];
+
+            // Map columns - adjust these based on your Excel file structure
+            $productData = [
+                'product_name' => $rowData[0] ?? null,
+                'sku' => $rowData[1] ?? null,
+                'seeding_density' => $rowData[2] ?? null
+            ];
+
+            // Validate each row
+            $rowValidator = Validator::make($productData, [
+                'product_name' => 'required|string|max:255',
+                'sku' => 'required|string|max:255',
+                'seeding_density' => 'nullable|numeric'
+            ]);
+
+            if (!$rowValidator->fails()) {
+                $importedData[] = $productData;
+            }
+        }
+
+        return $importedData;
+    }
+
+    // New method for Excel export
+    public function export()
+    {
+        $products = Products::orderBy('created_at', 'desc')->get();
+
+        // Prepare spreadsheet
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set headers
+        $sheet->setCellValue('A1', 'Product Name');
+        $sheet->setCellValue('B1', 'SKU');
+        $sheet->setCellValue('C1', 'Seeding Density');
+
+        // Add data rows
+        $row = 2;
+        foreach ($products as $product) {
+            $sheet->setCellValue('A' . $row, $product->product_name);
+            $sheet->setCellValue('B' . $row, $product->sku);
+            $sheet->setCellValue('C' . $row, $product->seeding_density);
+            $row++;
+        }
+
+        // Create Excel file
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+
+        // Generate a unique filename
+        $filename = 'products_export_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+        // Save to output
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+        exit;
     }
 }

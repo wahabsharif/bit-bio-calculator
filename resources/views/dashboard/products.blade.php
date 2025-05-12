@@ -4,6 +4,7 @@
 @section('content')
     <div class="container mx-auto" x-data="{
         showAddModal: false,
+        showImportModal: false,
         search: '',
         hasSearchResults() {
             if (this.search.trim() === '') return true;
@@ -49,15 +50,58 @@
             <div class="flex flex-col sm:flex-row w-full sm:w-auto items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <!-- Search Bar -->
                 <input type="text" x-model="search" placeholder="Search products..."
-                    class="w-full sm:w-64 border text-xs md:text-sm border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500 " />
-                <!-- Add New Product Button -->
-                <button @click="showAddModal = true"
-                    class="w-full sm:w-auto bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition  mt-2 sm:mt-0">
-                    Add New Product
-                </button>
+                    class="w-full sm:w-64 border text-xs md:text-sm border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" />
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    <!-- Import Excel Button -->
+                    <button @click="showImportModal = true"
+                        class="bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Import Excel
+                    </button>
+
+                    <!-- Export Excel Button -->
+                    <a href="{{ route('dashboard.products.export') }}"
+                        class="bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition text-center">
+                        Export Excel
+                    </a>
+
+                    <!-- Add New Product Button -->
+                    <button @click="showAddModal = true"
+                        class="bg-blue-500 text-xs md:text-sm hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition">
+                        Add New Product
+                    </button>
+                </div>
+
             </div>
         </div>
 
+        <!-- Import Modal -->
+        <template x-if="showImportModal">
+            <div class="fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+                <div class="bg-white rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+                    <div class="px-4 sm:px-6 py-4 border-b flex justify-between items-center">
+                        <h2 class="text-lg font-semibold">Import Products</h2>
+                        <button @click="showImportModal = false"
+                            class="text-gray-600 hover:text-gray-800 text-xl ">&times;</button>
+                    </div>
+                    <form action="{{ route('dashboard.products.import') }}" method="POST" enctype="multipart/form-data"
+                        class="px-4 sm:px-6 py-4">
+                        @csrf
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 text-start">Excel File</label>
+                            <input type="file" name="import_file" accept=".xlsx,.xls,.csv" required
+                                class="mt-1 block w-full !cursor-pointer border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:justify-end space-y-2 sm:space-y-0 sm:space-x-2">
+                            <button type="button" @click="showImportModal = false"
+                                class="w-full sm:w-auto px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 ">Cancel</button>
+                            <button type="submit"
+                                class="w-full sm:w-auto px-4 py-2 rounded bg-green-500 text-white hover:bg-green-600 ">Import</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </template>
         <!-- Add Modal -->
         <template x-if="showAddModal">
             <div class="fixed inset-0 bg-black/50 backdrop-blur-lg z-50 flex items-center justify-center p-4">
