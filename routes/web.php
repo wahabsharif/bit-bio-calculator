@@ -46,6 +46,12 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     Route::get('/culture-vessels', [CultureVesselController::class, 'dashboardIndex'])
         ->name('culture-vessels');
 
+    Route::post('culture-vessels/import', [CultureVesselController::class, 'import'])
+        ->name('culture-vessels.import');
+
+    Route::get('culture-vessels/export', [CultureVesselController::class, 'export'])
+        ->name('culture-vessels.export');
+
     // Add dashboard-specific resource routes
     Route::resource('dashboard-culture-vessels', CultureVesselController::class)
         ->parameters(['dashboard-culture-vessels' => 'culture_vessel'])
