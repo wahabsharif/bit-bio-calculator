@@ -13,23 +13,27 @@
 
 </head>
 
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body class="text-gray-800 font-sans px-30 py-10 bg-white">
     <!-- Header -->
-    <header id="app-header" class="fixed inset-x-0 top-0 z-50 bg-white shadow-md">
-        <div id="header-inner"
-            class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 md:px-6 py-3 transition-all">
+    <header id="app-header">
+        <div id="header-inner" class="container mx-auto flex flex-col items-start  py-3">
             <!-- Logo -->
-            <div class="flex-shrink-0 p-2">
+            <div class="flex-shrink-0">
                 <img src="{{ asset('assets/images/bitbio-logotype-no_tagline-color-positive-RGB.webp') }}"
-                    alt="Dashboard Logo" class="h-4 md:h-6 w-auto">
+                    alt="Dashboard Logo" class="h-10 w-auto">
             </div>
 
             <!-- Content -->
-            <div id="header-content" class="mt-2 md:mt-0 text-center">
-                <h1 class="text-md md:text-xl uppercase font-bold">Bit Bio Calculator</h1>
+            <div id="header-content" class="mt-2 md:mt-0 text-left">
+                <h1 class="text-3xl capitalize my-2 font-bold">Cell seeding calculator
+                </h1>
                 <p class="text-xs md:text-sm text-gray-600 max-w-sm md:max-w-md lg:max-w-2xl">
-                    This calculator has been designed to help scientists determine how many cells and how much volume is
-                    needed for seeding those cells. Follow the steps below and get your results instantly!
+                    This calculator helps scientists to quickly determine how much cell stock solution and culture media
+                    is needed for
+                    seeding cells in a variety of different culture vessels. By following this simple step-by-step
+                    guide,
+                    you can get your
+                    results instantly!
                 </p>
             </div>
 
@@ -39,29 +43,25 @@
     </header>
 
     <!-- Main Content -->
-    <main class="pt-36 md:pt-24 pb-6 min-h-screen">
-        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <main class="pb-6 min-h-screen">
+        <div class="container mx-auto">
             @yield('content')
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white text-center border-t border-gray-200">
-        <div class="container mx-auto px-4 md:px-6 py-4 space-y-2 text-xs md:text-sm text-gray-500">
+    <footer class="bg-white text-start border-t border-gray-200">
+        <div class="container mx-auto py-2 text-xs md:text-sm text-gray-500">
             <p>
                 Please note that this calculator has been developed by
                 <a href="https://bit.bio" class="text-indigo-700 hover:underline">bit.bio</a> and provides standard
                 guidance.
             </p>
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-1 md:space-y-0 md:space-x-6">
+            <div class="">
                 <p>
                     <a href="https://bit.bio" class="text-indigo-700 hover:underline">bit.bio</a> © {{ date('Y') }}.
                     All
                     rights reserved.
-                </p>
-                <p>
-                    For technical support, please contact:
-                    <a href="mailto:technical@bit.bio" class="text-indigo-700 hover:underline">technical@bit.bio</a>
                 </p>
             </div>
         </div>

@@ -1,201 +1,248 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="max-w-3xl mx-auto my-5 bg-gray-200/50 p-4 rounded-lg shadow-md space-y-6">
-        <!-- Cell Type & Seeding Density -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6 space-y-4">
-            <div>
-                <label for="cell_type" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                    Select Cell Type
+    <div class="flex flex-col md:flex-row justify-between gap-4">
+        <!-- Main Calculator Form -->
+        <div class="w-full md:w-2/3 bg-zinc-200/50 p-4">
+            <!-- Cell Stock Volume -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="suspension_volume" class="text-sm font-medium w-64 text-gray-700 flex items-center">
+                    Cell stock volume
+                    <span class="ml-1 text-gray-500 cursor-help" title="Initial suspension volume in ml">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
                 </label>
-                <div class="relative" id="custom-dropdown-wrapper">
-                    <div id="dropdown-toggle"
-                        class="w-full px-4 py-2 border cursor-pointer text-xs md:text-sm border-gray-300 rounded-lg bg-white/50  focus:ring-blue-500 focus:border-blue-500">
-                        <span id="selected-cell-type">-- Select a Cell Type --</span>
-                    </div>
-                    <div id="dropdown-menu"
-                        class="absolute inset-x-0 mt-1  text-xs md:text-sm bg-white border border-gray-300 rounded-lg shadow-lg hidden">
-                        <input id="dropdown-search" type="text" placeholder="Search cell type..."
-                            class="w-full px-4 py-2  text-xs md:text-sm border-b border-gray-300 focus:outline-none" />
-                        <div id="dropdown-options" class="max-h-60 overflow-y-auto"></div>
+                <div class="flex items-center flex-1">
+                    <input id="suspension_volume" type="number" step="0.01" value="1"
+                        class="w-32 p-1 border text-right border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">ml</span>
+                </div>
+            </div>
+
+            <!-- Live Cell Count -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label class="text-sm font-medium w-64 text-gray-700 flex items-center">
+                    Live cell count
+                    <span class="ml-1 text-gray-500 cursor-help" title="Enter your cell counts">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="flex-1">
+                    <div class="grid grid-cols-4 gap-2 items-center">
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 1</div>
+                            <input id="count1" type="number" value="1000000"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 2</div>
+                            <input id="count2" type="number"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 3</div>
+                            <input id="count3" type="number"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="text-sm mt-4 text-gray-500">x 10<sup>6</sup> cells/ml</div>
+
                     </div>
                 </div>
-                <p class="text-xs md:text-sm text-gray-500 mt-1">
-                    When one of our products is selected, the recommended seeding density will be filled automatically.
-                </p>
             </div>
-            <div>
-                <label for="seeding_density" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                    Enter your desired seeding density (cells/cm²)
-                </label>
-                <input id="seeding_density" type="number"
-                    class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                <p class="text-xs md:text-sm text-gray-500 mt-1">
-                    Default densities are optimized by bit.bio for monocultures. Adjust based on your assay.
-                </p>
-            </div>
-        </div>
 
-        <!-- Number of Wells -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6">
-            <label for="num_wells" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                Number of wells you will be seeding
-            </label>
-            <input id="num_wells" type="number" value="96"
-                class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-            <p class="text-xs md:text-sm text-gray-500 mt-1">
-                Include replicates and controls in your well count.
-            </p>
-        </div>
+            <!-- Cell Viability -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label class="text-sm font-medium w-64 text-gray-700 flex items-center">Cell viability</label>
+                <div class="flex-1">
+                    <div class="grid grid-cols-4 gap-2 items-center">
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 1</div>
+                            <input id="viability1" type="number" step="0.1" value="100"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 2</div>
+                            <input id="viability2" type="number" step="0.1"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <div class="text-xs text-gray-600 mb-1">Count 3</div>
+                            <input id="viability3" type="number" step="0.1"
+                                class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div class="text-sm text-gray-500 mt-4">%</div>
 
-        <!-- Culture Vessel -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6 space-y-4">
-            <div>
-                <label for="culture_vessel" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                    Select your culture vessel format
-                </label>
-                <select id="culture_vessel"
-                    class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg bg-white/50  focus:ring-blue-500 focus:border-blue-500">
-                </select>
-                <p class="text-xs md:text-sm text-gray-500 mt-1">
-                    If using multiple plate formats, calculate seeding volumes separately.
-                </p>
+                    </div>
+                </div>
             </div>
-            <div class="grid grid-cols-1 gap-6">
-                <div>
-                    <label for="surface_area" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                        Surface area per well (cm²)
-                    </label>
+
+            <!-- Cell Type -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="cell_type" class="text-sm font-medium w-64 text-gray-700 flex items-center">Cell type</label>
+                <div class="flex-1">
+                    <select id="cell_type"
+                        class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">--Select your cell type--</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Seeding Density -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="seeding_density" class="text-sm font-medium w-64 text-gray-700 flex items-center">
+                    Seeding density
+                    <span class="ml-1 text-gray-500 cursor-help" title="Target cells/cm²">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="flex items-center flex-1">
+                    <input id="seeding_density" type="number"
+                        class="w-32 px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">cells/cm²</span>
+                </div>
+            </div>
+
+            <!-- Culture Vessel -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="culture_vessel" class="text-sm font-medium w-64 text-gray-700 flex items-center">
+                    Culture vessel
+                    <span class="ml-1 text-gray-500 cursor-help" title="Select plate format">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                </label>
+                <div class="flex-1">
+                    <select id="culture_vessel"
+                        class="w-full px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Surface Area -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="surface_area" class="text-sm font-medium w-64 text-gray-700 flex items-center">Surface
+                    area</label>
+                <div class="flex items-center flex-1">
                     <input id="surface_area" type="number" step="0.01"
-                        class="w-full px-4 py-2  text-xs md:text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        class="w-32 px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">cm²/well</span>
                 </div>
-                <div>
-                    <label for="media_volume" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                        Media volume per well (ml)
-                    </label>
+            </div>
+
+            <!-- Volume -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="media_volume" class="text-sm font-medium w-64 text-gray-700 flex items-center">Volume</label>
+                <div class="flex items-center flex-1">
                     <input id="media_volume" type="number" step="0.01"
-                        class="w-full px-4 py-2 border  text-xs md:text-sm  border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        class="w-32 px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">ml/well</span>
                 </div>
             </div>
-        </div>
 
-        <!-- Cell Counts -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6">
-            <label class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                Enter the number of cells
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <input id="count1" type="number" value="1000000"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                <input id="count2" type="number" value="1000000"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                <input id="count3" type="number" value="1000000"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+            <!-- Number of Wells to Seed -->
+            <div class="mb-4 flex items-start border-b-2 border-gray-50 py-2">
+                <label for="num_wells" class="text-sm font-medium w-64 text-gray-700 flex items-center">Number of wells to
+                    seed</label>
+                <div class="flex items-center flex-1">
+                    <input id="num_wells" type="number" value="96"
+                        class="w-32 px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">wells</span>
+                </div>
             </div>
-            <p class="text-xs md:text-sm text-gray-500 mt-1">
-                The calculator will use the average of your counts.
-            </p>
-        </div>
 
-        <!-- Viability -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6">
-            <label class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                Input cell viability post-thaw (%)
-            </label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <input id="viability1" type="number" step="0.01" value="100"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                <input id="viability2" type="number" step="0.01"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-                <input id="viability3" type="number" step="0.01"
-                    class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+            <!-- Seed Volume Allowance -->
+            <div class="mb-6 flex items-start">
+                <label for="buffer" class="text-sm font-medium w-64 text-gray-700 flex items-center">Seed volume
+                    allowance</label>
+                <div class="flex items-center flex-1">
+                    <input id="buffer" type="number" step="0.1" value="15"
+                        class="w-32 px-3 py-1 border border-gray-300  focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-gray-700">%</span>
+                </div>
             </div>
-            <p class="text-xs md:text-sm text-gray-500 mt-1">
-                The calculator will use the average viability.
-            </p>
+
+            <!-- Calculate Button -->
+            <div class="mt-6 flex items-center justify-between">
+                <p class="text-sm text-gray-500 mb-2">* Required field
+                </p>
+                <button id="calculateBtn" class="grad-bg w-60 text-white font-medium py-2 px-4 transition">
+                    Calculate results
+                </button>
+            </div>
         </div>
 
-        <!-- Buffer -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6">
-            <label for="buffer" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                Extra / Buffer (%)
-            </label>
-            <input id="buffer" type="number" step="0.01" value="15"
-                class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-            <p class="text-xs md:text-sm text-gray-500 mt-1">
-                Include a buffer to account for dead volume in plating.
-            </p>
-        </div>
-
-        <!-- Initial Suspension -->
-        <div class="bg-white/50 border border-gray-300 rounded-lg shadow-sm p-6">
-            <label for="suspension_volume" class="block text-sm md:text-md font-bold text-gray-700 mb-2">
-                Initial suspension volume (ml)
-            </label>
-            <input id="suspension_volume" type="number" step="0.01" value="1"
-                class="w-full px-4 py-2 border  text-xs md:text-sm border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-            <p class="text-xs md:text-sm text-gray-500 mt-1">
-                Follow the cell type manual for suspension volume.
-            </p>
-        </div>
-
-        <!-- Calculate Button -->
-        <div class="flex justify-center">
-            <button id="calculateBtn"
-                class="w-full md:w-auto px-6 py-2 text-sm  md:text-lg bg-gray-700 hover:bg-gray-900 text-white rounded-lg uppercase tracking-wide transition">
-                Calculate Results
-            </button>
+        <!-- Help Section -->
+        <div class="w-full md:w-1/3 p-4 border border-gray-200 self-start">
+            <h2 class="text-lg font-medium mb-3">How to get started?</h2>
+            <ul class="list-disc pl-5 space-y-3 text-sm">
+                <li>Start by entering your cell stock volume.</li>
+                <li>Add your cell count and viability. Ideally perform your count three times.</li>
+                <li>Select your cell type and the recommended seeding density will be populated.</li>
+                <li>Choose your vessel format to automatically fill in the surface area and volume.</li>
+                <li>Include a 10-20% dead volume allowance or adjust based on your workflow.</li>
+            </ul>
         </div>
 
         <!-- Results Modal -->
-        <div id="resultsModal" class="fixed inset-0 bg-gray-100 z-50 hidden overflow-auto">
+        <div id="resultsModal" class="fixed inset-0 bg-gray-100/90 z-50 hidden overflow-auto">
             <div
-                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                  w-full max-w-md md:max-w-2xl  p-5 bg-white rounded-lg shadow-lg max-h-[95vh] overflow-auto">
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-md md:max-w-2xl p-5 bg-white  shadow-lg max-h-[95vh] overflow-auto">
                 <button id="closeModal"
-                    class="absolute top-4 right-4  text-gray-500 hover:text-gray-700 focus:outline-none">
-                    <!-- X icon -->
+                    class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
 
-                <div id="warnings" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <div id="warnings" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4">
                 </div>
 
-                <h3 class="text-lg font-medium text-gray-900 text-center mb-4">
-                    Calculation Results
-                </h3>
+                <h3 class="text-lg font-medium text-gray-900 text-center mb-4">Calculation Results</h3>
 
                 <div id="results" class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-lg shadow-sm">
-                        <!-- result cards here… -->
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 bg-gray-50 p-4  shadow-sm">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Cell Density (cells/ml)</p>
                             <p id="cell_density">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Cells per Well</p>
                             <p id="cells_per_well">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Required Number (total)</p>
                             <p id="required_cells_total">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Volume to Plate (total)</p>
                             <p id="volume_plate_total">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Volume to Plate (per well)</p>
                             <p id="volume_plate_perwell">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Volume to Seed (ml)</p>
                             <p id="volume_to_seed">-</p>
                         </div>
-                        <div class="bg-gray-100 p-4 rounded-lg">
+                        <div class="bg-gray-100 p-4 ">
                             <p class="font-semibold">Volume to Dilute (ml)</p>
                             <p id="volume_to_dilute">-</p>
                         </div>
@@ -203,33 +250,27 @@
 
                     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                         <button id="downloadCsv"
-                            class="w-full sm:w-auto px-6 py-2  bg-blue-600 hover:bg-blue-800 text-white rounded-lg">
+                            class="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-800 text-white ">
                             Download CSV
                         </button>
                         <p class="text-sm text-gray-500 text-center sm:text-left">
-                            For questions, contact
-                            <a href="mailto:technical@bit.bio" class="underline">technical@bit.bio</a>.
+                            For questions, contact <a href="mailto:technical@bit.bio"
+                                class="underline">technical@bit.bio</a>.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
-
+    <x-UsefulResources />
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // Existing dropdown & culture vessel setup
-            const toggle = document.getElementById('dropdown-toggle');
-            const menu = document.getElementById('dropdown-menu');
-            const search = document.getElementById('dropdown-search');
-            const optionsContainer = document.getElementById('dropdown-options');
-            const selectedText = document.getElementById('selected-cell-type');
-            const seedingInput = document.getElementById('seeding_density');
+            // Culture vessel setup
             const cultureVesselSelect = document.getElementById('culture_vessel');
             const surfaceAreaInput = document.getElementById('surface_area');
             const mediaVolumeInput = document.getElementById('media_volume');
+            const cellTypeSelect = document.getElementById('cell_type');
+            const seedingInput = document.getElementById('seeding_density');
 
             let cellTypes = [];
             let cultureVessels = [];
@@ -238,10 +279,11 @@
             try {
                 const response = await fetch('{{ url('products') }}');
                 cellTypes = await response.json();
-                renderOptions(cellTypes);
+                populateCellTypes(cellTypes);
             } catch (err) {
                 console.error('Failed to fetch cell types', err);
             }
+
             // Fetch culture vessels
             try {
                 const resp2 = await fetch('{{ route('culture-vessels.index') }}', {
@@ -253,6 +295,17 @@
                 populateCultureVessels(cultureVessels);
             } catch (err) {
                 console.error('Failed to fetch culture vessels', err);
+            }
+
+            function populateCellTypes(types) {
+                cellTypeSelect.innerHTML = '<option value="">--Select your cell type--</option>';
+                types.forEach(type => {
+                    const opt = document.createElement('option');
+                    opt.value = type.id;
+                    opt.textContent = `${type.product_name} (${type.sku})`;
+                    opt.dataset.seedingDensity = type.seeding_density || '';
+                    cellTypeSelect.appendChild(opt);
+                });
             }
 
             function populateCultureVessels(vessels) {
@@ -267,9 +320,18 @@
                     cultureVesselSelect.appendChild(opt);
                 });
                 const first = cultureVesselSelect.options[0];
-                surfaceAreaInput.value = first.dataset.surfaceArea;
-                mediaVolumeInput.value = first.dataset.mediaVolume;
+                if (first) {
+                    surfaceAreaInput.value = first.dataset.surfaceArea;
+                    mediaVolumeInput.value = first.dataset.mediaVolume;
+                }
             }
+
+            cellTypeSelect.addEventListener('change', function() {
+                const opt = this.options[this.selectedIndex];
+                if (opt && opt.dataset.seedingDensity) {
+                    seedingInput.value = opt.dataset.seedingDensity;
+                }
+            });
 
             cultureVesselSelect.addEventListener('change', function() {
                 const opt = this.options[this.selectedIndex];
@@ -278,39 +340,6 @@
                 if (opt.dataset.mediaVolume === 'null') mediaVolumeInput.value = '';
                 else mediaVolumeInput.value = opt.dataset.mediaVolume;
             });
-
-            toggle.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                search.focus();
-            });
-            document.addEventListener('click', e => {
-                if (!document.getElementById('custom-dropdown-wrapper').contains(e.target)) menu
-                    .classList.add('hidden');
-            });
-            search.addEventListener('input', () => {
-                const val = search.value.toLowerCase();
-                renderOptions(cellTypes.filter(ct => ct.product_name.toLowerCase().includes(val)));
-            });
-
-            function renderOptions(list) {
-                optionsContainer.innerHTML = '';
-                if (!list.length) {
-                    optionsContainer.innerHTML =
-                        `<div class="px-4 py-2 text-gray-500">No results found for "${search.value}"</div>`;
-                    return;
-                }
-                list.forEach(ct => {
-                    const d = document.createElement('div');
-                    d.textContent = `${ct.product_name} (${ct.sku})`;
-                    d.className = 'px-4 py-2 hover:bg-blue-100 ';
-                    d.addEventListener('click', () => {
-                        selectedText.textContent = `${ct.product_name} (${ct.sku})`;
-                        menu.classList.add('hidden');
-                        seedingInput.value = ct.seeding_density || '';
-                    });
-                    optionsContainer.appendChild(d);
-                });
-            }
 
             // Calculation Logic
             document.getElementById('calculateBtn').addEventListener('click', () => {

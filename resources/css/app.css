@@ -21,3 +21,8 @@ a {
 input {
     cursor: text;
 }
+
+/* Custom gradient background class */
+.grad-bg {
+    background-image: linear-gradient(to right, #3b82f6, #9333ea);
+}
