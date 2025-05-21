@@ -26,3 +26,90 @@ input {
 .grad-bg {
     background-image: linear-gradient(to right, #3b82f6, #9333ea);
 }
+
+@media print {
+    /* Reduce page margins to minimum */
+    @page {
+        margin: 0.5cm;
+    }
+
+    /* Optimize overall scale */
+    html,
+    body {
+        transform: scale(0.95);
+        transform-origin: top left;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        margin: 0;
+        padding: 0;
+    }
+    p {
+        line-height: 1.2;
+    }
+    /* Remove header padding and tighten spacing */
+    header {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* Reduce spacing in content area */
+    main {
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* Remove unnecessary padding in containers */
+    .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Reduce spacing in calculator form */
+    .p-4 {
+        padding: 0.5rem !important;
+    }
+
+    /* Reduce vertical spacing between form elements */
+    .mb-4,
+    .py-2 {
+        margin-bottom: 0.25rem !important;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+    }
+
+    /* Ensure no page breaks within important content */
+    .print-full,
+    #results,
+    #resultsContent {
+        page-break-inside: avoid !important;
+    }
+
+    /* Hide non-essential elements */
+    #viabilityWarning,
+    #cellCountWarning,
+    .no-print,
+    button {
+        display: none !important;
+    }
+
+    /* Show print-only elements */
+    .print-only {
+        display: block !important;
+    }
+
+    /* Reduce font size to fit more content */
+    body {
+        font-size: 90% !important;
+    }
+
+    /* Make sure form labels don't take up too much space */
+
+    /* Ensure results section fits well */
+    #results {
+        border: none !important;
+    }
+}

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\CultureVesselController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CalculatorDownloadController;
 use App\Models\Products;
 use App\Models\CultureVessel;
 
@@ -11,7 +12,8 @@ use App\Models\CultureVessel;
 // in routes/web.php
 Route::view('/', 'home')->name('home');
 
-
+// Calculator download routes
+Route::post('/calculator/download-excel', [CalculatorDownloadController::class, 'downloadExcel'])->name('calculator.download.excel');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -24,7 +26,6 @@ Route::resource('culture-vessels', CultureVesselController::class)
     ->only(['index', 'show', 'store', 'edit', 'create', 'update', 'destroy']);
 
 
-// Protected dashboard routes
 // Protected dashboard routes
 Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', function () {

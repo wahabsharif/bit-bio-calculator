@@ -13,7 +13,7 @@
 
 </head>
 
-<body class="text-gray-800 font-sans px-30 py-10 bg-white">
+<body class="text-gray-800 font-sans md:px-30 md:py-10 px-3 py-1 bg-white">
     <!-- Header -->
     <header id="app-header">
         <div id="header-inner" class="container mx-auto flex flex-col items-start  py-3">
@@ -27,7 +27,7 @@
             <div id="header-content" class="mt-2 md:mt-0 text-left">
                 <h1 class="text-3xl capitalize my-2 font-bold">Cell seeding calculator
                 </h1>
-                <p class="text-xs md:text-sm text-gray-600 max-w-sm md:max-w-md lg:max-w-2xl">
+                <p class="text-xs no-print md:text-sm text-gray-600 max-w-sm md:max-w-md lg:max-w-2xl">
                     This calculator helps scientists to quickly determine how much cell stock solution and culture media
                     is needed for
                     seeding cells in a variety of different culture vessels. By following this simple step-by-step
@@ -57,7 +57,7 @@
                 <a href="https://bit.bio" class="text-indigo-700 hover:underline">bit.bio</a> and provides standard
                 guidance.
             </p>
-            <div class="">
+            <div class="m-auto">
                 <p>
                     <a href="https://bit.bio" class="text-indigo-700 hover:underline">bit.bio</a> © {{ date('Y') }}.
                     All

@@ -1,8 +1,8 @@
-<div class="w-full my-10">
-    <h2 class="text-2xl font-bold mb-1">Useful resources</h2>
-    <p class="text-sm text-gray-700 mb-4">Need help getting started?</p>
+<div class="w-full">
+    <h2 class="text-2xl no-print font-bold mb-1">Useful resources</h2>
+    <p class="text-sm no-print text-gray-700 mb-4">Need help getting started?</p>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="grid no-print grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Resource 1: Step-by-step guide -->
         <div class="bg-gray-100 p-4 rounded flex flex-col justify-between h-full">
             <div class="flex-1 flex items-center justify-center">
