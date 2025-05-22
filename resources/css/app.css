@@ -5,28 +5,214 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* Theme and Base Styles */
 @theme {
     --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 }
 
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.gap-80 {
+    padding: 80px;
+}
+
+/* Cursor Styles */
 td,
 button,
 select,
 a {
     cursor: pointer;
 }
-
 input {
     cursor: text;
 }
-
-/* Custom gradient background class */
-.grad-bg {
-    background-image: linear-gradient(to right, #3b82f6, #9333ea);
+option {
+    color: #7e7f7f;
+}
+.container {
+    max-width: 1080px;
+    margin-top: 2.8rem;
+}
+.cursor-help {
+    cursor: pointer;
 }
 
+.cursor-help:hover svg {
+    color: #4b5563;
+}
+
+/* Custom Gradient Background */
+.grad-bg {
+    background-image: linear-gradient(to right, #47d4ff 10%, #753fff, #aa0dff);
+}
+
+.grad-bg:hover {
+    cursor: pointer;
+}
+.btn-grad {
+    background-image: linear-gradient(134deg, #33a9ff, #5f49fe, #9333ea);
+}
+
+.btn-grad:hover {
+    cursor: pointer;
+}
+
+/* Form Input Styles */
+.default-input {
+    color: #9ca3af; /* Gray-400 for default values */
+}
+
+.active-input {
+    color: #111827; /* Gray-900 for active/used values */
+}
+
+/* Search Dropdown Styling */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-input {
+    width: 100%;
+    padding: 3px 6px 2px;
+    border: 1px solid #d1d5db;
+}
+
+input {
+    padding: 3px 6px 2px;
+}
+.searchable-select {
+    padding: 4px 6px;
+    font-size: 14px;
+}
+input[type="number"] {
+    text-align: right;
+}
+.search-results {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-top: none;
+    z-index: 10;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    /* width */
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        border: 1px solid #d4dbe6;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #d4dbe6;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        cursor: pointer;
+    }
+}
+
+.search-option {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    color: #7e7f7f; /* Gray-700 */
+    border-bottom: 1px solid #f3f5f9;
+}
+
+.search-option:hover {
+    background-color: #f3f4f6;
+}
+
+.search-option.selected {
+    background-color: #e5e7eb;
+}
+
+/* Tooltip Styling */
+.info-tooltip {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+}
+
+.tooltip-icon {
+    height: 1rem;
+    width: 1rem;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-container:hover .custom-tooltip {
+    display: block;
+}
+
+.custom-tooltip {
+    display: none;
+    position: absolute;
+    z-index: 50;
+    min-width: 30rem;
+    left: 0;
+    font-weight: 300;
+    background-color: white;
+    padding: 10px;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    border: 1px solid #d4dbe6;
+    color: #8c8c8c;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1.5rem;
+        margin: 0;
+    }
+    .custom-tooltip {
+        position: absolute;
+        z-index: 50;
+        min-width: 15rem;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% + 100px);
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        font-size: 0.75rem;
+        margin-top: 0;
+        border: 1px solid #e5e7eb;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+        width: 100%;
+        max-width: 80px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+    .custom-tooltip {
+        left: -100px;
+        width: calc(100% + 100px);
+    }
+}
+
+/* Print Styles */
 @media print {
     /* Reduce page margins to minimum */
     @page {
@@ -62,9 +248,7 @@ input {
 
     /* Remove unnecessary padding in containers */
     .container {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        max-width: 100% !important;
+        padding: 0 !important;
         width: 100% !important;
     }
 
@@ -79,13 +263,6 @@ input {
         margin-bottom: 0.25rem !important;
         padding-top: 0.25rem !important;
         padding-bottom: 0.25rem !important;
-    }
-
-    /* Ensure no page breaks within important content */
-    .print-full,
-    #results,
-    #resultsContent {
-        page-break-inside: avoid !important;
     }
 
     /* Hide non-essential elements */
@@ -104,12 +281,5 @@ input {
     /* Reduce font size to fit more content */
     body {
         font-size: 90% !important;
-    }
-
-    /* Make sure form labels don't take up too much space */
-
-    /* Ensure results section fits well */
-    #results {
-        border: none !important;
     }
 }

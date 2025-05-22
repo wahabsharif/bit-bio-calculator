@@ -1,68 +1,102 @@
-<div class="w-full">
-    <h2 class="text-2xl no-print font-bold mb-1">Useful resources</h2>
+<div class="w-full hidden md:block">
+    <h2 class="text-3xl no-print font-bold mb-1">Useful resources</h2>
     <p class="text-sm no-print text-gray-700 mb-4">Need help getting started?</p>
 
-    <div class="grid no-print grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="no-print flex flex-col md:flex-row">
         <!-- Resource 1: Step-by-step guide -->
-        <div class="bg-gray-100 p-4 rounded flex flex-col justify-between h-full">
-            <div class="flex-1 flex items-center justify-center">
+        <div class="p-4 flex-1 flex flex-col justify-between h-full">
+            <div class="flex-1 flex items-start justify-center">
                 <!-- Gray placeholder area for image -->
-                <div class="w-full h-52 bg-gray-200 rounded"></div>
+                <div class="w-full h-52 bg-[#eaeef4]"></div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 flex items-start space-x-1">
+                <svg fill="#3ed3ff" width="28px" height="28px" viewBox="0 0 32 32" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                        </path>
+                    </g>
+                </svg>
                 <a href="#" class="text-cyan-500 flex items-center text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
                     Download the step-by-step guide to using the calculator
                 </a>
             </div>
         </div>
 
+        <!-- Divider 1 -->
+        <div class="hidden md:block w-px bg-[#eceff5] mx-2 my-4"></div>
+
         <!-- Resource 2: Tutorial video -->
-        <div class="bg-gray-100 p-4 rounded flex flex-col justify-between h-full">
-            <div class="flex-1 flex items-center justify-center">
+        <div class="p-4 flex-1 flex flex-col justify-between h-full">
+            <div class="flex-1 flex items-start justify-center">
                 <!-- Gray placeholder with play button -->
-                <div class="w-full h-52 bg-gray-200 rounded flex items-center justify-center">
-                    <div class="h-12 w-12 rounded-full bg-gray-400 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                clip-rule="evenodd" />
+                <div class="w-full h-52 bg-[#eaeef4] flex items-center justify-center">
+                    <div class="h-12 w-12 rounded-full flex items-center justify-center">
+                        <svg fill="#8f9297" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <defs>
+                                    <style>
+                                        .cls-1 {
+                                            fill: none;
+                                        }
+                                    </style>
+                                </defs>
+                                <path id="_inner-path_" data-name="<inner-path>" class="cls-1"
+                                    d="M11,23a1,1,0,0,1-1-1V10a1,1,0,0,1,1.4473-.8945l12,6a1,1,0,0,1,0,1.789l-12,6A1.001,1.001,0,0,1,11,23Z">
+                                </path>
+                                <path
+                                    d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm7.4473,14.8945-12,6A1,1,0,0,1,10,22V10a1,1,0,0,1,1.4473-.8945l12,6a1,1,0,0,1,0,1.789Z">
+                                </path>
+                                <rect id="_Transparent_Rectangle_" data-name="<Transparent Rectangle>" class="cls-1"
+                                    width="32" height="32"></rect>
+                            </g>
                         </svg>
                     </div>
                 </div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 flex items-start space-x-1">
+                <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                        </path>
+                    </g>
+                </svg>
                 <a href="#" class="text-cyan-500 flex items-center text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
                     Watch our quick tutorial video
                 </a>
             </div>
         </div>
 
+        <!-- Divider 2 -->
+        <div class="hidden md:block w-px bg-[#eceff5] mx-2 my-4"></div>
+
         <!-- Resource 3: Product catalogue -->
-        <div class="bg-gray-100 p-4 rounded flex flex-col justify-between h-full">
-            <div class="flex-1 flex items-center justify-center">
+        <div class="p-4 flex-1 flex flex-col justify-between h-full">
+            <div class="flex-1 flex items-start justify-center">
                 <!-- Gray placeholder area for image -->
-                <div class="w-full h-52 bg-gray-200 rounded"></div>
+                <div class="w-full h-52 bg-[#eaeef4]"></div>
             </div>
-            <div class="mt-4">
+            <div class="mt-4 flex items-start space-x-1">
+                <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                        </path>
+                    </g>
+                </svg>
                 <a href="#" class="text-cyan-500 flex items-center text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
                     Explore our full product catalogue
                 </a>
             </div>
@@ -70,10 +104,11 @@
     </div>
 
     <!-- Contact information -->
-    <div class="mt-6 text-sm text-gray-600">
-        <p>If you have any questions, please contact us at <a href="mailto:technical@bit.bio"
-                class="text-indigo-700 hover:underline">technical@bit.bio</a>.</p>
-        <p>If you got any issues with this calculator, please feedback to our team at <a href="mailto:technical@bit.bio"
-                class="text-indigo-700 hover:underline">technical@bit.bio</a>.</p>
+    <div class="mt-6 text-sm text-black">
+        <p>If you have any questions, please contact us at <a href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
+        <p>If you got any issues with this calculator, please feedback to our team at <a
+                href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
     </div>
+
+    <span class="gap-80"></span>
 </div>

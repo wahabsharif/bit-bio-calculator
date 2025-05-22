@@ -10,7 +10,9 @@ use App\Models\CultureVessel;
 
 // Public routes
 // in routes/web.php
-Route::view('/', 'home')->name('home');
+Route::match(['GET', 'HEAD'], '/', function () {
+    return view('home');
+})->name('home');
 
 // Calculator download routes
 Route::post('/calculator/download-excel', [CalculatorDownloadController::class, 'downloadExcel'])->name('calculator.download.excel');

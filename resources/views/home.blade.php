@@ -3,23 +3,43 @@
 
 @section('content')
     {{-- Home Page --}}
-    <div class="flex flex-col md:flex-row justify-between gap-4">
+    <div class="flex flex-col md:flex-row mt-4 md:mt-0 justify-between gap-4 mb-[55px]">
         <!-- Main Calculator Form -->
-        <div class="w-full lg:w-2/3 bg-zinc-200/50 p-3 sm:p-4 mx-auto">
+        <div class="md:w-[75%] w-full bg-[#f3f5f9] px-4 pt-1 pb-10 mx-auto flex-grow flex flex-col">
             <!-- Cell Stock Volume - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="suspension_volume"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
-                    Cell stock volume <span class="text-red-500">*</span>
-                    <span class="ml-1 tooltip-container text-gray-500 cursor-help">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="tooltip-icon" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <label for="suspension_volume" class="text-sm font-semibold w-full sm:w-64  flex items-center sm:mb-0">
+                    Cell stock volume <span class="text-black">*</span>
+                    <span class="ml-1 tooltip-container  cursor-help">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                    </path>
+                                </g>
+                            </g>
                         </svg>
                         <div class="custom-tooltip">
-                            <div class="flex justify-between items-start">
-
+                            <div class="flex justify-between items-start space-x-1">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                        viewBox="0,0,256,256">
+                                        <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                            <g transform="scale(5.12,5.12)">
+                                                <path
+                                                    d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
                                 <div class="flex-grow">
                                     Please refer to the ioCELL user manual for your cell type for guidance on thawing and
                                     recommended initial suspension volume.
@@ -30,24 +50,45 @@
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="suspension_volume" type="number" step="0.01" value="1"
-                        class="w-32 p-1 border text-right border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">ml</span>
+                        class="pl-3 md:w-28 bg-white text-right border px-2 md:px-0 border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm ">mL</span>
                 </div>
             </div>
 
             <!-- Live Cell Count - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
+            <div class="flex flex-col md:flex-row items-start border-b-2 border-white py-2">
+                <label class="text-sm font-semibold w-full sm:w-64 flex items-center md:mb-2">
                     Live cell count
-                    <span class="ml-1 tooltip-container text-gray-500 cursor-help">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="tooltip-icon" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <span class="ml-1 tooltip-container  cursor-help">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                    </path>
+                                </g>
+                            </g>
                         </svg>
                         <div class="custom-tooltip">
-                            <div class="flex justify-between items-start">
-
+                            <div class="flex justify-between items-start space-x-1">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                        viewBox="0,0,256,256">
+                                        <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                            font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                            <g transform="scale(5.12,5.12)">
+                                                <path
+                                                    d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
                                 <div class="flex-grow">
                                     Please count the number of cells using a viability marker. We recommend performing the
                                     count in triplicate. The calculator will automatically calculate the average value. If
@@ -60,23 +101,29 @@
                     </span>
                 </label>
                 <div class="flex-1 w-full">
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
+                    <div class="grid grid-cols-3 md:grid-cols-4 gap-2 items-center">
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 1</div>
-                            <input id="count1" type="text"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs  mb-1">Count 1<span class="text-black">*</span></div>
+                            <input id="count1" type="number" required
+                                class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                10<sup>6</sup> cells/ml</div>
                         </div>
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 2</div>
-                            <input id="count2" type="text"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs md:mb-1">Count 2</div>
+                            <input id="count2" type="number"
+                                class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                10<sup>6</sup> cells/ml</div>
                         </div>
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 3</div>
-                            <input id="count3" type="text"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs  mb-1">Count 3</div>
+                            <input id="count3" type="number"
+                                class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                10<sup>6</sup> cells/ml</div>
                         </div>
-                        <div class="text-sm mt-4 text-gray-500 flex items-center justify-start sm:justify-center">x
+                        <div class="text-sm mt-4 hidden md:flex items-center justify-start">x
                             10<sup>6</sup> cells/ml</div>
                     </div>
                     <div id="cellCountWarning" class="hidden mt-2 p-2 bg-white border-l-4 border-orange-400">
@@ -84,7 +131,8 @@
                             <svg class="h-4 w-4 text-orange-400 mr-2" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <circle cx="12" cy="12" r="10" stroke-width="2" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4m0 4h.01" />
                             </svg>
                             <button type="button" class="ml-auto text-orange-700 hover:text-orange-900"
                                 onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
@@ -103,27 +151,34 @@
             </div>
 
             <!-- Cell Viability - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">Cell
+            <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <label class="text-sm font-semibold w-full sm:w-64 flex items-center md:mb-2">Cell
                     viability</label>
                 <div class="flex-1 w-full">
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 items-center">
+                    <div class="grid grid-cols-3 md:grid-cols-4 gap-2 items-center">
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 1</div>
+                            <div class="text-xs md:mb-1">Count 1<span class="text-black">*</span></div>
                             <input id="viability1" type="number" step="0.1" value="100"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="px-2 pt-1 pb-1 w-28 text-sm bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                %</div>
                         </div>
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 2</div>
+                            <div class="text-xs md:mb-1">Count 2</div>
                             <input id="viability2" type="number" step="0.1"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="px-2 pt-1 pb-1 w-28 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                %</div>
                         </div>
                         <div>
-                            <div class="text-xs text-gray-600 mb-1">Count 3</div>
+                            <div class="text-xs md:mb-1">Count 3</div>
                             <input id="viability3" type="number" step="0.1"
-                                class="w-full px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="px-2 pt-1 pb-1 w-28 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                %</div>
                         </div>
-                        <div class="text-sm text-gray-500 mt-4 flex items-center justify-start sm:justify-center">%</div>
+                        <div class="text-sm hidden text-left mt-4 md:flex items-center justify-start ">
+                            %</div>
                     </div>
                     <div id="viabilityWarning" class="hidden mt-2 p-2 bg-white border-l-4 border-orange-400">
                         <div class="flex justify-between text-orange-700">
@@ -150,32 +205,51 @@
             </div>
 
             <!-- Cell Type - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="cell_type"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">Cell
+            <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <label for="cell_type" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">Cell
                     type</label>
                 <div class="flex-1 relative w-full">
-                    <select id="cell_type"
-                        class="w-full px-3 py-1 border !cursor-text border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 searchable-select">
-                        <option value="">--Select your cell type--</option>
+                    <select onchange="this.style.color='#000'" id="cell_type"
+                        class="text-[#7e7f7f] !cursor-text w-full py-[3px] bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500 searchable-select">
                     </select>
                 </div>
             </div>
 
             <!-- Seeding Density - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="seeding_density"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
-                    Seeding density <span class="text-red-500">*</span>
-                    <span class="ml-1 tooltip-container text-gray-500 cursor-help">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="tooltip-icon" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <label for="seeding_density" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    Seeding density <span class="text-black">*</span>
+                    <span class="ml-1 tooltip-container  cursor-help">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                    </path>
+                                </g>
+                            </g>
                         </svg>
                         <div class="custom-tooltip">
-                            <div class="flex justify-between items-start">
-
+                            <div class="flex justify-between items-start space-x-1">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                        viewBox="0,0,256,256">
+                                        <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                            font-weight="none" font-size="none" text-anchor="none"
+                                            style="mix-blend-mode: normal">
+                                            <g transform="scale(5.12,5.12)">
+                                                <path
+                                                    d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
                                 <div class="flex-grow">
                                     Please note that the default seeding density has been optimized by bit.bio for ioCELLs.
                                     Changing this value may impact performance. Consider what is needed based on your assay
@@ -187,25 +261,46 @@
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="seeding_density" type="number"
-                        class="w-32 px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">cells/cm²</span>
+                        class="w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm ">cells/cm²</span>
                 </div>
             </div>
 
             <!-- Culture Vessel - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="culture_vessel"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
+            <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <label for="culture_vessel" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                     Culture vessel
-                    <span class="ml-1 tooltip-container text-gray-500 cursor-help">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="tooltip-icon" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <span class="ml-1 tooltip-container  cursor-help">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                    </path>
+                                </g>
+                            </g>
                         </svg>
                         <div class="custom-tooltip">
-                            <div class="flex justify-between items-start">
-
+                            <div class="flex justify-between items-start space-x-1">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                        viewBox="0,0,256,256">
+                                        <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                            font-weight="none" font-size="none" text-anchor="none"
+                                            style="mix-blend-mode: normal">
+                                            <g transform="scale(5.12,5.12)">
+                                                <path
+                                                    d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
                                 <div class="flex-grow">
                                     Please select the appropriate culture vessel for your experimental setup. The options
                                     and values provided are for reference only based on the most widely used formats—be sure
@@ -217,66 +312,84 @@
                     </span>
                 </label>
                 <div class="flex-1 relative w-full">
-                    <select id="culture_vessel"
-                        class="w-full px-3 py-1 !cursor-text border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 searchable-select">
+                    <select onchange="this.style.color='#000'" id="culture_vessel"
+                        class="text-[#7e7f7f] !cursor-text w-full bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500 searchable-select">
                         <!-- Options will be populated by JS -->
                     </select>
                 </div>
             </div>
 
             <!-- Surface Area - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="surface_area"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
-                    Surface area <span class="text-red-500">*</span>
+            <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <label for="surface_area" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    Surface area <span class="text-black">*</span>
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="surface_area" type="number" step="0.01"
-                        class="w-32 px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">cm²/well</span>
+                        class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm ">cm²/well</span>
                 </div>
             </div>
 
             <!-- Media Volume - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="media_volume"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
-                    Volume <span class="text-red-500">*</span>
+            <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <label for="media_volume" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    Volume <span class="text-black">*</span>
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="media_volume" type="number" step="0.01"
-                        class="w-32 px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">ml/well</span>
+                        class=" w-28 bg-white border border-[#d3dbe6] text-right px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm ">ml/well</span>
                 </div>
             </div>
 
             <!-- Number of Wells - Improve responsive layout -->
-            <div class="mb-4 flex flex-col sm:flex-row items-start border-b-2 border-gray-50 py-2">
-                <label for="num_wells"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
-                    Number of wells to seed <span class="text-red-500">*</span>
+            <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <label for="num_wells" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    Number of wells to seed <span class="text-black">*</span>
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="num_wells" type="number" value="96"
-                        class="w-32 px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">wells</span>
+                        class="w-28 bg-white text-right border px-2 border-[#d3dbe6] md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm ">wells</span>
                 </div>
             </div>
 
             <!-- Dead Volume Allowance - Improve responsive layout -->
-            <div class="mb-6 flex flex-col sm:flex-row items-start">
-                <label for="buffer"
-                    class="text-sm font-medium w-full sm:w-64 text-gray-700 flex items-center mb-2 sm:mb-0">
+            <div class="md:mb-6 flex flex-col sm:flex-row items-start py-2">
+                <label for="buffer" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                     Dead volume allowance
-                    <span class="ml-1 tooltip-container text-gray-500 cursor-help">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="tooltip-icon" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <span class="ml-1 tooltip-container  cursor-help">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                style="mix-blend-mode: normal">
+                                <g transform="scale(5.12,5.12)">
+                                    <path
+                                        d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                    </path>
+                                </g>
+                            </g>
                         </svg>
                         <div class="custom-tooltip">
-                            <div class="flex justify-between items-start">
-
+                            <div class="flex justify-between items-start space-x-1">
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                        viewBox="0,0,256,256">
+                                        <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none"
+                                            font-weight="none" font-size="none" text-anchor="none"
+                                            style="mix-blend-mode: normal">
+                                            <g transform="scale(5.12,5.12)">
+                                                <path
+                                                    d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
+                                                </path>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
                                 <div class="flex-grow">
                                     Include contingency (typically 10–20%) to account for dead volume. If unsure on what
                                     values to use, you can also change this value to what you'd recommend adding a few extra
@@ -288,42 +401,42 @@
                 </label>
                 <div class="flex items-center flex-1 w-full">
                     <input id="buffer" type="number" step="0.1" value="10"
-                        class="w-32 px-3 py-1 border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    <span class="ml-2 text-sm text-gray-700">%</span>
+                        class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    <span class="ml-2 text-sm text-left ">%</span>
                 </div>
             </div>
 
+            <p class="text-sm block md:hidden">* Required field</p>
             <!-- Calculate Button - Improve responsive layout -->
-            <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p class="text-sm text-gray-500 mb-2 sm:mb-0">* Required field</p>
-                <div>
+            <div class="mt-6 flex flex-col md:flex-row items-end justify-between gap-3">
+                <p class="text-sm hidden md:block relative -bottom-4">* Required field</p>
+                <div class="md:w-auto w-full">
                     <div id="validationErrors" class="hidden w-full sm:w-64 my-2 text-xs text-red-700"></div>
-                    <button id="calculateBtn" class="grad-bg w-full sm:w-60 text-white font-medium py-2 px-4 transition">
+                    <button id="calculateBtn" class="btn-grad text-sm w-full sm:w-60 text-white px-4 py-2 transition">
                         Calculate results
                     </button>
                     <div id="actionButtons" class="hidden w-full">
-                        <div class="flex flex-col sm:flex-row gap-2 mt-2">
-                            <button id="resetBtn"
-                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium py-2 px-4 transition w-full sm:w-40">
+                        <div class="flex flex-col-reverse sm:flex-row gap-2 mt-2">
+                            <button id="resetBtn" class="bg-[#d6dce5] px-4 py-2 w-full">
                                 Reset
                             </button>
-                            <button id="recalculateBtn"
-                                class="grad-bg text-white font-medium py-2 px-4 transition w-full">
+                            <button id="recalculateBtn" class="btn-grad text-white px-4 py-2 w-full">
                                 Recalculate
                             </button>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
 
         <!-- Results Section - Always full width on mobile -->
-        <div class="w-full lg:w-1/3 p-3 sm:p-4 border border-gray-200 self-start">
-            <h2 class="text-lg font-medium mb-3">Results</h2>
+        <div class="md:w-[25%] w-full p-3 sm:p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
+
             <div id="results" class="space-y-4">
                 <!-- Initial help content shown before calculation -->
                 <div id="helpContent">
-                    <h3 class="text-md font-medium mb-2">How to get started?</h3>
+                    <h3 class="text-md font-semibold mb-2">How to get started?</h3>
                     <ul class="list-disc pl-5 space-y-3 text-sm">
                         <li>Start by entering your cell stock volume.</li>
                         <li>Add your cell count and viability. Ideally perform your count three times.</li>
@@ -335,70 +448,72 @@
 
                 <!-- Results content hidden initially, shown after calculation -->
                 <div id="resultsContent" class="hidden">
+                    <h2 class="text-sm font-semibold mb-2">Results</h2>
                     <p class="text-sm mb-3">Your results for seeding of <span id="wellCount">XYZ</span> wells</p>
 
                     <div class="mb-4">
-                        <label class="text-sm font-medium text-gray-700 mb-1 block">Volume of media for dilution</label>
-                        <div class="bg-blue-50 px-3 py-1 border border-blue-100 rounded">
-                            <span id="volume_to_dilute" class="text-lg font-medium">9.98</span> mL
+                        <label class="text-sm font-semibold mb-1 block">Volume of media for dilution</label>
+                        <div class=" px-3 py-1 border border-blue-100 ">
+                            <span id="volume_to_dilute" class="text-sm font-semibold">9.98</span> mL
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-medium text-gray-700 mb-1 block">From your initial cell stock volume,
+                        <label class="text-sm font-semibold mb-1 block">From your initial cell stock volume,
                             pipette</label>
-                        <div class="bg-blue-50 px-3 py-1 border border-blue-100 rounded">
-                            <span id="volume_to_seed" class="text-lg font-medium">1.06</span> mL
+                        <div class=" px-3 py-1 border border-blue-100 ">
+                            <span id="volume_to_seed" class="text-sm font-semibold">1.06</span> mL
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-medium text-gray-700 mb-1 block">Add <span
+                        <label class="text-sm font-semibold  mb-1 block">Add <span
                                 id="volume_plate_perwell_simple">XYZ</span> μL of the final dilution to each well</label>
-                        <p class="text-xs text-gray-600 mt-1">Review the values below and adjust if needed for your
+                        <p class="text-xs  mt-1">Review the values below and adjust if needed for your
                             experiment</p>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-medium text-gray-700 mb-1 block">Cell density</label>
-                        <div class="bg-blue-50 px-3 py-1 border border-blue-100 rounded">
-                            <span id="cell_density_formatted" class="text-lg font-medium">1.00 x 10<sup>6</sup></span>
+                        <label class="text-sm font-semibold  mb-1 block">Cell density</label>
+                        <div class=" px-3 py-1 border border-blue-100 ">
+                            <span id="cell_density_formatted" class="text-sm font-semibold">1.00 x 10<sup>6</sup></span>
                             cells/mL
                         </div>
                     </div>
 
                     <!-- Required number of cells - Improve grid for mobile -->
                     <div class="mb-4">
-                        <label class="text-sm font-medium text-gray-700 mb-1 block">Required number of cells</label>
+                        <label class="text-sm font-semibold  mb-1 block">Required number of cells</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <div>
-                                <p class="text-xs text-gray-600 mb-1">Total</p>
-                                <div class="bg-blue-50 px-3 py-1 border border-blue-100 rounded">
-                                    <span id="required_cells_total_formatted" class="text-md font-medium">1.10 x
+                                <p class="text-xs  mb-1">Total</p>
+                                <div class=" px-3 py-1 border border-blue-100 ">
+                                    <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x
                                         10<sup>6</sup></span> cells
                                 </div>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-600 mb-1">per well</p>
-                                <div class="bg-blue-50 px-3 py-1 border border-blue-100 rounded">
-                                    <span id="cells_per_well_formatted" class="text-md font-medium">9,600</span> cells
+                                <p class="text-xs  mb-1">per well</p>
+                                <div class=" px-3 py-1 border border-blue-100 ">
+                                    <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div id="warnings" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4">
+                    <div id="warnings"
+                        class="hidden text-xs bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4">
                     </div>
 
                     <!-- Additional info about copy/paste functionality -->
-                    <div id="copyPasteInfo" class="text-xs no-print text-gray-500 mt-2 hidden">
+                    <div id="copyPasteInfo" class="text-xs no-print  mt-2 hidden">
                         <p>✨ <i>Tip: Double-click any value to select it for copy/paste.</i></p>
                     </div>
 
                     <!-- Download buttons for results -->
                     <div id="downloadOptions" class="hidden mt-4 space-y-2">
                         <button id="downloadExcel"
-                            class="w-full px-6 py-2 !cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 flex items-center justify-center">
+                            class="w-full px-4 py-2 text-sm !cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -407,7 +522,7 @@
                             Download as Excel
                         </button>
                         <button id="downloadPdf"
-                            class="w-full px-6 py-2 grad-bg text-white flex items-center justify-center">
+                            class="w-full px-4 py-2 text-sm btn-grad text-white flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -421,138 +536,6 @@
         </div>
     </div>
     <x-UsefulResources />
-    <style>
-        /* Input styling for default/active states */
-        .default-input {
-            color: #9ca3af;
-            /* Gray-400 for default values */
-        }
-
-        .active-input {
-            color: #111827;
-            /* Gray-900 for active/used values */
-        }
-
-        /* Gradient background for buttons */
-        .grad-bg {
-            background-image: linear-gradient(to right, #3b82f6, #9333ea);
-        }
-
-        .grad-bg:hover {
-            cursor: pointer;
-        }
-
-        /* Search dropdown styling */
-        .search-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 0.25rem 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.25rem;
-        }
-
-        .search-results {
-            position: absolute;
-            width: 100%;
-            max-height: 200px;
-            overflow-y: auto;
-            background-color: white;
-            border: 1px solid #d1d5db;
-            border-top: none;
-            z-index: 10;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-option {
-            padding: 0.5rem 0.75rem;
-            cursor: pointer;
-        }
-
-        .search-option:hover {
-            background-color: #f3f4f6;
-        }
-
-        .search-option.selected {
-            background-color: #e5e7eb;
-        }
-
-        /* Info tooltip styling */
-        .info-tooltip {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            z-index: 100;
-        }
-
-        /* Tooltip icon sizing */
-        .tooltip-icon {
-            height: 1rem;
-            width: 1rem;
-        }
-
-        /* Make info icons more obviously clickable */
-        .cursor-help {
-            cursor: pointer;
-        }
-
-        .cursor-help:hover svg {
-            color: #4B5563;
-        }
-
-        /* Responsive tooltip styling */
-        .custom-tooltip {
-            display: none;
-            position: absolute;
-            z-index: 50;
-            width: 100%;
-            max-width: 30rem;
-            left: 0;
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            border: 1px solid #e5e7eb;
-            color: #4b5563;
-        }
-
-        @media (max-width: 640px) {
-            .custom-tooltip {
-                left: -50px;
-                right: -50px;
-                width: calc(100% + 100px);
-            }
-        }
-
-        @media (min-width: 641px) and (max-width: 768px) {
-            .custom-tooltip {
-                left: -100px;
-                width: calc(100% + 100px);
-            }
-        }
-
-        .tooltip-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip-container:hover .custom-tooltip {
-            display: block;
-        }
-
-        /* Improve form responsiveness */
-        @media (max-width: 640px) {
-
-            input[type="number"],
-            input[type="text"] {
-                width: 100%;
-                max-width: 140px;
-            }
-        }
-    </style>
     <script>
         function printScreen() {
             window.print();
@@ -644,7 +627,8 @@
             }
 
             function populateCellTypes(types) {
-                cellTypeSelect.innerHTML = '<option value="">--Select your cell type--</option>';
+                cellTypeSelect.innerHTML =
+                    '<option value="" selected disabled>--Select your cell type--</option>';
                 types.forEach(type => {
                     const opt = document.createElement('option');
                     opt.value = type.id;
@@ -655,7 +639,8 @@
             }
 
             function populateCultureVessels(vessels) {
-                cultureVesselSelect.innerHTML = '<option value="">--Select your culture vessel--</option>';
+                cultureVesselSelect.innerHTML =
+                    '<option value="" selected disabled>--Select your culture vessel--</option>';
                 vessels.forEach((v, i) => {
                     const opt = document.createElement('option');
                     opt.value = v.id;
@@ -692,9 +677,12 @@
             });
 
             function initializeSearchableSelect(selectElement) {
+
                 selectElement.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
+
+
 
                     // Close any existing open search container first
                     if (currentOpenSearchContainer) {
@@ -779,7 +767,7 @@
                 resultsContainer.innerHTML = '';
 
                 if (filteredOptions.length === 0) {
-                    resultsContainer.innerHTML = '<div class="p-2 text-gray-500">No results found</div>';
+                    resultsContainer.innerHTML = '<div class="p-2 ">No results found</div>';
                     resultsContainer.classList.remove('hidden');
                     return;
                 }
@@ -875,24 +863,25 @@
             // Reset functionality
             document.getElementById('resetBtn').addEventListener('click', () => {
                 // Reset all inputs to default state
-                document.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
-                    // Only reset non-default inputs
-                    if (input.id === 'suspension_volume') {
-                        input.value = '1';
-                    } else if (input.id === 'viability1') {
-                        input.value = '100';
-                    } else if (input.id === 'buffer') {
-                        input.value = '10';
-                    } else if (input.id === 'num_wells') {
-                        input.value = '96';
-                    } else {
-                        input.value = '';
-                    }
-                    input.classList.remove('active-input', 'border-red-500');
-                    if (input.value) {
-                        input.classList.add('default-input');
-                    }
-                });
+                document.querySelectorAll('input[type="number"], input[type="number"]').forEach(
+                    input => {
+                        // Only reset non-default inputs
+                        if (input.id === 'suspension_volume') {
+                            input.value = '1';
+                        } else if (input.id === 'viability1') {
+                            input.value = '100';
+                        } else if (input.id === 'buffer') {
+                            input.value = '10';
+                        } else if (input.id === 'num_wells') {
+                            input.value = '96';
+                        } else {
+                            input.value = '';
+                        }
+                        input.classList.remove('active-input', 'border-red-500');
+                        if (input.value) {
+                            input.classList.add('default-input');
+                        }
+                    });
 
                 // Reset select elements
                 document.getElementById('cell_type').value = '';
@@ -1078,6 +1067,14 @@
                     {
                         id: 'num_wells',
                         name: 'Number of wells to seed'
+                    },
+                    {
+                        id: 'count1',
+                        name: 'Live cell Count 1'
+                    },
+                    {
+                        id: 'viability1',
+                        name: 'Cell viability Count 1'
                     }
                 ];
 
