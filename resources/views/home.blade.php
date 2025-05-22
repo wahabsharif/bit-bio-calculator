@@ -166,14 +166,14 @@
                         <div>
                             <div class="text-xs md:mb-1">Count 2</div>
                             <input id="viability2" type="number" step="0.1"
-                                class="px-2 pt-1 pb-1 w-28 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="px-2 pt-1 pb-1 w-28 text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             <div class="text-sm md:hidden text-right flex items-center justify-end">
                                 %</div>
                         </div>
                         <div>
                             <div class="text-xs md:mb-1">Count 3</div>
                             <input id="viability3" type="number" step="0.1"
-                                class="px-2 pt-1 pb-1 w-28 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                class="px-2 pt-1 pb-1 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             <div class="text-sm md:hidden text-right flex items-center justify-end">
                                 %</div>
                         </div>

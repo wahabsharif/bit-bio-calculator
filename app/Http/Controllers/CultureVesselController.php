@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CultureVessel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class CultureVesselController extends Controller
@@ -102,65 +103,88 @@ class CultureVesselController extends Controller
             // Validate and process the imported data
             $importedData = $this->processImportedData($file);
 
+            if (empty($importedData)) {
+                return redirect()->back()
+                    ->with('error', 'No valid data found in the imported file.');
+            }
+
             // Bulk update or insert culture-vessels
+            $importedCount = 0;
+            $updatedCount = 0;
+
             foreach ($importedData as $cultureVesselData) {
-                CultureVessel::updateOrCreate(
+                $vessel = CultureVessel::updateOrCreate(
                     ['plate_format' => $cultureVesselData['plate_format']],
                     $cultureVesselData
                 );
+
+                if ($vessel->wasRecentlyCreated) {
+                    $importedCount++;
+                } else {
+                    $updatedCount++;
+                }
             }
 
+            $message = "Import completed! Created: {$importedCount}, Updated: {$updatedCount}";
+
             return redirect()->route('dashboard.culture-vessels')
-                ->with('success', count($importedData) . ' Culture Vessels imported successfully!');
+                ->with('success', $message);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Error importing culture-vessels: ' . $e->getMessage());
         }
     }
 
-    // Helper method to process imported data
+    // Fixed helper method to process imported data
     private function processImportedData($file)
     {
         $importedData = [];
 
-        // Validate file and extract data
-        $validator = Validator::make(
-            ['file' => $file],
-            ['file' => 'required|file|mimes:xlsx,xls,csv']
-        );
+        try {
+            // Read the file using PhpSpreadsheet
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathname());
+            $worksheet = $spreadsheet->getActiveSheet();
+            $highestRow = $worksheet->getHighestRow();
 
-        if ($validator->fails()) {
-            throw new \Exception('Invalid file type');
-        }
+            // Skip header row and process data
+            for ($row = 2; $row <= $highestRow; $row++) {
+                // Get row data - adjust column letters based on your Excel structure
+                $plateFormat = $worksheet->getCell('A' . $row)->getCalculatedValue();
+                $surfaceArea = $worksheet->getCell('B' . $row)->getCalculatedValue();
+                $mediaVolume = $worksheet->getCell('C' . $row)->getCalculatedValue();
 
-        // Read the file
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
-        $worksheet = $spreadsheet->getActiveSheet();
-        $highestRow = $worksheet->getHighestRow();
-        $highestColumn = $worksheet->getHighestColumn();
+                // Skip empty rows
+                if (empty($plateFormat) && empty($surfaceArea) && empty($mediaVolume)) {
+                    continue;
+                }
 
-        // Skip header row
-        for ($row = 2; $row <= $highestRow; $row++) {
-            $rowData = $worksheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE)[0];
+                // Clean and prepare data
+                $cultureVesselData = [
+                    'plate_format' => trim($plateFormat),
+                    'surface_area_cm2' => is_numeric($surfaceArea) ? (float)$surfaceArea : null,
+                    'media_volume_per_well_ml' => is_numeric($mediaVolume) ? (float)$mediaVolume : null
+                ];
 
-            // Map columns - adjust these based on your Excel file structure
-            $cultureVesselData = [
-                'plate_format' => $rowData[0] ?? null,
-                'surface_area_cm2' => $rowData[1] ?? null,
-                'media_volume_per_well_ml' => $rowData[2] ?? null
-            ];
+                // Validate each row
+                $rowValidator = Validator::make($cultureVesselData, [
+                    'plate_format' => 'required|string|max:50',
+                    'surface_area_cm2' => 'required|numeric|min:0',
+                    'media_volume_per_well_ml' => 'required|numeric|min:0',
+                ]);
 
-            // Validate each row
-            $rowValidator = Validator::make($cultureVesselData, [
-                'plate_format'             => 'required|string|max:255',
-                'surface_area_cm2'         => 'required|numeric|min:0',
-                'media_volume_per_well_ml' => 'required|numeric|min:0',
-            ]);
-
-
-            if (!$rowValidator->fails()) {
-                $importedData[] = $cultureVesselData;
+                if (!$rowValidator->fails()) {
+                    $importedData[] = $cultureVesselData;
+                } else {
+                    // Log validation errors for debugging
+                    Log::warning("Row {$row} validation failed", [
+                        'data' => $cultureVesselData,
+                        'errors' => $rowValidator->errors()->toArray()
+                    ]);
+                }
             }
+        } catch (\Exception $e) {
+            Log::error('Error processing imported file: ' . $e->getMessage());
+            throw new \Exception('Error reading the imported file. Please check the file format.');
         }
 
         return $importedData;
