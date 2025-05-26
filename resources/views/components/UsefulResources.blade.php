@@ -1,8 +1,8 @@
-<div class="w-full hidden md:block">
-    <h2 class="text-3xl no-print font-bold mb-1">Useful resources</h2>
-    <p class="text-sm no-print text-gray-700 mb-2">Need help getting started?</p>
+<div class="w-full">
+    <h2 class="text-3xl  hidden md:block no-print font-bold mb-1">Useful resources</h2>
+    <p class="text-sm  hidden md:block no-print text-gray-700 mb-2">Need help getting started?</p>
 
-    <div class="no-print flex flex-col md:flex-row -ml-4 -mr-4">
+    <div class="no-print  hidden md:flex flex-col md:flex-row -ml-4 -mr-4">
         <!-- Resource 1: Step-by-step guide -->
         <div class="p-4 flex-1 flex flex-col justify-between h-full">
             <div class="flex-1 flex items-start justify-center">
@@ -110,8 +110,8 @@
     </div>
 
     <!-- Contact information -->
-    <div class="mt-6 text-sm montserrat !text-black font-semibold">
-        <p>If you have any questions, please contact us at <a class="!text-black"
+    <div class="mt-6 text-xs montserrat !text-black font-semibold">
+        <p class="pb-2 md:p-0">If you have any questions, please contact us at <a class="!text-black"
                 href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
         <p>If you got any issues with this calculator, please feedback to our team at <a class="!text-black"
                 href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>

@@ -455,7 +455,7 @@
                             Calculate results
                         </button>
                         <div id="actionButtons" class="hidden w-full">
-                            <div class="flex flex-col-reverse sm:flex-row gap-2 mt-2 w-100">
+                            <div class="flex flex-col-reverse sm:flex-row gap-2 mt-2 md:w-100">
                                 <button id="resetBtn" class="bg-[#d6dce5] px-4 py-[12px] w-full">
                                     Reset
                                 </button>

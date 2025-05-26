@@ -21,7 +21,7 @@
 <body class>
     <div class="grad-bg no-print w-full h-4 top-0 left-0 z-50"></div>
 
-    <div class="container mx-auto flex flex-col min-h-screen">
+    <div class="container mx-auto">
         <!-- Header -->
         <header>
             <div class="mx-auto flex flex-col items-start py-3 pb-8">
@@ -33,7 +33,7 @@
 
                 <!-- Content -->
                 <div class="text-left">
-                    <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading capitalize mt-3 font-bold">Cell seeding
+                    <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading mt-3 font-bold">Cell seeding
                         calculator
                     </h1>
                     <p class="no-print text-sm max-w-sm md:max-w-lg lg:max-w-3xl">
@@ -53,16 +53,16 @@
         </header>
 
         <!-- Main Content -->
-        <main class="min-h-screen">
+        <main>
             <div class="mx-auto">
                 @yield(section: 'content')
             </div>
         </main>
 
         <!-- Footer -->
-        <footer class="bg-white md:mt-10 hidden md:block text-start border-gray-200 pb-12">
+        <footer class="bg-white mt-10 hidden md:block text-start border-gray-200 pb-12">
             <div class="mx-auto py-2 text-xs md:text-sm text-black">
-                <p>
+                <p class="pb-2 md:pb-0">
                     Please note that this calculator has been developed by
                     <a class="!text-black" href="https://bit.bio">bit.bio</a> and provides standard
                     guidance.
