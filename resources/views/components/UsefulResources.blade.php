@@ -1,6 +1,6 @@
 <div class="w-full">
-    <h2 class="text-3xl  hidden md:block no-print font-bold mb-1">Useful resources</h2>
-    <p class="text-sm  hidden md:block no-print text-gray-700 mb-2">Need help getting started?</p>
+    <h2 class="text-3xl  hidden md:block no-print font-bold mb-[5px]">Useful resources</h2>
+    <p class="text-sm  hidden md:block no-print text-gray-700 mb-2 pb-[5px]">Need help getting started?</p>
 
     <div class="no-print  hidden md:flex flex-col md:flex-row -ml-4 -mr-4">
         <!-- Resource 1: Step-by-step guide -->
@@ -110,7 +110,7 @@
     </div>
 
     <!-- Contact information -->
-    <div class="mt-6 text-xs montserrat !text-black font-semibold">
+    <div class="mt-6 montserrat !text-black font-semibold">
         <p class="pb-2 md:p-0">If you have any questions, please contact us at <a class="!text-black"
                 href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
         <p>If you got any issues with this calculator, please feedback to our team at <a class="!text-black"

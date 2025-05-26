@@ -18,13 +18,20 @@ body[class] {
     font-style: normal;
 }
 
+button {
+    font-family: "Lexend", sans-serif !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-button {
+ul,
+li {
     font-family: "Montserrat", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
@@ -105,14 +112,12 @@ option {
     border: 1px solid #d1d5db;
 }
 
-input {
-    padding: 3px 6px 2px;
-}
 .searchable-select {
     padding: 4px 6px;
     font-size: 14px;
 }
 input[type="number"] {
+    padding: 6px 0;
     text-align: right;
 }
 

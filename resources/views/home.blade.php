@@ -12,7 +12,7 @@
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
-                    <label for="suspension_volume" class="text-sm font-semibold w-full sm:w-64  flex items-center sm:mb-0">
+                    <label for="suspension_volume" class="font-semibold w-full sm:w-64  flex items-center sm:mb-0">
                         Cell stock volume <span class="text-black">*</span>
                         <span class="tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -63,7 +63,7 @@
 
                 <!-- Live Cell Count - Improve responsive layout -->
                 <div class="flex flex-col md:flex-row items-start border-b-2 border-white py-2">
-                    <label class="text-sm font-semibold w-full sm:w-64 flex items-center md:mb-2">
+                    <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">
                         Live cell count
                         <span class="tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -114,24 +114,24 @@
                     <div class="flex-1 w-full md:relative">
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
-                                <div class="text-xs  mb-1">Count 1<span class="text-black">*</span></div>
+                                <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="count1" type="number" required
                                     class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
-                                <div class="text-xs mb-1">Count 2</div>
+                                <div class="mb-1">Count 2</div>
                                 <input id="count2" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
-                                <div class="text-xs  mb-1">Count 3</div>
+                                <div class="mb-1">Count 3</div>
                                 <input id="count3" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-xs mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div class="text-sm mt-4 hidden -ml-1.5 md:flex items-center justify-start">x
@@ -166,26 +166,26 @@
 
                 <!-- Cell Viability - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label class="text-sm font-semibold w-full sm:w-64 flex items-center md:mb-2">Cell
+                    <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">Cell
                         viability</label>
                     <div class="flex-1 w-full md:relative">
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div class="xs:flex xs:flex-col xs:items-end">
-                                <div class="text-xs mb-1">Count 1<span class="text-black">*</span></div>
+                                <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="viability1" type="number" step="0.1" value="100"
                                     class="px-2 pt-1 pb-1 w-28 text-sm bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
-                                <div class="text-xs mb-1">Count 2</div>
+                                <div class="mb-1">Count 2</div>
                                 <input id="viability2" type="number" step="0.1"
                                     class="px-2 pt-1 pb-1 w-28 text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
-                                <div class="text-xs mb-1">Count 3</div>
+                                <div class="mb-1">Count 3</div>
                                 <input id="viability3" type="number" step="0.1"
                                     class="px-2 pt-1 pb-1 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden text-right flex items-center justify-end">
@@ -223,8 +223,7 @@
 
                 <!-- Cell Type - Improve responsive layout with Semantic UI -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="cell_type"
-                        class="text-sm font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">Cell
+                    <label for="cell_type" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">Cell
                         type</label>
                     <div class="flex-1 relative w-full">
                         <div class="ui fluid search selection dropdown searchable-input" id="cell_type_dropdown">
@@ -240,8 +239,7 @@
 
                 <!-- Seeding Density - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="seeding_density"
-                        class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="seeding_density" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Seeding density <span class="text-black">*</span>
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -294,8 +292,7 @@
 
                 <!-- Culture Vessel - Improve responsive layout with Semantic UI -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="culture_vessel"
-                        class="text-sm font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
+                    <label for="culture_vessel" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -354,8 +351,7 @@
 
                 <!-- Surface Area - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="surface_area"
-                        class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="surface_area" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Surface area <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
@@ -367,8 +363,7 @@
 
                 <!-- Media Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="media_volume"
-                        class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="media_volume" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Volume <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
@@ -380,7 +375,7 @@
 
                 <!-- Number of Wells - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="num_wells" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="num_wells" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Number of wells to seed <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
@@ -392,7 +387,7 @@
 
                 <!-- Dead Volume Allowance - Improve responsive layout -->
                 <div class="md:mb-1 flex flex-col sm:flex-row items-start py-2 pb-0">
-                    <label for="buffer" class="text-sm font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="buffer" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -449,7 +444,7 @@
                 <div class="mt-6 flex flex-col md:flex-row items-end justify-between gap-3">
                     <p class="text-[12px] hidden md:block relative -bottom-5">* Required field</p>
                     <div class="md:w-auto w-full">
-                        <div id="validationErrors" class="hidden w-full sm:w-64 my-2 text-xs text-red-700"></div>
+                        <div id="validationErrors" class="hidden w-full sm:w-64 my-2 text-red-700"></div>
                         <button id="calculateBtn"
                             class="btn-grad text-sm w-full sm:w-60 text-white px-4 py-[12px] transition">
                             Calculate results
@@ -476,8 +471,8 @@
             <div id="results" class="space-y-4">
                 <!-- Initial help content shown before calculation -->
                 <div id="helpContent">
-                    <h3 class="text-md font-semibold mb-5">How to get started?</h3>
-                    <ul class="list-disc pl-5 space-y-3 text-sm">
+                    <h3 class="!text-[16px] font-semibold mb-5">How to get started?</h3>
+                    <ul class="list-disc pl-5 space-y-3 text-sm font-medium">
                         <li>Start by entering your cell stock volume.</li>
                         <li>Add your cell count and viability. Ideally perform your count three times.</li>
                         <li>Select your cell type and the recommended seeding density will be populated.</li>
@@ -488,52 +483,52 @@
 
                 <!-- Results content hidden initially, shown after calculation -->
                 <div id="resultsContent" class="hidden">
-                    <h2 class="text-sm font-semibold mb-2">Results</h2>
+                    <h2 class="font-semibold mb-2">Results</h2>
                     <p class="text-sm mb-3">Your results for seeding of <span id="wellCount">XYZ</span> wells</p>
 
                     <div class="mb-4">
-                        <label class="text-sm font-semibold mb-1 block">Volume of media for dilution</label>
+                        <label class="font-semibold mb-1 block">Volume of media for dilution</label>
                         <div class=" px-3 py-1 border border-blue-100 ">
-                            <span id="volume_to_dilute" class="text-sm font-semibold">9.98</span> mL
+                            <span id="volume_to_dilute" class="font-semibold">9.98</span> mL
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-semibold mb-1 block">From your initial cell stock volume,
+                        <label class="font-semibold mb-1 block">From your initial cell stock volume,
                             pipette</label>
                         <div class=" px-3 py-1 border border-blue-100 ">
-                            <span id="volume_to_seed" class="text-sm font-semibold">1.06</span> mL
+                            <span id="volume_to_seed" class="font-semibold">1.06</span> mL
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-semibold  mb-1 block">Add <span
-                                id="volume_plate_perwell_simple">XYZ</span> μL of the final dilution to each well</label>
-                        <p class="text-xs  mt-1">Review the values below and adjust if needed for your
+                        <label class="font-semibold  mb-1 block">Add <span id="volume_plate_perwell_simple">XYZ</span> μL
+                            of the final dilution to each well</label>
+                        <p class="mt-1">Review the values below and adjust if needed for your
                             experiment</p>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-sm font-semibold  mb-1 block">Cell density</label>
+                        <label class="font-semibold  mb-1 block">Cell density</label>
                         <div class=" px-3 py-1 border border-blue-100">
-                            <span id="cell_density_formatted" class="text-sm font-semibold">1.00 x 10<sup>6</sup></span>
+                            <span id="cell_density_formatted" class="font-semibold">1.00 x 10<sup>6</sup></span>
                             cells/mL
                         </div>
                     </div>
 
                     <!-- Required number of cells - Improve grid for mobile -->
                     <div class="mb-4">
-                        <label class="text-sm font-semibold  mb-1 block">Required number of cells</label>
+                        <label class="font-semibold  mb-1 block">Required number of cells</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <div>
-                                <p class="text-xs  mb-1">Total</p>
+                                <p class="mb-1">Total</p>
                                 <div class=" px-3 py-1 border border-blue-100 ">
                                     <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x
                                         10<sup>6</sup></span> cells
                                 </div>
                             </div>
                             <div>
-                                <p class="text-xs  mb-1">per well</p>
+                                <p class="mb-1">per well</p>
                                 <div class=" px-3 py-1 border border-blue-100 ">
                                     <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
                                 </div>
@@ -541,12 +536,18 @@
                         </div>
                     </div>
 
-                    <div id="warnings"
-                        class="hidden text-xs bg-red-100 border border-red-400 text-red-700 px-4 py-3 mb-4">
+                    <div id="warnings" class="hidden text-sm border border-[#d4dbe6] px-4 py-3 mb-4">
+                        <div class="flex justify-between text-orange-700">
+                            <svg class="h-5 w-5 text-orange-500 mr-2 flex-shrink-0" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" />
+                            </svg>
+                        </div>
                     </div>
 
                     <!-- Additional info about copy/paste functionality -->
-                    <div id="copyPasteInfo" class="text-xs no-print  mt-2 hidden">
+                    <div id="copyPasteInfo" class="no-print  mt-2 hidden">
                         <p>✨ <i>Tip: Double-click any value to select it for copy/paste.</i></p>
                     </div>
 
@@ -943,7 +944,9 @@
                 // Build calculation warnings (not validation errors)
                 const warningsArr = [];
                 if (requiredCells > avgCount) {
-                    warningsArr.push('⚠️ You do not have enough cells for your experimental design.');
+                    warningsArr.push(
+                        'Please Note that the number of live cells available is insufficient for your experimental design. Please review your setup and consider adjustments, such as reducing the number of wells used in the experiment.'
+                    );
                 }
                 if (bufferPerc === 0) {
                     warningsArr.push(
@@ -952,7 +955,22 @@
                 }
 
                 if (warningsArr.length) {
-                    warningsDiv.innerHTML = warningsArr.map(msg => `<p>${msg}</p>`).join('');
+                    warningsDiv.innerHTML = warningsArr.map((msg, index) => `<div id="warning-${index}" class="flex justify-between items-start mb-2">
+                         <div class="flex justify-between text-orange-700">
+                                    <svg class="h-5 w-5 text-orange-500 mr-2 flex-shrink-0" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" />
+                                    </svg>
+                                </div>
+                                <p class="flex-grow mx-2">${msg}</p>
+                                <button type="button" class="ml-auto text-[#96a5b8]" onclick="document.getElementById('warning-${index}').remove()">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>`).join('');
                     warningsDiv.classList.remove('hidden');
                 } else {
                     warningsDiv.classList.add('hidden');
@@ -1172,6 +1190,269 @@
                 }
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup download buttons
+            setupDownloadButtons();
+        });
+
+        function setupDownloadButtons() {
+            const excelBtn = document.getElementById("downloadExcel");
+
+            if (excelBtn) {
+                excelBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    downloadAsExcel();
+                });
+            }
+        }
+
+        /**
+         * Downloads the results as an Excel file using the server
+         */
+        function downloadAsExcel() {
+            console.log('Starting Excel download...');
+
+            // Prevent multiple downloads
+            if (window.isDownloading) return;
+            window.isDownloading = true;
+
+            // Get result data
+            const resultData = getResultData();
+            console.log('Result data:', resultData);
+
+            // Create a form to submit the data
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('calculator.download.excel') }}';
+            form.style.display = 'none';
+
+            // Add CSRF token
+            const csrfToken = '{{ csrf_token() }}';
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Add well count
+            const wellCountInput = document.createElement('input');
+            wellCountInput.type = 'hidden';
+            wellCountInput.name = 'wellCount';
+            wellCountInput.value = document.getElementById('wellCount').textContent || '0';
+            form.appendChild(wellCountInput);
+
+            // Add all result data
+            Object.keys(resultData).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = resultData[key] || '';
+                form.appendChild(input);
+            });
+
+            // Submit the form
+            document.body.appendChild(form);
+
+            try {
+                form.submit();
+                console.log('Form submitted successfully');
+            } catch (e) {
+                console.error('Error submitting form:', e);
+            }
+
+            // Reset download flag after a delay
+            setTimeout(() => {
+                document.body.removeChild(form);
+                window.isDownloading = false;
+            }, 2000);
+        }
+
+        /**
+         * Gets formatted result data for download
+         */
+        function getResultData() {
+            const cellDensityEl = document.getElementById("cell_density_formatted");
+            const cellsPerWellEl = document.getElementById("cells_per_well_formatted");
+            const requiredCellsEl = document.getElementById("required_cells_total_formatted");
+            const volumeToDiluteEl = document.getElementById("volume_to_dilute");
+            const volumeToSeedEl = document.getElementById("volume_to_seed");
+            const volumePerWellEl = document.getElementById("volume_plate_perwell_simple");
+
+            // Get input field values
+            const suspensionVolumeEl = document.getElementById("suspension_volume");
+            const count1El = document.getElementById("count1");
+            const count2El = document.getElementById("count2");
+            const count3El = document.getElementById("count3");
+            const viability1El = document.getElementById("viability1");
+            const viability2El = document.getElementById("viability2");
+            const viability3El = document.getElementById("viability3");
+            const cellTypeEl = document.getElementById("cell_type");
+            const seedingDensityEl = document.getElementById("seeding_density");
+            const cultureVesselEl = document.getElementById("culture_vessel");
+            const surfaceAreaEl = document.getElementById("surface_area");
+            const mediaVolumeEl = document.getElementById("media_volume");
+            const numWellsEl = document.getElementById("num_wells");
+            const bufferEl = document.getElementById("buffer");
+
+            // Calculate average cell count
+            const counts = [
+                parseDecimalInput(count1El?.value || '0'),
+                parseDecimalInput(count2El?.value || '0'),
+                parseDecimalInput(count3El?.value || '0')
+            ].filter(count => count > 0);
+            const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2) : '-';
+
+            // Calculate average viability
+            const viabilities = [
+                parseFloat(viability1El?.value || '0'),
+                parseFloat(viability2El?.value || '0'),
+                parseFloat(viability3El?.value || '0')
+            ].filter(v => v > 0);
+            const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) / viabilities.length)
+                .toFixed(1) : '-';
+
+            // Get selected cell type and culture vessel text
+            let cellTypeText = '-';
+            if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
+                cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
+            }
+
+            let cultureVesselText = '-';
+            if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
+                cultureVesselText = cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
+            }
+
+            return {
+                // Results
+                cellDensity: cellDensityEl ? cellDensityEl.innerHTML : "",
+                cellsPerWell: cellsPerWellEl ? cellsPerWellEl.textContent : "",
+                requiredCells: requiredCellsEl ? requiredCellsEl.innerHTML : "",
+                volumeToDilute: volumeToDiluteEl ? volumeToDiluteEl.textContent : "",
+                volumeToSeed: volumeToSeedEl ? volumeToSeedEl.textContent : "",
+                volumePerWell: volumePerWellEl ? volumePerWellEl.textContent : "",
+
+                // Input parameters
+                suspensionVolume: suspensionVolumeEl ? suspensionVolumeEl.value : "",
+                liveCellCount: avgCount,
+                cellViability: avgViability,
+                cellType: cellTypeText,
+                seedingDensity: seedingDensityEl ? seedingDensityEl.value : "",
+                cultureVessel: cultureVesselText,
+                surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
+                mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
+                buffer: bufferEl ? bufferEl.value : "",
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('focus', function() {
+                    const validationErrors = document.getElementById('validationErrors');
+                    if (validationErrors) {
+                        validationErrors.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Check viability values when they change
+        document.addEventListener('DOMContentLoaded', function() {
+            const viabilityInputs = ['viability1', 'viability2', 'viability3'];
+            viabilityInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('change', checkViabilityValues);
+                }
+            });
+
+            // Add event listeners for calculate button
+            const calculateBtn = document.getElementById('calculateBtn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    // Check viability values when calculating
+                    checkViabilityValues();
+                    // Check cell count variability when calculating
+                    checkCellCountVariability();
+                });
+            }
+
+            // Add cell count variability listeners
+            const countInputs = ['count1', 'count2', 'count3'];
+            countInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', checkCellCountVariability);
+                }
+            });
+        });
+
+        function checkViabilityValues() {
+            const viabilityWarning = document.getElementById('viabilityWarning');
+            if (!viabilityWarning) return;
+
+            const viabilities = [
+                parseFloat(document.getElementById('viability1')?.value) || 0,
+                parseFloat(document.getElementById('viability2')?.value) || 0,
+                parseFloat(document.getElementById('viability3')?.value) || 0
+            ].filter(v => v > 0); // Only consider non-zero values
+
+            // Check if any viability value is below 80%
+            const lowViability = viabilities.some(v => v < 80);
+
+            if (lowViability && viabilities.length > 0) {
+                viabilityWarning.classList.remove('hidden');
+            } else {
+                viabilityWarning.classList.add('hidden');
+            }
+        }
+
+        // Check cell count variability
+        function checkCellCountVariability() {
+            const count1El = document.getElementById('count1');
+            const count2El = document.getElementById('count2');
+            const count3El = document.getElementById('count3');
+            const cellCountWarning = document.getElementById('cellCountWarning');
+
+            if (!count1El || !count2El || !count3El || !cellCountWarning) return;
+
+            const counts = [
+                parseDecimalInput(count1El.value),
+                parseDecimalInput(count2El.value),
+                parseDecimalInput(count3El.value)
+            ].filter(count => count > 0); // Only consider non-zero values
+
+            // Need at least 2 counts to compare
+            if (counts.length < 2) {
+                cellCountWarning.classList.add('hidden');
+                return;
+            }
+
+            let showWarning = false;
+
+            // Check each pair of counts for ≥10% variability
+            for (let i = 0; i < counts.length - 1; i++) {
+                for (let j = i + 1; j < counts.length; j++) {
+                    const larger = Math.max(counts[i], counts[j]);
+                    const smaller = Math.min(counts[i], counts[j]);
+
+                    // Calculate percentage difference relative to the larger value
+                    const percentDiff = ((larger - smaller) / larger) * 100;
+
+                    if (percentDiff >= 10) {
+                        showWarning = true;
+                        break;
+                    }
+                }
+                if (showWarning) break;
+            }
+
+            if (showWarning) {
+                cellCountWarning.classList.remove('hidden');
+            } else {
+                cellCountWarning.classList.add('hidden');
+            }
+        };
 
         document.addEventListener('DOMContentLoaded', function() {
             // Setup download buttons

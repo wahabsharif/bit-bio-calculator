@@ -23,8 +23,8 @@
 
     <div class="container mx-auto">
         <!-- Header -->
-        <header>
-            <div class="mx-auto flex flex-col items-start py-3 pb-8">
+        <header class="flex">
+            <div class="md:w-[75%] flex flex-col items-start text-left py-3 pb-8">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo"
@@ -36,7 +36,7 @@
                     <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading mt-3 font-bold">Cell seeding
                         calculator
                     </h1>
-                    <p class="no-print text-sm max-w-sm md:max-w-lg lg:max-w-3xl">
+                    <p class="no-print">
                         This calculator helps scientists to quickly determine how much cell stock solution and culture
                         media
                         is needed for
@@ -61,7 +61,7 @@
 
         <!-- Footer -->
         <footer class="bg-white mt-10 hidden md:block text-start border-gray-200 pb-12">
-            <div class="mx-auto py-2 text-xs md:text-sm text-black">
+            <div class="mx-auto py-2 text-black">
                 <p class="pb-2 md:pb-0">
                     Please note that this calculator has been developed by
                     <a class="!text-black" href="https://bit.bio">bit.bio</a> and provides standard
