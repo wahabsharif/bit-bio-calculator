@@ -1,8 +1,8 @@
 <div class="w-full hidden md:block">
     <h2 class="text-3xl no-print font-bold mb-1">Useful resources</h2>
-    <p class="text-sm no-print text-gray-700 mb-4">Need help getting started?</p>
+    <p class="text-sm no-print text-gray-700 mb-2">Need help getting started?</p>
 
-    <div class="no-print flex flex-col md:flex-row">
+    <div class="no-print flex flex-col md:flex-row -ml-4 -mr-4">
         <!-- Resource 1: Step-by-step guide -->
         <div class="p-4 flex-1 flex flex-col justify-between h-full">
             <div class="flex-1 flex items-start justify-center">
@@ -10,17 +10,19 @@
                 <div class="w-full h-52 bg-[#eaeef4]"></div>
             </div>
             <div class="mt-4 flex items-start space-x-1">
-                <svg fill="#3ed3ff" width="28px" height="28px" viewBox="0 0 32 32" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
-                        </path>
-                    </g>
-                </svg>
-                <a href="#" class="text-cyan-500 flex items-center text-sm">
+                <div>
+                    <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <a href="#" class="!text-[#4ad6ff] flex items-center text-sm">
                     Download the step-by-step guide to using the calculator
                 </a>
             </div>
@@ -60,17 +62,19 @@
                 </div>
             </div>
             <div class="mt-4 flex items-start space-x-1">
-                <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
-                        </path>
-                    </g>
-                </svg>
-                <a href="#" class="text-cyan-500 flex items-center text-sm">
+                <div>
+                    <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <a href="#" class="!text-[#4ad6ff] flex items-center text-sm">
                     Watch our quick tutorial video
                 </a>
             </div>
@@ -86,17 +90,19 @@
                 <div class="w-full h-52 bg-[#eaeef4]"></div>
             </div>
             <div class="mt-4 flex items-start space-x-1">
-                <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <path
-                            d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
-                        </path>
-                    </g>
-                </svg>
-                <a href="#" class="text-cyan-500 flex items-center text-sm">
+                <div>
+                    <svg fill="#3ed3ff" width="20px" height="20px" viewBox="0 0 32 32" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M16 0c-8.836 0-16 7.163-16 16s7.163 16 16 16c8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 30.032c-7.72 0-14-6.312-14-14.032s6.28-14 14-14 14 6.28 14 14-6.28 14.032-14 14.032zM16.637 9.957c-0.39 0.39-0.39 1.024 0 1.414l3.617 3.617h-11.264c-0.553 0-1 0.448-1 1s0.447 1 1 1h11.327l-3.68 3.68c-0.39 0.39-0.39 1.023 0 1.414 0.195 0.195 0.451 0.293 0.707 0.293s0.512-0.098 0.707-0.293l5.907-6.063-5.907-6.063c-0.391-0.39-1.023-0.39-1.415 0z">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <a href="#" class="!text-[#4ad6ff] flex items-center text-sm">
                     Explore our full product catalogue
                 </a>
             </div>
@@ -104,11 +110,10 @@
     </div>
 
     <!-- Contact information -->
-    <div class="mt-6 text-sm text-black">
-        <p>If you have any questions, please contact us at <a href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
-        <p>If you got any issues with this calculator, please feedback to our team at <a
+    <div class="mt-6 text-sm montserrat !text-black font-semibold">
+        <p>If you have any questions, please contact us at <a class="!text-black"
+                href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
+        <p>If you got any issues with this calculator, please feedback to our team at <a class="!text-black"
                 href="mailto:technical@bit.bio">technical@bit.bio</a>.</p>
     </div>
-
-    <span class="gap-80"></span>
 </div>

@@ -12,11 +12,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+
 </head>
 
-<body>
+<body class>
     <div class="grad-bg no-print w-full h-4 top-0 left-0 z-50"></div>
 
     <div class="container mx-auto flex flex-col min-h-screen">
@@ -25,12 +27,14 @@
             <div class="mx-auto flex flex-col items-start py-3 pb-8">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo" class="h-10 w-auto">
+                    <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo"
+                        class="md:h-10 h-11 w-auto p-logo">
                 </div>
 
                 <!-- Content -->
                 <div class="text-left">
-                    <h1 class="md:text-4xl text-xl capitalize my-2 font-bold">Cell seeding calculator
+                    <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading capitalize mt-3 font-bold">Cell seeding
+                        calculator
                     </h1>
                     <p class="no-print text-sm max-w-sm md:max-w-lg lg:max-w-3xl">
                         This calculator helps scientists to quickly determine how much cell stock solution and culture
@@ -56,16 +60,16 @@
         </main>
 
         <!-- Footer -->
-        <footer class="bg-white hidden md:block text-start border-gray-200">
+        <footer class="bg-white md:mt-10 hidden md:block text-start border-gray-200 pb-12">
             <div class="mx-auto py-2 text-xs md:text-sm text-black">
                 <p>
                     Please note that this calculator has been developed by
-                    <a href="https://bit.bio">bit.bio</a> and provides standard
+                    <a class="!text-black" href="https://bit.bio">bit.bio</a> and provides standard
                     guidance.
                 </p>
                 <div class="m-auto">
                     <p>
-                        <a href="https://bit.bio">bit.bio</a> ©
+                        <a class="!text-black" href="https://bit.bio">bit.bio</a> ©
                         {{ date('Y') }}.
                         All
                         rights reserved.
