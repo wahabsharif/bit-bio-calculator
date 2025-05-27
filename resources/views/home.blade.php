@@ -11,7 +11,7 @@
         <div class="md:w-[75%] w-full bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row md:items-center border-b-2 border-white py-2">
                     <label for="suspension_volume" class="font-semibold w-full sm:w-64  flex items-center sm:mb-0">
                         Cell stock volume <span class="text-black">*</span>
                         <span class="tooltip-container cursor-help">
@@ -57,12 +57,12 @@
                     <div class="flex items-center flex-1">
                         <input id="suspension_volume" type="number" step="0.01" value="1"
                             class="pl-3 w-28 bg-white text-right border px-2 md:px-0 border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                        <span class="ml-2 text-sm ">mL</span>
+                        <span class="ml-2 md:text-sm text-xs">mL</span>
                     </div>
                 </div>
 
                 <!-- Live Cell Count - Improve responsive layout -->
-                <div class="flex flex-col md:flex-row items-start border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 md:flex-row items-start border-b-2 border-white py-2">
                     <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">
                         Live cell count
                         <span class="tooltip-container  cursor-help">
@@ -117,21 +117,21 @@
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="count1" type="number" required
                                     class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden text-sm items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
                                 <input id="count2" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden text-sm items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
                                 <input id="count3" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden text-sm items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div class="text-sm mt-4 hidden -ml-1.5 md:flex items-center justify-start">x
@@ -165,7 +165,7 @@
                 </div>
 
                 <!-- Cell Viability - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-start border-b-2 border-white py-2">
                     <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">Cell
                         viability</label>
                     <div class="flex-1 w-full md:relative">
@@ -222,7 +222,7 @@
                 </div>
 
                 <!-- Cell Type - Improve responsive layout with Semantic UI -->
-                <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-start border-b-2 border-white py-2">
                     <label for="cell_type" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">Cell
                         type</label>
                     <div class="flex-1 relative w-full">
@@ -238,7 +238,7 @@
                 </div>
 
                 <!-- Seeding Density - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-start border-b-2 border-white py-2">
                     <label for="seeding_density" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Seeding density <span class="text-black">*</span>
                         <span class="ml-1 tooltip-container  cursor-help">
@@ -291,7 +291,7 @@
                 </div>
 
                 <!-- Culture Vessel - Improve responsive layout with Semantic UI -->
-                <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-start border-b-2 border-white py-2">
                     <label for="culture_vessel" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
@@ -350,7 +350,7 @@
                 </div>
 
                 <!-- Surface Area - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-center border-b-2 border-white py-2">
                     <label for="surface_area" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Surface area <span class="text-black">*</span>
                     </label>
@@ -362,7 +362,7 @@
                 </div>
 
                 <!-- Media Volume - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-center border-b-2 border-white py-2">
                     <label for="media_volume" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Volume <span class="text-black">*</span>
                     </label>
@@ -374,7 +374,7 @@
                 </div>
 
                 <!-- Number of Wells - Improve responsive layout -->
-                <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
+                <div class="flex flex-col pb-[14px] md:pb-0 sm:flex-row items-center border-b-2 border-white py-2">
                     <label for="num_wells" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Number of wells to seed <span class="text-black">*</span>
                     </label>
@@ -386,7 +386,7 @@
                 </div>
 
                 <!-- Dead Volume Allowance - Improve responsive layout -->
-                <div class="md:mb-1 flex flex-col sm:flex-row items-start py-2 pb-0">
+                <div class="md:mb-1 flex flex-col pb-[14px] md:pb-0 sm:flex-row items-start py-2">
                     <label for="buffer" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
@@ -519,7 +519,7 @@
                     <!-- Required number of cells - Improve grid for mobile -->
                     <div class="mb-4">
                         <label class="font-semibold  mb-1 block">Required number of cells</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <p class="mb-1">Total</p>
                                 <div class=" px-3 py-1 border border-blue-100 ">
@@ -544,11 +544,6 @@
                                     d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" />
                             </svg>
                         </div>
-                    </div>
-
-                    <!-- Additional info about copy/paste functionality -->
-                    <div id="copyPasteInfo" class="no-print  mt-2 hidden">
-                        <p>✨ <i>Tip: Double-click any value to select it for copy/paste.</i></p>
                     </div>
 
                     <!-- Download buttons for results -->
@@ -980,17 +975,29 @@
                 const formatExponential = (num) => {
                     const exp = num.toExponential(2);
                     const parts = exp.split('e+');
-                    return `${parts[0]} x 10<sup>${parts[1]}</sup>`;
+                    // Format the coefficient part with commas
+                    const coefficient = parseFloat(parts[0]).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                    return `${coefficient} x 10<sup>${parts[1]}</sup>`;
                 };
 
                 // Display results in the side panel
-                document.getElementById('wellCount').textContent = wells;
-                document.getElementById('volume_to_dilute').textContent = volDilute.toFixed(2);
-                document.getElementById('volume_to_seed').textContent = volToSeed.toFixed(2);
-                document.getElementById('volume_plate_perwell_simple').textContent = (volPlatePerWell *
-                    1000).toFixed(0);
-                document.getElementById('cell_density_formatted').innerHTML = formatExponential(
-                    cellDensity);
+                document.getElementById('wellCount').textContent = wells.toLocaleString();
+                document.getElementById('volume_to_dilute').textContent = volDilute.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                document.getElementById('volume_to_seed').textContent = volToSeed.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                document.getElementById('volume_plate_perwell_simple').textContent = (volPlatePerWell * 1000)
+                    .toLocaleString(undefined, {
+                        maximumFractionDigits: 0
+                    });
+                document.getElementById('cell_density_formatted').innerHTML = formatExponential(cellDensity);
                 document.getElementById('required_cells_total_formatted').innerHTML = formatExponential(
                     requiredCells);
 
@@ -1301,7 +1308,11 @@
                 parseDecimalInput(count2El?.value || '0'),
                 parseDecimalInput(count3El?.value || '0')
             ].filter(count => count > 0);
-            const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2) : '-';
+            const avgCount = counts.length > 0 ?
+                parseFloat((counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2)).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) : '-';
 
             // Calculate average viability
             const viabilities = [
@@ -1309,8 +1320,12 @@
                 parseFloat(viability2El?.value || '0'),
                 parseFloat(viability3El?.value || '0')
             ].filter(v => v > 0);
-            const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) / viabilities.length)
-                .toFixed(1) : '-';
+            const avgViability = viabilities.length > 0 ?
+                parseFloat((viabilities.reduce((a, b) => a + b, 0) / viabilities.length).toFixed(1)).toLocaleString(
+                    undefined, {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    }) : '-';
 
             // Get selected cell type and culture vessel text
             let cellTypeText = '-';
@@ -1564,7 +1579,11 @@
                 parseDecimalInput(count2El?.value || '0'),
                 parseDecimalInput(count3El?.value || '0')
             ].filter(count => count > 0);
-            const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2) : '-';
+            const avgCount = counts.length > 0 ?
+                parseFloat((counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2)).toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }) : '-';
 
             // Calculate average viability
             const viabilities = [
@@ -1572,8 +1591,12 @@
                 parseFloat(viability2El?.value || '0'),
                 parseFloat(viability3El?.value || '0')
             ].filter(v => v > 0);
-            const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) / viabilities.length)
-                .toFixed(1) : '-';
+            const avgViability = viabilities.length > 0 ?
+                parseFloat((viabilities.reduce((a, b) => a + b, 0) / viabilities.length).toFixed(1)).toLocaleString(
+                    undefined, {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    }) : '-';
 
             // Get selected cell type and culture vessel text
             let cellTypeText = '-';
