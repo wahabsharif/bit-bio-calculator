@@ -28,12 +28,12 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0">
                     <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo"
-                        class="md:h-10 h-20 w-auto p-logo">
+                        class="md:h-10 h-11 w-auto p-logo">
                 </div>
 
                 <!-- Content -->
                 <div class="text-left">
-                    <h1 class="md:text-[1.8rem] text-[1.7rem] mb-4 p-heading mt-3 md:font-bold">Cell seeding
+                    <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading mt-3 font-bold">Cell seeding
                         calculator
                     </h1>
                     <p class="no-print">
