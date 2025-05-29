@@ -8,7 +8,8 @@
     {{-- Home Page --}}
     <div class="flex flex-col md:flex-row mt-4 md:mt-0 justify-between gap-4 mb-[40px]">
         <!-- Main Calculator Form -->
-        <div class="md:w-[75%] w-full bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
+        <div
+            class="md:w-[75%] w-full table-container bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
@@ -117,21 +118,21 @@
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="count1" type="number" required
                                     class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden symbol  items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
                                 <input id="count2" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
                                 <input id="count3" type="number"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden items-center justify-start">x
+                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x
                                     10<sup>6</sup> cells/mL</div>
                             </div>
                             <div class="text-sm mt-4 hidden -ml-1.5 md:flex items-center justify-start">x
@@ -174,21 +175,21 @@
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="viability1" type="number" step="0.1" value="100"
                                     class="px-2 pt-1 pb-1 w-28 text-sm bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 2</div>
                                 <input id="viability2" type="number" step="0.1"
                                     class="px-2 pt-1 pb-1 w-28 text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 3</div>
                                 <input id="viability3" type="number" step="0.1"
                                     class="px-2 pt-1 pb-1 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="text-sm md:hidden text-right flex items-center justify-end">
+                                <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="text-sm hidden text-left mt-4 md:flex items-center justify-start -ml-1.5">
@@ -546,11 +547,6 @@
                         </div>
                     </div>
 
-                    <!-- Additional info about copy/paste functionality -->
-                    <div id="copyPasteInfo" class="no-print  mt-2 hidden">
-                        <p>✨ <i>Tip: Double-click any value to select it for copy/paste.</i></p>
-                    </div>
-
                     <!-- Download buttons for results -->
                     <div id="downloadOptions" class="hidden mt-4 !space-y-2">
                         <button id="downloadExcel"
@@ -878,17 +874,37 @@
                 const resultsContent = document.getElementById('resultsContent');
 
                 if (missingFields.length > 0) {
-                    // Show error message inline (not in modal)
-                    validationErrorsDiv.innerHTML =
-                        `<p>⚠️ Please fill in the following required fields: <br/>-- ${missingFields.join(', ')}</p>`;
+                    validationErrorsDiv.innerHTML = `
+        <div id="cellCountWarning" class="flex items-start p-4 border-2 border-[#d4dbe6] bg-white ">
+            <div class="mr-3 text-orange-700">
+                <svg class="h-5 w-5 text-orange-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+                    10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1
+                    1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="flex-1 text-sm text-orange-700">
+                <p class="mb-1 font-medium">Please fill in the following required fields:</p>
+                <ul class="list-disc list-inside space-y-1">
+                    ${missingFields.map(field => `<li>${field}</li>`).join('')}
+                </ul>
+            </div>
+            <button type="button" class="ml-4 text-[#96a5b8]"
+                onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    `;
                     validationErrorsDiv.classList.remove('hidden');
-
                     return; // Stop execution if validation fails
                 } else {
-                    // Clear validation errors if passed
                     validationErrorsDiv.classList.add('hidden');
                     validationErrorsDiv.innerHTML = '';
                 }
+
 
                 // Hide help content and show results content
                 helpContent.classList.add('hidden');

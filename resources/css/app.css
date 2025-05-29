@@ -232,6 +232,7 @@ input[type="number"] {
     input[type="number"],
     input[type="text"]:not(.search-input) {
         width: 100%;
+        padding: 6px;
         max-width: 90px;
     }
     label {
@@ -358,5 +359,26 @@ input[type="number"] {
     /* Reduce font size to fit more content */
     body {
         font-size: 90% !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .table-container {
+        padding-bottom: 14px;
+    }
+    .table-container > div > div {
+        padding-bottom: 14px;
+        padding-top: 12px;
+    }
+    .table-container > div > div:has(.symbol) {
+        margin-top: 5px;
+        font-size: 13px;
+        margin-bottom: -5px;
+    }
+    [type="number"] {
+        padding: 6px;
+    }
+    footer {
+        padding-bottom: 22px;
     }
 }
