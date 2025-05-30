@@ -215,20 +215,36 @@ input[type="number"] {
     }
     .custom-tooltip {
         position: absolute;
-        z-index: 50;
+        z-index: 999;
         min-width: 17rem;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: calc(100% + 100px);
+        left: 0;
+        top: 100%;
+        width: 100vw;
         background-color: white;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         padding: 10px;
-        font-size: 0.75rem;
-        margin-top: 0;
-        border: 1px solid #e5e7eb;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        border: 2px solid #d4dbe6;
     }
 
+    /* Position relative for the tooltip container */
+    .tooltip-container {
+        position: static;
+    }
+
+    /* Make tooltip container take up appropriate space */
+    .tooltip-container .custom-tooltip {
+        position: absolute;
+        bottom: 95%;
+        top: auto;
+        left: 0;
+        transform: none;
+        max-width: 100%;
+        width: 100%;
+        max-height: initial;
+        overflow-y: auto;
+    }
     input[type="number"],
     input[type="text"]:not(.search-input) {
         width: 100%;
@@ -369,6 +385,7 @@ input[type="number"] {
     .table-container > div > div {
         padding-bottom: 14px;
         padding-top: 12px;
+        position: relative;
     }
     .table-container > div > div:has(.symbol) {
         margin-top: 5px;

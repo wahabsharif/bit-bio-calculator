@@ -587,6 +587,14 @@
                     printScreen();
                 });
             }
+
+            // Add this new code to prevent tooltip clicks from selecting inputs
+            document.querySelectorAll('.tooltip-container').forEach(tooltip => {
+                tooltip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
         });
 
         // Helper function to parse numeric inputs that may contain either commas or periods as decimal separators
@@ -878,9 +886,7 @@
         <div id="cellCountWarning" class="flex items-start p-4 border-2 border-[#d4dbe6] bg-white ">
             <div class="mr-3 text-orange-700">
                 <svg class="h-5 w-5 text-orange-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
-                    10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1
-                    1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" clip-rule="evenodd"></path>
                 </svg>
             </div>
             <div class="flex-1 text-sm text-orange-700">
@@ -1622,115 +1628,6 @@
                 mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
                 buffer: bufferEl ? bufferEl.value : "",
             };
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('input, select').forEach(el => {
-                el.addEventListener('focus', function() {
-                    const validationErrors = document.getElementById('validationErrors');
-                    if (validationErrors) {
-                        validationErrors.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        // Check viability values when they change
-        document.addEventListener('DOMContentLoaded', function() {
-            const viabilityInputs = ['viability1', 'viability2', 'viability3'];
-            viabilityInputs.forEach(id => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('change', checkViabilityValues);
-                }
-            });
-
-            // Add event listeners for calculate button
-            const calculateBtn = document.getElementById('calculateBtn');
-            if (calculateBtn) {
-                calculateBtn.addEventListener('click', function() {
-                    // Check viability values when calculating
-                    checkViabilityValues();
-                    // Check cell count variability when calculating
-                    checkCellCountVariability();
-                });
-            }
-
-            // Add cell count variability listeners
-            const countInputs = ['count1', 'count2', 'count3'];
-            countInputs.forEach(id => {
-                const input = document.getElementById(id);
-                if (input) {
-                    input.addEventListener('input', checkCellCountVariability);
-                }
-            });
-        });
-
-        function checkViabilityValues() {
-            const viabilityWarning = document.getElementById('viabilityWarning');
-            if (!viabilityWarning) return;
-
-            const viabilities = [
-                parseFloat(document.getElementById('viability1')?.value) || 0,
-                parseFloat(document.getElementById('viability2')?.value) || 0,
-                parseFloat(document.getElementById('viability3')?.value) || 0
-            ].filter(v => v > 0); // Only consider non-zero values
-
-            // Check if any viability value is below 80%
-            const lowViability = viabilities.some(v => v < 80);
-
-            if (lowViability && viabilities.length > 0) {
-                viabilityWarning.classList.remove('hidden');
-            } else {
-                viabilityWarning.classList.add('hidden');
-            }
-        }
-
-        // Check cell count variability
-        function checkCellCountVariability() {
-            const count1El = document.getElementById('count1');
-            const count2El = document.getElementById('count2');
-            const count3El = document.getElementById('count3');
-            const cellCountWarning = document.getElementById('cellCountWarning');
-
-            if (!count1El || !count2El || !count3El || !cellCountWarning) return;
-
-            const counts = [
-                parseDecimalInput(count1El.value),
-                parseDecimalInput(count2El.value),
-                parseDecimalInput(count3El.value)
-            ].filter(count => count > 0); // Only consider non-zero values
-
-            // Need at least 2 counts to compare
-            if (counts.length < 2) {
-                cellCountWarning.classList.add('hidden');
-                return;
-            }
-
-            let showWarning = false;
-
-            // Check each pair of counts for ≥10% variability
-            for (let i = 0; i < counts.length - 1; i++) {
-                for (let j = i + 1; j < counts.length; j++) {
-                    const larger = Math.max(counts[i], counts[j]);
-                    const smaller = Math.min(counts[i], counts[j]);
-
-                    // Calculate percentage difference relative to the larger value
-                    const percentDiff = ((larger - smaller) / larger) * 100;
-
-                    if (percentDiff >= 10) {
-                        showWarning = true;
-                        break;
-                    }
-                }
-                if (showWarning) break;
-            }
-
-            if (showWarning) {
-                cellCountWarning.classList.remove('hidden');
-            } else {
-                cellCountWarning.classList.add('hidden');
-            }
         }
     </script>
 @endsection
