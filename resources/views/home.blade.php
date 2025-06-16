@@ -869,27 +869,8 @@
             });
 
             // Recalculate functionality
-            // Find this line:
-            document.getElementById('calculateBtn').addEventListener('click', performCalculation);
-
-            // And replace it with:
-            const calculateButton = document.getElementById('calculateBtn');
-            if (calculateButton) {
-                calculateButton.addEventListener('click', function() {
-                    performCalculation();
-                });
-            }
-
-            // Find this line:
             document.getElementById('recalculateBtn').addEventListener('click', performCalculation);
 
-            // And replace it with:
-            const recalculateButton = document.getElementById('recalculateBtn');
-            if (recalculateButton) {
-                recalculateButton.addEventListener('click', function() {
-                    performCalculation();
-                });
-            }
             // Function to perform calculation (extracted from the click handler)
             function performCalculation() {
                 // Validate required fields first
@@ -900,8 +881,7 @@
                 const resultsContent = document.getElementById('resultsContent');
 
                 if (missingFields.length > 0) {
-                    if (validationErrorsDiv) {
-                        validationErrorsDiv.innerHTML = `
+                    validationErrorsDiv.innerHTML = `
         <div id="cellCountWarning" class="flex items-start p-4 border-2 border-[#d4dbe6] bg-white ">
             <div class="mr-3 text-orange-700">
                 <svg class="h-5 w-5 text-orange-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -923,46 +903,43 @@
             </button>
         </div>
     `;
-                        validationErrorsDiv.classList.remove('hidden');
-                    }
+                    validationErrorsDiv.classList.remove('hidden');
                     return; // Stop execution if validation fails
-                } else if (validationErrorsDiv) {
+                } else {
                     validationErrorsDiv.classList.add('hidden');
                     validationErrorsDiv.innerHTML = '';
                 }
 
 
                 // Hide help content and show results content
-                if (helpContent) helpContent.classList.add('hidden');
-                if (resultsContent) resultsContent.classList.remove('hidden');
+                helpContent.classList.add('hidden');
+                resultsContent.classList.remove('hidden');
 
                 // Hide calculate button and show action buttons
-                const calculateBtn = document.getElementById('calculateBtn');
-                const actionButtons = document.getElementById('actionButtons');
-                if (calculateBtn) calculateBtn.classList.add('hidden');
-                if (actionButtons) actionButtons.classList.remove('hidden');
+                document.getElementById('calculateBtn').classList.add('hidden');
+                document.getElementById('actionButtons').classList.remove('hidden');
 
-                // Show download options
-                const downloadOptions = document.getElementById('downloadOptions');
-                if (downloadOptions) downloadOptions.classList.remove('hidden');
+                // Show download options and copy/paste info
+                document.getElementById('downloadOptions').classList.remove('hidden');
+                document.getElementById('copyPasteInfo').classList.remove('hidden');
 
                 // Gather inputs
-                const seeding = parseFloat(document.getElementById('seeding_density')?.value) || 0;
-                const wells = parseInt(document.getElementById('num_wells')?.value) || 0;
-                const area = parseFloat(document.getElementById('surface_area')?.value) || 0;
-                const mediaVol = parseFloat(document.getElementById('media_volume')?.value) || 0;
+                const seeding = parseFloat(document.getElementById('seeding_density').value) || 0;
+                const wells = parseInt(document.getElementById('num_wells').value) || 0;
+                const area = parseFloat(document.getElementById('surface_area').value) || 0;
+                const mediaVol = parseFloat(document.getElementById('media_volume').value) || 0;
                 const counts = [
-                    parseDecimalInput(document.getElementById('count1')?.value || '0'),
-                    parseDecimalInput(document.getElementById('count2')?.value || '0'),
-                    parseDecimalInput(document.getElementById('count3')?.value || '0')
+                    parseDecimalInput(document.getElementById('count1').value),
+                    parseDecimalInput(document.getElementById('count2').value),
+                    parseDecimalInput(document.getElementById('count3').value)
                 ];
                 const viabilities = [
-                    parseFloat(document.getElementById('viability1')?.value) || 0,
-                    parseFloat(document.getElementById('viability2')?.value) || 0,
-                    parseFloat(document.getElementById('viability3')?.value) || 0
+                    parseFloat(document.getElementById('viability1').value) || 0,
+                    parseFloat(document.getElementById('viability2').value) || 0,
+                    parseFloat(document.getElementById('viability3').value) || 0
                 ];
-                const bufferPerc = parseFloat(document.getElementById('buffer')?.value) || 0;
-                const suspensionVol = parseFloat(document.getElementById('suspension_volume')?.value) ||
+                const bufferPerc = parseFloat(document.getElementById('buffer').value) || 0;
+                const suspensionVol = parseFloat(document.getElementById('suspension_volume').value) ||
                     1;
 
                 // Compute averages
@@ -1232,431 +1209,424 @@
                 } else {
                     cellCountWarning.classList.add('hidden');
                 }
-            };
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // Setup download buttons
-                setupDownloadButtons();
-            });
-
-            function setupDownloadButtons() {
-                const excelBtn = document.getElementById("downloadExcel");
-
-                if (excelBtn) {
-                    excelBtn.addEventListener("click", function(e) {
-                        e.preventDefault();
-                        downloadAsExcel();
-                    });
-                }
-            }
-
-            /**
-             * Downloads the results as an Excel file using the server
-             */
-            function downloadAsExcel() {
-                console.log('Starting Excel download...');
-
-                // Prevent multiple downloads
-                if (window.isDownloading) return;
-                window.isDownloading = true;
-
-                // Get result data
-                const resultData = getResultData();
-                console.log('Result data:', resultData);
-
-                // Create a form to submit the data
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '{{ route('calculator.download.excel') }}';
-                form.style.display = 'none';
-
-                // Add CSRF token
-                const csrfToken = '{{ csrf_token() }}';
-                const csrfInput = document.createElement('input');
-                csrfInput.type = 'hidden';
-                csrfInput.name = '_token';
-                csrfInput.value = csrfToken;
-                form.appendChild(csrfInput);
-
-                // Add well count
-                const wellCountEl = document.getElementById('wellCount');
-                const wellCountInput = document.createElement('input');
-                wellCountInput.type = 'hidden';
-                wellCountInput.name = 'wellCount';
-                wellCountInput.value = wellCountEl ? wellCountEl.textContent || '0' : '0';
-                form.appendChild(wellCountInput);
-
-                // Add all result data
-                Object.keys(resultData).forEach(key => {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = resultData[key] || '';
-                    form.appendChild(input);
-                });
-
-                // Submit the form
-                document.body.appendChild(form);
-
-                try {
-                    form.submit();
-                    console.log('Form submitted successfully');
-                } catch (e) {
-                    console.error('Error submitting form:', e);
-                }
-
-                // Reset download flag after a delay
-                setTimeout(() => {
-                    document.body.removeChild(form);
-                    window.isDownloading = false;
-                }, 2000);
-            }
-
-            /**
-             * Gets formatted result data for download
-             */
-            function getResultData() {
-                const cellDensityEl = document.getElementById("cell_density_formatted");
-                const cellsPerWellEl = document.getElementById("cells_per_well_formatted");
-                const requiredCellsEl = document.getElementById("required_cells_total_formatted");
-                const volumeToDiluteEl = document.getElementById("volume_to_dilute");
-                const volumeToSeedEl = document.getElementById("volume_to_seed");
-                const volumePerWellEl = document.getElementById("volume_plate_perwell_simple");
-
-                // Get input field values
-                const suspensionVolumeEl = document.getElementById("suspension_volume");
-                const count1El = document.getElementById("count1");
-                const count2El = document.getElementById("count2");
-                const count3El = document.getElementById("count3");
-                const viability1El = document.getElementById("viability1");
-                const viability2El = document.getElementById("viability2");
-                const viability3El = document.getElementById("viability3");
-                const cellTypeEl = document.getElementById("cell_type");
-                const seedingDensityEl = document.getElementById("seeding_density");
-                const cultureVesselEl = document.getElementById("culture_vessel");
-                const surfaceAreaEl = document.getElementById("surface_area");
-                const mediaVolumeEl = document.getElementById("media_volume");
-                const numWellsEl = document.getElementById("num_wells");
-                const bufferEl = document.getElementById("buffer");
-
-                // Calculate average cell count
-                const counts = [
-                    parseDecimalInput(count1El?.value || '0'),
-                    parseDecimalInput(count2El?.value || '0'),
-                    parseDecimalInput(count3El?.value || '0')
-                ].filter(count => count > 0);
-                const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length)
-                    .toFixed(2) : '-';
-
-                // Calculate average viability
-                const viabilities = [
-                    parseFloat(viability1El?.value || '0'),
-                    parseFloat(viability2El?.value || '0'),
-                    parseFloat(viability3El?.value || '0')
-                ].filter(v => v > 0);
-                const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) /
-                        viabilities.length)
-                    .toFixed(1) : '-';
-
-                // Get selected cell type and culture vessel text
-                let cellTypeText = '-';
-                if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
-                    cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
-                }
-
-                let cultureVesselText = '-';
-                if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
-                    cultureVesselText = cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
-                }
-
-                return {
-                    // Results
-                    cellDensity: cellDensityEl ? cellDensityEl.innerHTML : "",
-                    cellsPerWell: cellsPerWellEl ? cellsPerWellEl.textContent : "",
-                    requiredCells: requiredCellsEl ? requiredCellsEl.innerHTML : "",
-                    volumeToDilute: volumeToDiluteEl ? volumeToDiluteEl.textContent : "",
-                    volumeToSeed: volumeToSeedEl ? volumeToSeedEl.textContent : "",
-                    volumePerWell: volumePerWellEl ? volumePerWellEl.textContent : "",
-
-                    // Input parameters
-                    suspensionVolume: suspensionVolumeEl ? suspensionVolumeEl.value : "",
-                    liveCellCount: avgCount,
-                    cellViability: avgViability,
-                    cellType: cellTypeText,
-                    seedingDensity: seedingDensityEl ? seedingDensityEl.value : "",
-                    cultureVessel: cultureVesselText,
-                    surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
-                    mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
-                    buffer: bufferEl ? bufferEl.value : "",
-                };
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-                document.querySelectorAll('input, select').forEach(el => {
-                    el.addEventListener('focus', function() {
-                        const validationErrors = document.getElementById(
-                            'validationErrors');
-                        if (validationErrors) {
-                            validationErrors.classList.add('hidden');
-                        }
-                    });
-                });
-            });
-
-            // Check viability values when they change
-            document.addEventListener('DOMContentLoaded', function() {
-                const viabilityInputs = ['viability1', 'viability2', 'viability3'];
-                viabilityInputs.forEach(id => {
-                    const input = document.getElementById(id);
-                    if (input) {
-                        input.addEventListener('change', checkViabilityValues);
-                    }
-                });
-
-                // Add event listeners for calculate button
-                const calculateBtn = document.getElementById('calculateBtn');
-                if (calculateBtn) {
-                    calculateBtn.addEventListener('click', function() {
-                        // Check viability values when calculating
-                        checkViabilityValues();
-                        // Check cell count variability when calculating
-                        checkCellCountVariability();
-                    });
-                }
-
-                // Add cell count variability listeners
-                const countInputs = ['count1', 'count2', 'count3'];
-                countInputs.forEach(id => {
-                    const input = document.getElementById(id);
-                    if (input) {
-                        input.addEventListener('input', checkCellCountVariability);
-                    }
-                });
-            });
-
-            function checkViabilityValues() {
-                const viabilityWarning = document.getElementById('viabilityWarning');
-                if (!viabilityWarning) return;
-
-                const viabilities = [
-                    parseFloat(document.getElementById('viability1')?.value) || 0,
-                    parseFloat(document.getElementById('viability2')?.value) || 0,
-                    parseFloat(document.getElementById('viability3')?.value) || 0
-                ].filter(v => v > 0); // Only consider non-zero values
-
-                // Check if any viability value is below 80%
-                const lowViability = viabilities.some(v => v < 80);
-
-                if (lowViability && viabilities.length > 0) {
-                    viabilityWarning.classList.remove('hidden');
-                } else {
-                    viabilityWarning.classList.add('hidden');
-                }
-            }
-
-            // Check cell count variability
-            function checkCellCountVariability() {
-                const count1El = document.getElementById('count1');
-                const count2El = document.getElementById('count2');
-                const count3El = document.getElementById('count3');
-                const cellCountWarning = document.getElementById('cellCountWarning');
-
-                if (!count1El || !count2El || !count3El || !cellCountWarning) return;
-
-                const counts = [
-                    parseDecimalInput(count1El.value),
-                    parseDecimalInput(count2El.value),
-                    parseDecimalInput(count3El.value)
-                ].filter(count => count > 0); // Only consider non-zero values
-
-                // Need at least 2 counts to compare
-                if (counts.length < 2) {
-                    cellCountWarning.classList.add('hidden');
-                    return;
-                }
-
-                let showWarning = false;
-
-                // Check each pair of counts for ≥10% variability
-                for (let i = 0; i < counts.length - 1; i++) {
-                    for (let j = i + 1; j < counts.length; j++) {
-                        const larger = Math.max(counts[i], counts[j]);
-                        const smaller = Math.min(counts[i], counts[j]);
-
-                        // Calculate percentage difference relative to the larger value
-                        const percentDiff = ((larger - smaller) / larger) * 100;
-
-                        if (percentDiff >= 10) {
-                            showWarning = true;
-                            break;
-                        }
-                    }
-                    if (showWarning) break;
-                }
-
-                if (showWarning) {
-                    cellCountWarning.classList.remove('hidden');
-                } else {
-                    cellCountWarning.classList.add('hidden');
-                }
-            };
-
-            document.addEventListener('DOMContentLoaded', function() {
-                // Setup download buttons
-                setupDownloadButtons();
-            });
-
-            function setupDownloadButtons() {
-                const excelBtn = document.getElementById("downloadExcel");
-
-                if (excelBtn) {
-                    excelBtn.addEventListener("click", function(e) {
-                        e.preventDefault();
-                        downloadAsExcel();
-                    });
-                }
-            }
-
-            /**
-             * Downloads the results as an Excel file using the server
-             */
-            function downloadAsExcel() {
-                console.log('Starting Excel download...');
-
-                // Prevent multiple downloads
-                if (window.isDownloading) return;
-                window.isDownloading = true;
-
-                // Get result data
-                const resultData = getResultData();
-                console.log('Result data:', resultData);
-
-                // Create a form to submit the data
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '{{ route('calculator.download.excel') }}';
-                form.style.display = 'none';
-
-                // Add CSRF token
-                const csrfToken = '{{ csrf_token() }}';
-                const csrfInput = document.createElement('input');
-                csrfInput.type = 'hidden';
-                csrfInput.name = '_token';
-                csrfInput.value = csrfToken;
-                form.appendChild(csrfInput);
-
-                // Add well count
-                const wellCountEl = document.getElementById('wellCount');
-                const wellCountInput = document.createElement('input');
-                wellCountInput.type = 'hidden';
-                wellCountInput.name = 'wellCount';
-                wellCountInput.value = wellCountEl ? wellCountEl.textContent || '0' : '0';
-                form.appendChild(wellCountInput);
-
-                // Add all result data
-                Object.keys(resultData).forEach(key => {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = resultData[key] || '';
-                    form.appendChild(input);
-                });
-
-                // Submit the form
-                document.body.appendChild(form);
-
-                try {
-                    form.submit();
-                    console.log('Form submitted successfully');
-                } catch (e) {
-                    console.error('Error submitting form:', e);
-                }
-
-                // Reset download flag after a delay
-                setTimeout(() => {
-                    document.body.removeChild(form);
-                    window.isDownloading = false;
-                }, 2000);
-            }
-
-            /**
-             * Gets formatted result data for download
-             */
-            function getResultData() {
-                const cellDensityEl = document.getElementById("cell_density_formatted");
-                const cellsPerWellEl = document.getElementById("cells_per_well_formatted");
-                const requiredCellsEl = document.getElementById("required_cells_total_formatted");
-                const volumeToDiluteEl = document.getElementById("volume_to_dilute");
-                const volumeToSeedEl = document.getElementById("volume_to_seed");
-                const volumePerWellEl = document.getElementById("volume_plate_perwell_simple");
-
-                // Get input field values
-                const suspensionVolumeEl = document.getElementById("suspension_volume");
-                const count1El = document.getElementById("count1");
-                const count2El = document.getElementById("count2");
-                const count3El = document.getElementById("count3");
-                const viability1El = document.getElementById("viability1");
-                const viability2El = document.getElementById("viability2");
-                const viability3El = document.getElementById("viability3");
-                const cellTypeEl = document.getElementById("cell_type");
-                const seedingDensityEl = document.getElementById("seeding_density");
-                const cultureVesselEl = document.getElementById("culture_vessel");
-                const surfaceAreaEl = document.getElementById("surface_area");
-                const mediaVolumeEl = document.getElementById("media_volume");
-                const numWellsEl = document.getElementById("num_wells");
-                const bufferEl = document.getElementById("buffer");
-
-                // Calculate average cell count
-                const counts = [
-                    parseDecimalInput(count1El?.value || '0'),
-                    parseDecimalInput(count2El?.value || '0'),
-                    parseDecimalInput(count3El?.value || '0')
-                ].filter(count => count > 0);
-                const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length)
-                    .toFixed(2) : '-';
-
-                // Calculate average viability
-                const viabilities = [
-                    parseFloat(viability1El?.value || '0'),
-                    parseFloat(viability2El?.value || '0'),
-                    parseFloat(viability3El?.value || '0')
-                ].filter(v => v > 0);
-                const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) /
-                        viabilities.length)
-                    .toFixed(1) : '-';
-
-                // Get selected cell type and culture vessel text
-                let cellTypeText = '-';
-                if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
-                    cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
-                }
-
-                let cultureVesselText = '-';
-                if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
-                    cultureVesselText = cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
-                }
-
-                return {
-                    // Results
-                    cellDensity: cellDensityEl ? cellDensityEl.innerHTML : "",
-                    cellsPerWell: cellsPerWellEl ? cellsPerWellEl.textContent : "",
-                    requiredCells: requiredCellsEl ? requiredCellsEl.innerHTML : "",
-                    volumeToDilute: volumeToDiluteEl ? volumeToDiluteEl.textContent : "",
-                    volumeToSeed: volumeToSeedEl ? volumeToSeedEl.textContent : "",
-                    volumePerWell: volumePerWellEl ? volumePerWellEl.textContent : "",
-
-                    // Input parameters
-                    suspensionVolume: suspensionVolumeEl ? suspensionVolumeEl.value : "",
-                    liveCellCount: avgCount,
-                    cellViability: avgViability,
-                    cellType: cellTypeText,
-                    seedingDensity: seedingDensityEl ? seedingDensityEl.value : "",
-                    cultureVessel: cultureVesselText,
-                    surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
-                    mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
-                    buffer: bufferEl ? bufferEl.value : "",
-                };
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup download buttons
+            setupDownloadButtons();
+        });
+
+        function setupDownloadButtons() {
+            const excelBtn = document.getElementById("downloadExcel");
+
+            if (excelBtn) {
+                excelBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    downloadAsExcel();
+                });
+            }
+        }
+
+        /**
+         * Downloads the results as an Excel file using the server
+         */
+        function downloadAsExcel() {
+            console.log('Starting Excel download...');
+
+            // Prevent multiple downloads
+            if (window.isDownloading) return;
+            window.isDownloading = true;
+
+            // Get result data
+            const resultData = getResultData();
+            console.log('Result data:', resultData);
+
+            // Create a form to submit the data
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('calculator.download.excel') }}';
+            form.style.display = 'none';
+
+            // Add CSRF token
+            const csrfToken = '{{ csrf_token() }}';
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Add well count
+            const wellCountInput = document.createElement('input');
+            wellCountInput.type = 'hidden';
+            wellCountInput.name = 'wellCount';
+            wellCountInput.value = document.getElementById('wellCount').textContent || '0';
+            form.appendChild(wellCountInput);
+
+            // Add all result data
+            Object.keys(resultData).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = resultData[key] || '';
+                form.appendChild(input);
+            });
+
+            // Submit the form
+            document.body.appendChild(form);
+
+            try {
+                form.submit();
+                console.log('Form submitted successfully');
+            } catch (e) {
+                console.error('Error submitting form:', e);
+            }
+
+            // Reset download flag after a delay
+            setTimeout(() => {
+                document.body.removeChild(form);
+                window.isDownloading = false;
+            }, 2000);
+        }
+
+        /**
+         * Gets formatted result data for download
+         */
+        function getResultData() {
+            const cellDensityEl = document.getElementById("cell_density_formatted");
+            const cellsPerWellEl = document.getElementById("cells_per_well_formatted");
+            const requiredCellsEl = document.getElementById("required_cells_total_formatted");
+            const volumeToDiluteEl = document.getElementById("volume_to_dilute");
+            const volumeToSeedEl = document.getElementById("volume_to_seed");
+            const volumePerWellEl = document.getElementById("volume_plate_perwell_simple");
+
+            // Get input field values
+            const suspensionVolumeEl = document.getElementById("suspension_volume");
+            const count1El = document.getElementById("count1");
+            const count2El = document.getElementById("count2");
+            const count3El = document.getElementById("count3");
+            const viability1El = document.getElementById("viability1");
+            const viability2El = document.getElementById("viability2");
+            const viability3El = document.getElementById("viability3");
+            const cellTypeEl = document.getElementById("cell_type");
+            const seedingDensityEl = document.getElementById("seeding_density");
+            const cultureVesselEl = document.getElementById("culture_vessel");
+            const surfaceAreaEl = document.getElementById("surface_area");
+            const mediaVolumeEl = document.getElementById("media_volume");
+            const numWellsEl = document.getElementById("num_wells");
+            const bufferEl = document.getElementById("buffer");
+
+            // Calculate average cell count
+            const counts = [
+                parseDecimalInput(count1El?.value || '0'),
+                parseDecimalInput(count2El?.value || '0'),
+                parseDecimalInput(count3El?.value || '0')
+            ].filter(count => count > 0);
+            const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2) : '-';
+
+            // Calculate average viability
+            const viabilities = [
+                parseFloat(viability1El?.value || '0'),
+                parseFloat(viability2El?.value || '0'),
+                parseFloat(viability3El?.value || '0')
+            ].filter(v => v > 0);
+            const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) / viabilities.length)
+                .toFixed(1) : '-';
+
+            // Get selected cell type and culture vessel text
+            let cellTypeText = '-';
+            if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
+                cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
+            }
+
+            let cultureVesselText = '-';
+            if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
+                cultureVesselText = cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
+            }
+
+            return {
+                // Results
+                cellDensity: cellDensityEl ? cellDensityEl.innerHTML : "",
+                cellsPerWell: cellsPerWellEl ? cellsPerWellEl.textContent : "",
+                requiredCells: requiredCellsEl ? requiredCellsEl.innerHTML : "",
+                volumeToDilute: volumeToDiluteEl ? volumeToDiluteEl.textContent : "",
+                volumeToSeed: volumeToSeedEl ? volumeToSeedEl.textContent : "",
+                volumePerWell: volumePerWellEl ? volumePerWellEl.textContent : "",
+
+                // Input parameters
+                suspensionVolume: suspensionVolumeEl ? suspensionVolumeEl.value : "",
+                liveCellCount: avgCount,
+                cellViability: avgViability,
+                cellType: cellTypeText,
+                seedingDensity: seedingDensityEl ? seedingDensityEl.value : "",
+                cultureVessel: cultureVesselText,
+                surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
+                mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
+                buffer: bufferEl ? bufferEl.value : "",
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('input, select').forEach(el => {
+                el.addEventListener('focus', function() {
+                    const validationErrors = document.getElementById('validationErrors');
+                    if (validationErrors) {
+                        validationErrors.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Check viability values when they change
+        document.addEventListener('DOMContentLoaded', function() {
+            const viabilityInputs = ['viability1', 'viability2', 'viability3'];
+            viabilityInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('change', checkViabilityValues);
+                }
+            });
+
+            // Add event listeners for calculate button
+            const calculateBtn = document.getElementById('calculateBtn');
+            if (calculateBtn) {
+                calculateBtn.addEventListener('click', function() {
+                    // Check viability values when calculating
+                    checkViabilityValues();
+                    // Check cell count variability when calculating
+                    checkCellCountVariability();
+                });
+            }
+
+            // Add cell count variability listeners
+            const countInputs = ['count1', 'count2', 'count3'];
+            countInputs.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    input.addEventListener('input', checkCellCountVariability);
+                }
+            });
+        });
+
+        function checkViabilityValues() {
+            const viabilityWarning = document.getElementById('viabilityWarning');
+            if (!viabilityWarning) return;
+
+            const viabilities = [
+                parseFloat(document.getElementById('viability1')?.value) || 0,
+                parseFloat(document.getElementById('viability2')?.value) || 0,
+                parseFloat(document.getElementById('viability3')?.value) || 0
+            ].filter(v => v > 0); // Only consider non-zero values
+
+            // Check if any viability value is below 80%
+            const lowViability = viabilities.some(v => v < 80);
+
+            if (lowViability && viabilities.length > 0) {
+                viabilityWarning.classList.remove('hidden');
+            } else {
+                viabilityWarning.classList.add('hidden');
+            }
+        }
+
+        // Check cell count variability
+        function checkCellCountVariability() {
+            const count1El = document.getElementById('count1');
+            const count2El = document.getElementById('count2');
+            const count3El = document.getElementById('count3');
+            const cellCountWarning = document.getElementById('cellCountWarning');
+
+            if (!count1El || !count2El || !count3El || !cellCountWarning) return;
+
+            const counts = [
+                parseDecimalInput(count1El.value),
+                parseDecimalInput(count2El.value),
+                parseDecimalInput(count3El.value)
+            ].filter(count => count > 0); // Only consider non-zero values
+
+            // Need at least 2 counts to compare
+            if (counts.length < 2) {
+                cellCountWarning.classList.add('hidden');
+                return;
+            }
+
+            let showWarning = false;
+
+            // Check each pair of counts for ≥10% variability
+            for (let i = 0; i < counts.length - 1; i++) {
+                for (let j = i + 1; j < counts.length; j++) {
+                    const larger = Math.max(counts[i], counts[j]);
+                    const smaller = Math.min(counts[i], counts[j]);
+
+                    // Calculate percentage difference relative to the larger value
+                    const percentDiff = ((larger - smaller) / larger) * 100;
+
+                    if (percentDiff >= 10) {
+                        showWarning = true;
+                        break;
+                    }
+                }
+                if (showWarning) break;
+            }
+
+            if (showWarning) {
+                cellCountWarning.classList.remove('hidden');
+            } else {
+                cellCountWarning.classList.add('hidden');
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup download buttons
+            setupDownloadButtons();
+        });
+
+        function setupDownloadButtons() {
+            const excelBtn = document.getElementById("downloadExcel");
+
+            if (excelBtn) {
+                excelBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    downloadAsExcel();
+                });
+            }
+        }
+
+        /**
+         * Downloads the results as an Excel file using the server
+         */
+        function downloadAsExcel() {
+            console.log('Starting Excel download...');
+
+            // Prevent multiple downloads
+            if (window.isDownloading) return;
+            window.isDownloading = true;
+
+            // Get result data
+            const resultData = getResultData();
+            console.log('Result data:', resultData);
+
+            // Create a form to submit the data
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ route('calculator.download.excel') }}';
+            form.style.display = 'none';
+
+            // Add CSRF token
+            const csrfToken = '{{ csrf_token() }}';
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = csrfToken;
+            form.appendChild(csrfInput);
+
+            // Add well count
+            const wellCountInput = document.createElement('input');
+            wellCountInput.type = 'hidden';
+            wellCountInput.name = 'wellCount';
+            wellCountInput.value = document.getElementById('wellCount').textContent || '0';
+            form.appendChild(wellCountInput);
+
+            // Add all result data
+            Object.keys(resultData).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = resultData[key] || '';
+                form.appendChild(input);
+            });
+
+            // Submit the form
+            document.body.appendChild(form);
+
+            try {
+                form.submit();
+                console.log('Form submitted successfully');
+            } catch (e) {
+                console.error('Error submitting form:', e);
+            }
+
+            // Reset download flag after a delay
+            setTimeout(() => {
+                document.body.removeChild(form);
+                window.isDownloading = false;
+            }, 2000);
+        }
+
+        /**
+         * Gets formatted result data for download
+         */
+        function getResultData() {
+            const cellDensityEl = document.getElementById("cell_density_formatted");
+            const cellsPerWellEl = document.getElementById("cells_per_well_formatted");
+            const requiredCellsEl = document.getElementById("required_cells_total_formatted");
+            const volumeToDiluteEl = document.getElementById("volume_to_dilute");
+            const volumeToSeedEl = document.getElementById("volume_to_seed");
+            const volumePerWellEl = document.getElementById("volume_plate_perwell_simple");
+
+            // Get input field values
+            const suspensionVolumeEl = document.getElementById("suspension_volume");
+            const count1El = document.getElementById("count1");
+            const count2El = document.getElementById("count2");
+            const count3El = document.getElementById("count3");
+            const viability1El = document.getElementById("viability1");
+            const viability2El = document.getElementById("viability2");
+            const viability3El = document.getElementById("viability3");
+            const cellTypeEl = document.getElementById("cell_type");
+            const seedingDensityEl = document.getElementById("seeding_density");
+            const cultureVesselEl = document.getElementById("culture_vessel");
+            const surfaceAreaEl = document.getElementById("surface_area");
+            const mediaVolumeEl = document.getElementById("media_volume");
+            const numWellsEl = document.getElementById("num_wells");
+            const bufferEl = document.getElementById("buffer");
+
+            // Calculate average cell count
+            const counts = [
+                parseDecimalInput(count1El?.value || '0'),
+                parseDecimalInput(count2El?.value || '0'),
+                parseDecimalInput(count3El?.value || '0')
+            ].filter(count => count > 0);
+            const avgCount = counts.length > 0 ? (counts.reduce((a, b) => a + b, 0) / counts.length).toFixed(2) : '-';
+
+            // Calculate average viability
+            const viabilities = [
+                parseFloat(viability1El?.value || '0'),
+                parseFloat(viability2El?.value || '0'),
+                parseFloat(viability3El?.value || '0')
+            ].filter(v => v > 0);
+            const avgViability = viabilities.length > 0 ? (viabilities.reduce((a, b) => a + b, 0) / viabilities.length)
+                .toFixed(1) : '-';
+
+            // Get selected cell type and culture vessel text
+            let cellTypeText = '-';
+            if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
+                cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
+            }
+
+            let cultureVesselText = '-';
+            if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
+                cultureVesselText = cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
+            }
+
+            return {
+                // Results
+                cellDensity: cellDensityEl ? cellDensityEl.innerHTML : "",
+                cellsPerWell: cellsPerWellEl ? cellsPerWellEl.textContent : "",
+                requiredCells: requiredCellsEl ? requiredCellsEl.innerHTML : "",
+                volumeToDilute: volumeToDiluteEl ? volumeToDiluteEl.textContent : "",
+                volumeToSeed: volumeToSeedEl ? volumeToSeedEl.textContent : "",
+                volumePerWell: volumePerWellEl ? volumePerWellEl.textContent : "",
+
+                // Input parameters
+                suspensionVolume: suspensionVolumeEl ? suspensionVolumeEl.value : "",
+                liveCellCount: avgCount,
+                cellViability: avgViability,
+                cellType: cellTypeText,
+                seedingDensity: seedingDensityEl ? seedingDensityEl.value : "",
+                cultureVessel: cultureVesselText,
+                surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
+                mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
+                buffer: bufferEl ? bufferEl.value : "",
+            };
+        }
     </script>
 @endsection
