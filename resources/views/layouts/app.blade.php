@@ -26,7 +26,7 @@
         <header class="flex">
             <div class="md:w-[75%] flex flex-col items-start text-left py-3 pb-8">
                 <!-- Logo -->
-                <div class="flex-shrink-0">
+                <div class="flex-shrink-0 mb-5">
                     <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo"
                         class="md:h-10 h-11 w-auto p-logo">
                 </div>
