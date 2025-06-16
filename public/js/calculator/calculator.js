@@ -5,52 +5,47 @@ function performCalculation() {
     // Validate required fields first
     const missingFields = validateRequiredFields();
     const warningsDiv = document.getElementById("warnings");
-    const validationErrorsDiv = document.getElementById("validationErrors");
+    // const validationErrorsDiv = document.getElementById("validationErrors");
     const helpContent = document.getElementById("helpContent");
     const resultsContent = document.getElementById("resultsContent");
 
     // Add null checks for all critical elements
-    if (
-        !warningsDiv ||
-        !validationErrorsDiv ||
-        !helpContent ||
-        !resultsContent
-    ) {
+    if (!warningsDiv || !helpContent || !resultsContent) {
         console.error("Critical DOM elements not found");
         return;
     }
 
-    if (missingFields.length > 0) {
-        validationErrorsDiv.innerHTML = `
-            <div id="cellCountWarning" class="flex items-start p-4 border-2 border-[#d4dbe6] bg-white ">
-                <div class="mr-3 text-orange-700">
-                    <svg class="h-5 w-5 text-orange-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                        <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="flex-1 text-sm text-orange-700">
-                    <p class="mb-1 font-medium">Please fill in the following required fields:</p>
-                    <ul class="list-disc list-inside space-y-1">
-                        ${missingFields
-                            .map((field) => `<li>${field}</li>`)
-                            .join("")}
-                    </ul>
-                </div>
-                <button type="button" class="ml-4 text-[#96a5b8]"
-                    onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            </div>
-        `;
-        validationErrorsDiv.classList.remove("hidden");
-        return; // Stop execution if validation fails
-    } else {
-        validationErrorsDiv.classList.add("hidden");
-        validationErrorsDiv.innerHTML = "";
-    }
+    // if (missingFields.length > 0) {
+    //     validationErrorsDiv.innerHTML = `
+    //         <div id="cellCountWarning" class="flex items-start p-4 border-2 border-[#d4dbe6] bg-white ">
+    //             <div class="mr-3 text-orange-700">
+    //                 <svg class="h-5 w-5 text-orange-500 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+    //                     <path fill-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" clip-rule="evenodd"></path>
+    //                 </svg>
+    //             </div>
+    //             <div class="flex-1 text-sm text-orange-700">
+    //                 <p class="mb-1 font-medium">Please fill in the following required fields:</p>
+    //                 <ul class="list-disc list-inside space-y-1">
+    //                     ${missingFields
+    //                         .map((field) => `<li>${field}</li>`)
+    //                         .join("")}
+    //                 </ul>
+    //             </div>
+    //             <button type="button" class="ml-4 text-[#96a5b8]"
+    //                 onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
+    //                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    //                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+    //                         d="M6 18L18 6M6 6l12 12"></path>
+    //                 </svg>
+    //             </button>
+    //         </div>
+    //     `;
+    //     validationErrorsDiv.classList.remove("hidden");
+    //     return; // Stop execution if validation fails
+    // } else {
+    //     validationErrorsDiv.classList.add("hidden");
+    //     validationErrorsDiv.innerHTML = "";
+    // }
 
     // Hide help content and show results content
     helpContent.classList.add("hidden");
