@@ -128,27 +128,30 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="count1" type="number" required
+                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    required
                                     class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden symbol  items-center justify-start">x
-                                    10<sup>6</sup> cells/mL</div>
+                                <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
+                                    cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
-                                <input id="count2" type="number"
+                                <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x
-                                    10<sup>6</sup> cells/mL</div>
+                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
+                                    cells/mL
+                                </div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
-                                <input id="count3" type="number"
+                                <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
                                     class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x
-                                    10<sup>6</sup> cells/mL</div>
+                                <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
+                                    cells/mL
+                                </div>
                             </div>
-                            <div class="text-sm mt-4 hidden -ml-1.5 md:flex items-center justify-start">x
-                                10<sup>6</sup> cells/mL</div>
+                            <div class="text-sm mt-4 hidden -ml-1.5 md:flex items-center justify-start">x 10<sup>6</sup>
+                                cells/mL</div>
                         </div>
                         <div id="cellCountWarning" class="hidden">
                             <div
@@ -176,6 +179,7 @@
                         </div>
                     </div>
                 </div>
+
 
                 <!-- Cell Viability - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">

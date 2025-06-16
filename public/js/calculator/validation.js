@@ -1,6 +1,6 @@
 /**
- * Validates required fields and highlights missing fields
- * @returns {Array} Array of missing field names
+ * Validates required fields and highlights missing or invalid fields
+ * @returns {Array} Array of missing or invalid field names
  */
 function validateRequiredFields() {
     const requiredFields = [
@@ -11,44 +11,37 @@ function validateRequiredFields() {
         { id: "num_wells", name: "Number of wells to seed" },
         { id: "count1", name: "Live cell Count 1" },
         { id: "viability1", name: "Cell viability Count 1" },
+        // add other required fields as needed
     ];
 
     const missingFields = [];
 
     requiredFields.forEach((field) => {
         const input = document.getElementById(field.id);
-        // Check if value is empty, zero, or NaN
-        const value = input.value;
-        const numValue = parseFloat(value);
+        if (!input) return;
+        const rawValue = input.value;
+        const numValue = parseDecimalInput(rawValue);
 
-        if (value === "" || isNaN(numValue) || numValue === 0) {
+        // Treat empty or NaN or zero as missing/invalid
+        if (rawValue.trim() === "" || isNaN(numValue) || numValue === 0) {
             missingFields.push(field.name);
-            // Highlight the empty field
             input.classList.add("border-red-500");
-
-            // If it's a hidden input for a dropdown, highlight the dropdown
+            // Highlight dropdowns if needed
             if (field.id === "cell_type") {
-                document
-                    .querySelector("#cell_type_dropdown")
-                    .classList.add("error");
+                const dd = document.querySelector("#cell_type_dropdown");
+                if (dd) dd.classList.add("error");
             } else if (field.id === "culture_vessel") {
-                document
-                    .querySelector("#culture_vessel_dropdown")
-                    .classList.add("error");
+                const dd = document.querySelector("#culture_vessel_dropdown");
+                if (dd) dd.classList.add("error");
             }
         } else {
-            // Remove highlighting if field is filled
             input.classList.remove("border-red-500");
-
-            // Remove error class from dropdowns if applicable
             if (field.id === "cell_type") {
-                document
-                    .querySelector("#cell_type_dropdown")
-                    .classList.remove("error");
+                const dd = document.querySelector("#cell_type_dropdown");
+                if (dd) dd.classList.remove("error");
             } else if (field.id === "culture_vessel") {
-                document
-                    .querySelector("#culture_vessel_dropdown")
-                    .classList.remove("error");
+                const dd = document.querySelector("#culture_vessel_dropdown");
+                if (dd) dd.classList.remove("error");
             }
         }
     });
@@ -62,14 +55,9 @@ function validateRequiredFields() {
  * @returns {number} The parsed decimal value
  */
 function parseDecimalInput(value) {
-    if (!value || value.trim() === "") return 0;
-    try {
-        // Replace commas with periods for consistent parsing
-        const normalized = value.replace(",", ".");
-        const result = parseFloat(normalized);
-        return isNaN(result) ? 0 : result;
-    } catch (error) {
-        console.error("Error parsing decimal input:", value, error);
-        return 0;
-    }
+    if (!value || value.trim() === "") return NaN; // return NaN so empty is handled upstream
+    // Normalize: replace comma with period, but also handle multiple commas? For simplicity: replace ALL commas.
+    const normalized = value.replace(/,/g, ".");
+    const result = parseFloat(normalized);
+    return isNaN(result) ? NaN : result;
 }
