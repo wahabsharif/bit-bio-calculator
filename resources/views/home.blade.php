@@ -150,8 +150,8 @@
                                     </svg>
                                 </div>
                                 <p class="text-sm">
-                                    If there is significant variability in your live cell count, we recommend that you
-                                    re-suspend your cell suspension and perform a recount.
+                                    The variability in your live cell count exceeds 10%, we recommend that you re-suspend
+                                    your cell suspension and perform a recount.
                                 </p>
                                 <button type="button" class="ml-auto text-[#96a5b8]"
                                     onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
@@ -206,8 +206,7 @@
                                     </svg>
                                 </div>
                                 <p class="text-sm">
-                                    If there is significant variability in your cell viability percentage, or if this value
-                                    is
+                                    If there is high variability in your cell viability percentage, or if this value is
                                     below 80%, we recommend that you re-suspend your cell suspension and perform a recount.
                                 </p>
                                 <button type="button" class="ml-auto text-[#96a5b8]"

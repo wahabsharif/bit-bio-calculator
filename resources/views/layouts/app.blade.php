@@ -60,12 +60,12 @@
         </main>
 
         <!-- Footer -->
-        <footer class="bg-white mt-10 hidden md:block text-start border-gray-200 pb-12">
+        <footer class="bg-white mt-10 hidden md:block text-start max-w-4xl border-gray-200 pb-12">
             <div class="mx-auto py-2 text-black">
                 <p class="pb-2 md:pb-0">
-                    Please note that this calculator has been developed by
-                    <a class="!text-black" href="https://bit.bio">bit.bio</a> and provides standard
-                    guidance.
+                    Please note that this calculator has been developed by <a class="!text-black"
+                        href="https://bit.bio">bit.bio</a> and provides standard guidance. By
+                    using this tool, you agree to our cell seeding calculator - Terms and Conditions.
                 </p>
                 <div class="m-auto">
                     <p>
