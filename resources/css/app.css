@@ -120,6 +120,10 @@ input[type="number"] {
     padding: 6px 0;
     text-align: right;
 }
+input[type="text"] {
+    padding: 6px 15px;
+    text-align: right;
+}
 
 .search-option {
     padding: 0.5rem 0.75rem;
