@@ -97,7 +97,7 @@ option {
 }
 
 .active-input {
-    color: #111827; /* Gray-900 for active/used values */
+    color: black !important;
 }
 
 /* Search Dropdown Styling */
