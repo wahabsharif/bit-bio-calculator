@@ -5,7 +5,7 @@
 function populateCellTypes(types) {
     // Get Semantic UI dropdown
     const dropdown = $("#cell_type_dropdown");
-    // Clear existing options
+    // Clear existing options & reset dropdown state
     dropdown.dropdown("clear");
 
     // Add options to the menu
@@ -16,13 +16,17 @@ function populateCellTypes(types) {
         const opt = document.createElement("div");
         opt.className = "item";
         opt.setAttribute("data-value", type.id);
+        // Include seeding density as a custom attribute if present
         opt.setAttribute("data-seeding-density", type.seeding_density || "");
+        // The text to display; if SKU should also be searchable, include in text
         opt.textContent = `${type.product_name} (${type.sku})`;
         menu.append(opt);
     });
 
-    // Initialize dropdown
+    // Initialize dropdown with fullTextSearch enabled
     dropdown.dropdown({
+        fullTextSearch: true,
+        match: "both", // also match value if desired
         onChange: function (value, text, $selectedItem) {
             const seedingInput = document.getElementById("seeding_density");
             if (
@@ -47,19 +51,21 @@ function populateCellTypes(types) {
 function populateCultureVessels(vessels) {
     // Get Semantic UI dropdown
     const dropdown = $("#culture_vessel_dropdown");
-    // Clear existing options
+    // Clear existing options & reset dropdown state
     dropdown.dropdown("clear");
 
     // Add options to the menu
     const menu = dropdown.find(".menu");
     menu.empty();
 
-    vessels.forEach((v, i) => {
+    vessels.forEach((v) => {
         const opt = document.createElement("div");
         opt.className = "item";
         opt.setAttribute("data-value", v.id);
         opt.setAttribute("data-surface-area", v.surface_area_cm2);
         opt.setAttribute("data-media-volume", v.media_volume_per_well_ml);
+        // Display plate_format, but if you want other searchable metadata,
+        // you could include it in text or a data attribute that dropdown can search.
         opt.textContent = v.plate_format;
         menu.append(opt);
     });
@@ -67,8 +73,10 @@ function populateCultureVessels(vessels) {
     const surfaceAreaInput = document.getElementById("surface_area");
     const mediaVolumeInput = document.getElementById("media_volume");
 
-    // Initialize dropdown
+    // Initialize dropdown with fullTextSearch enabled
     dropdown.dropdown({
+        fullTextSearch: true,
+        match: "both",
         onChange: function (value, text, $selectedItem) {
             if (value && $selectedItem) {
                 const surfaceArea = $selectedItem.attr("data-surface-area");
