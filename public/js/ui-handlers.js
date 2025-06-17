@@ -279,7 +279,7 @@ async function initCalculator() {
 
     // Fetch cell types
     try {
-        const response = await fetch("/products");
+        const response = await fetch("products");
         cellTypes = await response.json();
         populateCellTypes(cellTypes);
     } catch (err) {
@@ -288,7 +288,7 @@ async function initCalculator() {
 
     // Fetch culture vessels
     try {
-        const resp2 = await fetch("/culture-vessels", {
+        const resp2 = await fetch("culture-vessels", {
             headers: {
                 Accept: "application/json",
             },

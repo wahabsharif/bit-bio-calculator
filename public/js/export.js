@@ -12,7 +12,7 @@ function downloadAsExcel() {
     // Create a form to submit the data
     const form = document.createElement("form");
     form.method = "POST";
-    form.action = "/calculator/download-excel";
+    form.action = "calculator/download-excel";
     form.style.display = "none";
 
     // Add CSRF token
