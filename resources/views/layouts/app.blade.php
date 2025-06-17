@@ -22,13 +22,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
-    <script src="{{ asset('js/calculator/validation.js') }}"></script>
-    <script src="{{ asset('js/calculator/cell-checks.js') }}"></script>
-    <script src="{{ asset('js/calculator/calculator.js') }}"></script>
-    <script src="{{ asset('js/calculator/export.js') }}"></script>
-    <script src="{{ asset('js/calculator/ui-handlers.js') }}"></script>
-    <script src="{{ asset('js/calculator/tooltip.js') }}"></script>
-    <script src="{{ asset('js/calculator/main.js') }}"></script>
+    <script src="{{ asset('js/validation.js') }}"></script>
+    <script src="{{ asset('js/cell-checks.js') }}"></script>
+    <script src="{{ asset('js/calculator.js') }}"></script>
+    <script src="{{ asset('js/export.js') }}"></script>
+    <script src="{{ asset('js/ui-handlers.js') }}"></script>
+    <script src="{{ asset('js/tooltip.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
 </head>
 
