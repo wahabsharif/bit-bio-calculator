@@ -5,16 +5,29 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Bit Bio - Calculator')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+    <script src="{{ asset('js/calculator/validation.js') }}"></script>
+    <script src="{{ asset('js/calculator/cell-checks.js') }}"></script>
+    <script src="{{ asset('js/calculator/calculator.js') }}"></script>
+    <script src="{{ asset('js/calculator/export.js') }}"></script>
+    <script src="{{ asset('js/calculator/ui-handlers.js') }}"></script>
+    <script src="{{ asset('js/calculator/main.js') }}"></script>
 
 </head>
 

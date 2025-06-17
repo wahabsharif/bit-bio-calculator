@@ -2,21 +2,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-
-    {{-- Include calculator JS files --}}
-    <script src="{{ asset('js/calculator/validation.js') }}"></script>
-    <script src="{{ asset('js/calculator/cell-checks.js') }}"></script>
-    <script src="{{ asset('js/calculator/calculator.js') }}"></script>
-    <script src="{{ asset('js/calculator/export.js') }}"></script>
-    <script src="{{ asset('js/calculator/ui-handlers.js') }}"></script>
-    <script src="{{ asset('js/calculator/main.js') }}"></script>
-
-    {{-- Add CSRF token meta for AJAX requests --}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
     {{-- Home Page --}}
     <div class="flex flex-col md:flex-row mt-4 md:mt-0 justify-between gap-4 mb-[40px]">
         <!-- Main Calculator Form -->
@@ -128,8 +113,7 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
-                                    required
+                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" required
                                     class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
                                     cells/mL</div>
@@ -259,10 +243,10 @@
                         Seeding density <span class="text-black">*</span>
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
-                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
-                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                    style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -312,10 +296,10 @@
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
-                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
-                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                    style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -407,10 +391,10 @@
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
-                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
-                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
-                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                                    style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -479,112 +463,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Results Section - Always full width on mobile -->
-        <div class="md:w-[25%] w-full p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
-
-            <div id="results" class="space-y-4">
-                <!-- Initial help content shown before calculation -->
-                <div id="helpContent">
-                    <h3 class="!text-[16px] font-semibold mb-5">How to get started?</h3>
-                    <ul class="list-disc pl-5 space-y-3 text-sm font-medium">
-                        <li>Start by entering your cell stock volume.</li>
-                        <li>Add your cell count and viability. Ideally perform your count three times.</li>
-                        <li>Select your cell type and the recommended seeding density will be populated.</li>
-                        <li>Choose your vessel format to automatically fill in the surface area and volume.</li>
-                        <li>Include a 10-20% dead volume allowance or adjust based on your workflow.</li>
-                    </ul>
-                </div>
-
-                <!-- Results content hidden initially, shown after calculation -->
-                <div id="resultsContent" class="hidden">
-                    <h2 class="font-semibold mb-2">Results</h2>
-                    <p class="text-sm mb-3">Your results for seeding of <span id="wellCount">XYZ</span> wells</p>
-
-                    <div class="mb-4">
-                        <label class="font-semibold mb-1 block">Volume of media for dilution</label>
-                        <div class=" px-3 py-1 border border-blue-100 ">
-                            <span id="volume_to_dilute" class="font-semibold">9.98</span> mL
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="font-semibold mb-1 block">From your initial cell stock volume,
-                            pipette</label>
-                        <div class=" px-3 py-1 border border-blue-100 ">
-                            <span id="volume_to_seed" class="font-semibold">1.06</span> mL
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="font-semibold  mb-1 block">Add <span id="volume_plate_perwell_simple">XYZ</span> μL
-                            of the final dilution to each well</label>
-                        <p class="mt-1">Review the values below and adjust if needed for your
-                            experiment</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="font-semibold  mb-1 block">Cell density</label>
-                        <div class=" px-3 py-1 border border-blue-100">
-                            <span id="cell_density_formatted" class="font-semibold">1.00 x 10<sup>6</sup></span>
-                            cells/mL
-                        </div>
-                    </div>
-
-                    <!-- Required number of cells - Improve grid for mobile -->
-                    <div class="mb-4">
-                        <label class="font-semibold  mb-1 block">Required number of cells</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <div>
-                                <p class="mb-1">Total</p>
-                                <div class=" px-3 py-1 border border-blue-100 ">
-                                    <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x
-                                        10<sup>6</sup></span> cells
-                                </div>
-                            </div>
-                            <div>
-                                <p class="mb-1">per well</p>
-                                <div class=" px-3 py-1 border border-blue-100 ">
-                                    <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="warnings" class="hidden text-sm border border-[#d4dbe6] px-4 py-3 mb-4">
-                        <div class="flex justify-between text-orange-700">
-                            <svg class="h-5 w-5 text-orange-500 mr-2 flex-shrink-0" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <!-- Download buttons for results -->
-                    <div id="downloadOptions" class="hidden mt-4 !space-y-2">
-                        <button id="downloadExcel"
-                            class="w-full px-4 py-2 text-sm !cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            Download as Excel
-                        </button>
-                        <button id="downloadPdf"
-                            class="w-full px-4 py-2 text-sm btn-grad text-white flex items-center justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                            </svg>
-                            Download as PDF
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <x-ResultSection />
     </div>
     <x-UsefulResources />
 @endsection
