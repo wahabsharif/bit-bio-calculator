@@ -460,7 +460,6 @@
                 <div class="mt-6 flex flex-col md:flex-row items-end justify-between gap-3">
                     <p class="text-[12px] hidden md:block relative -bottom-5">* Required field</p>
                     <div class="md:w-auto w-full">
-                        {{-- <div id="validationErrors" class="hidden w-full sm:w-64 my-2 text-red-700"></div> --}}
                         <button id="calculateBtn"
                             class="btn-grad text-sm w-full sm:w-60 text-white px-4 py-[12px] transition">
                             Calculate results
