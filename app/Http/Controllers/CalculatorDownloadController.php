@@ -114,8 +114,8 @@ class CalculatorDownloadController extends Controller
         // Create Excel file
         $writer = new Xlsx($spreadsheet);
 
-        // Generate a unique filename
-        $filename = 'bit_bio_seeding_calculator_' . date('Y-m-d_H-i-s') . '.xlsx';
+        // Generate a filename with the requested format
+        $filename = 'bit.bio - Cell Seeding Calculation - ' . date('Y-m-d - H-i-s') . '.xlsx';
 
         // Create a temporary file
         $tempFilePath = tempnam(sys_get_temp_dir(), 'excel_');
