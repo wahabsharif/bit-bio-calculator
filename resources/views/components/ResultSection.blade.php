@@ -80,7 +80,7 @@
             <!-- Download buttons for results -->
             <div id="downloadOptions" class="hidden mt-4 !space-y-2">
                 <button id="downloadExcel"
-                    class="w-full px-4 py-2 text-sm !cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 flex items-center justify-center">
+                    class="w-full px-4 py-[9px] text-sm !cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-800 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,7 +89,7 @@
                     Download as Excel
                 </button>
                 <button id="downloadPdf"
-                    class="w-full px-4 py-2 text-sm btn-grad text-white flex items-center justify-center">
+                    class="w-full px-4 py-[9px] text-sm btn-grad text-white flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
