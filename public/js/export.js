@@ -15,7 +15,7 @@ function downloadAsExcel() {
     // Create a form to submit the data
     const form = document.createElement("form");
     form.method = "POST";
-    form.action = "/calculator/download/excel";
+    form.action = "/calculator/download-excel";
     form.style.display = "none";
 
     // Add CSRF token
@@ -45,9 +45,24 @@ function downloadAsExcel() {
         form.appendChild(input);
     });
 
+    // Detect browser timezone
+    let timezone = "UTC";
+    try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz) {
+            timezone = tz;
+        }
+    } catch (e) {
+        console.warn("Could not detect timezone, defaulting to UTC", e);
+    }
+    const tzInput = document.createElement("input");
+    tzInput.type = "hidden";
+    tzInput.name = "timezone";
+    tzInput.value = timezone;
+    form.appendChild(tzInput);
+
     // Submit the form
     document.body.appendChild(form);
-
     try {
         form.submit();
         console.log("Form submitted successfully");

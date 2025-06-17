@@ -8,6 +8,8 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Carbon\Carbon;
+use DateTimeZone;
 
 class CalculatorDownloadController extends Controller
 {
@@ -21,23 +23,33 @@ class CalculatorDownloadController extends Controller
     {
         // Validate the incoming data
         $validated = $request->validate([
-            'cellDensity' => 'required|string',
-            'cellsPerWell' => 'required|string',
-            'requiredCells' => 'required|string',
+            'cellDensity'    => 'required|string',
+            'cellsPerWell'   => 'required|string',
+            'requiredCells'  => 'required|string',
             'volumeToDilute' => 'required|string',
-            'volumeToSeed' => 'required|string',
-            'volumePerWell' => 'required|string',
-            'wellCount' => 'required|string',
+            'volumeToSeed'   => 'required|string',
+            'volumePerWell'  => 'required|string',
+            'wellCount'      => 'required|string',
             'suspensionVolume' => 'nullable|string',
-            'liveCellCount' => 'nullable|string',
-            'cellViability' => 'nullable|string',
-            'cellType' => 'nullable|string',
-            'seedingDensity' => 'nullable|string',
-            'cultureVessel' => 'nullable|string',
-            'surfaceArea' => 'nullable|string',
-            'mediaVolume' => 'nullable|string',
-            'buffer' => 'nullable|string',
+            'liveCellCount'    => 'nullable|string',
+            'cellViability'    => 'nullable|string',
+            'cellType'         => 'nullable|string',
+            'seedingDensity'   => 'nullable|string',
+            'cultureVessel'    => 'nullable|string',
+            'surfaceArea'      => 'nullable|string',
+            'mediaVolume'      => 'nullable|string',
+            'buffer'           => 'nullable|string',
+            'timezone'         => 'nullable|string',
         ]);
+
+        // Determine timezone: validate against PHP supported timezones
+        $tzInput = $validated['timezone'] ?? null;
+        $timezone = config('app.timezone', 'UTC'); // fallback default
+        if (!empty($tzInput)) {
+            // Validate timezone by attempting to create DateTimeZone
+            new DateTimeZone($tzInput);
+            $timezone = $tzInput;
+        }
 
         // Create new spreadsheet
         $spreadsheet = new Spreadsheet();
@@ -49,8 +61,18 @@ class CalculatorDownloadController extends Controller
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
-        // Add generation timestamp
-        $sheet->setCellValue('A2', 'Generated on: ' . now()->toDateTimeString());
+        // Generate now timestamp in user's timezone
+        $now = Carbon::now($timezone);
+        // Format e.g. "17-06-2025 - 2:28 PM"
+        // Note: to avoid invalid filename characters (":"), replace ":" with "-" in time.
+        $datePart = $now->format('d-m-Y');
+        $timePart = $now->format('g:i A'); // e.g. "2:28 PM"
+        // Replace colon for filename safety:
+        $safeTimePart = str_replace(':', '-', $timePart); // yields "2-28 PM"
+        $formattedTimestamp = "{$datePart} - {$safeTimePart}";
+
+        // Add generation timestamp cell (for user information in sheet)
+        $sheet->setCellValue('A2', 'Generated on: ' . $now->toDateTimeString() . ' (' . $timezone . ')');
         $sheet->mergeCells('A2:C2');
         $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
@@ -67,12 +89,12 @@ class CalculatorDownloadController extends Controller
         $sheet->getStyle('A6:C6')->getFill()->setFillType(Fill::FILL_SOLID)->getStartColor()->setRGB('E9EFFD');
 
         // Clean HTML tags from values
-        $cellDensity = $this->cleanScientificNotation($validated['cellDensity']);
-        $requiredCells = $this->cleanScientificNotation($validated['requiredCells']);
-        $cellsPerWell = $this->cleanHtml($validated['cellsPerWell']);
+        $cellDensity    = $this->cleanScientificNotation($validated['cellDensity']);
+        $requiredCells  = $this->cleanScientificNotation($validated['requiredCells']);
+        $cellsPerWell   = $this->cleanHtml($validated['cellsPerWell']);
         $volumeToDilute = $this->cleanHtml($validated['volumeToDilute']);
-        $volumeToSeed = $this->cleanHtml($validated['volumeToSeed']);
-        $volumePerWell = $this->cleanHtml($validated['volumePerWell']);
+        $volumeToSeed   = $this->cleanHtml($validated['volumeToSeed']);
+        $volumePerWell  = $this->cleanHtml($validated['volumePerWell']);
 
         // Add data rows
         $sheet->setCellValue('A7', 'Volume of media for dilution');
@@ -115,7 +137,8 @@ class CalculatorDownloadController extends Controller
         $writer = new Xlsx($spreadsheet);
 
         // Generate a filename with the requested format
-        $filename = 'bit.bio - Cell Seeding Calculation - ' . date('Y-m-d - H-i-s') . '.xlsx';
+        // e.g. "bit.bio - Cell Seeding Calculation - 17-06-2025 - 2-28 PM.xlsx"
+        $filename = 'bit.bio - Cell Seeding Calculation - ' . $formattedTimestamp . '.xlsx';
 
         // Create a temporary file
         $tempFilePath = tempnam(sys_get_temp_dir(), 'excel_');
@@ -148,7 +171,7 @@ class CalculatorDownloadController extends Controller
     {
         // Match pattern like "6.17 x 10<sup>0</sup>" or "6.02 x 10<sup>6</sup>"
         if (preg_match('/([0-9.]+)\s*x\s*10\<sup\>([+-]?[0-9]+)\<\/sup\>/', $value, $matches)) {
-            $base = $matches[1]; // e.g., 6.17
+            $base = $matches[1];    // e.g., 6.17
             $exponent = $matches[2]; // e.g., 0 or 6
 
             // Format in scientific notation that Excel can understand
