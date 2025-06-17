@@ -27,6 +27,7 @@
     <script src="{{ asset('js/calculator/calculator.js') }}"></script>
     <script src="{{ asset('js/calculator/export.js') }}"></script>
     <script src="{{ asset('js/calculator/ui-handlers.js') }}"></script>
+    <script src="{{ asset('js/calculator/tooltip.js') }}"></script>
     <script src="{{ asset('js/calculator/main.js') }}"></script>
 
 </head>

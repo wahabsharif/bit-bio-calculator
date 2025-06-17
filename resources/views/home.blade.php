@@ -43,10 +43,15 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="flex-grow">
-                                        Please refer to the ioCELL user manual for your cell type for guidance on thawing
-                                        and
-                                        recommended initial suspension volume.
+                                    <div class="flex items-start">
+                                        <p> Please refer to the ioCELL user manual for your cell type for guidance on
+                                            thawing and recommended initial suspension volume.</p>
+                                        <button type="button" class=" text-[#96a5b8]">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -94,16 +99,28 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="flex-grow">
-                                        Please count the number of cells using a viability marker. We recommend performing
-                                        the
-                                        count in triplicate. The calculator will automatically calculate the average value.
-                                        If
-                                        you have an outlier, best practice is to re-suspend the cells carefully and repeat
-                                        the
-                                        triplicate count from the beginning. Please do not enter the number of dead cells,
-                                        the
-                                        value should reflect the viable number of cells only.
+                                    <div class="flex items-start">
+                                        <p>
+                                            Please count the number of cells using a viability marker. We recommend
+                                            performing
+                                            the
+                                            count in triplicate. The calculator will automatically calculate the average
+                                            value.
+                                            If
+                                            you have an outlier, best practice is to re-suspend the cells carefully and
+                                            repeat
+                                            the
+                                            triplicate count from the beginning. Please do not enter the number of dead
+                                            cells,
+                                            the
+                                            value should reflect the viable number of cells only.
+                                        </p>
+                                        <button type="button" class=" text-[#96a5b8]">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +169,7 @@
                                     The variability in your live cell count exceeds 10%, we recommend that you re-suspend
                                     your cell suspension and perform a recount.
                                 </p>
-                                <button type="button" class="ml-auto text-[#96a5b8]"
+                                <button type="button" class=" text-[#96a5b8]"
                                     onclick="document.getElementById('cellCountWarning').classList.add('hidden')">
                                     <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -209,7 +226,7 @@
                                     If there is high variability in your cell viability percentage, or if this value is
                                     below 80%, we recommend that you re-suspend your cell suspension and perform a recount.
                                 </p>
-                                <button type="button" class="ml-auto text-[#96a5b8]"
+                                <button type="button" class=" text-[#96a5b8]"
                                     onclick="document.getElementById('viabilityWarning').classList.add('hidden')">
                                     <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -272,12 +289,19 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="flex-grow">
-                                        Please note that the default seeding density has been optimized by bit.bio for
-                                        ioCELLs.
-                                        Changing this value may impact performance. Consider what is needed based on your
-                                        assay
-                                        or application.
+                                    <div class="flex items-start">
+                                        <p> Please note that the default seeding density has been optimized by bit.bio for
+                                            ioCELL.
+                                            Changing this value may impact performance. Consider what is needed based on
+                                            your
+                                            assay
+                                            or application.</p>
+                                        <button type="button" class=" text-[#96a5b8]">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -325,13 +349,22 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="flex-grow">
-                                        Please select the appropriate culture vessel for your experimental setup. The
-                                        options
-                                        and values provided are for reference only based on the most widely used formats—be
-                                        sure
-                                        to confirm them and adjust surface area and volume according to the supplier's
-                                        recommendations.
+                                    <div class="flex items-start">
+                                        <p>
+                                            Please select the appropriate culture vessel for your experimental setup. The
+                                            options
+                                            and values provided are for reference only based on the most widely used
+                                            formats—be
+                                            sure
+                                            to confirm them and adjust surface area and volume according to the supplier's
+                                            recommendations.
+                                        </p>
+                                        <button type="button" class=" text-[#96a5b8]">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -420,11 +453,18 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="flex-grow">
-                                        Include contingency (typically 10–20%) to account for dead volume. If unsure on what
-                                        values to use, you can also change this value to what you'd recommend adding a few
-                                        extra
-                                        wells.
+                                    <div class="flex items-start">
+                                        <p>
+                                            Include contingency (typically 10–20%) to account for dead volume. If unsure on
+                                            what values to use, you can also change this value to what you'd recommend
+                                            adding a few extra wells.
+                                        </p>
+                                        <button type="button" class=" text-[#96a5b8]">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

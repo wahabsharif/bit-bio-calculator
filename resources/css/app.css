@@ -157,10 +157,6 @@ input[type="text"] {
     margin-left: 8px;
 }
 
-.tooltip-container:hover .custom-tooltip {
-    display: block;
-}
-
 .custom-tooltip {
     display: none;
     position: absolute;
@@ -174,6 +170,19 @@ input[type="text"] {
     margin-top: 0.5rem;
     border: 1px solid #d4dbe6;
     color: #8c8c8c;
+}
+
+/* Add styles for the close button */
+.tooltip-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    color: #6d7e93;
+}
+
+.tooltip-close:hover {
+    color: #424b57;
 }
 
 .ui.fluid.dropdown[class] {
