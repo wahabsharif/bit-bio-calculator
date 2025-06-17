@@ -112,31 +112,62 @@ function performCalculation() {
     const avgViab =
         validViabilities.reduce((a, b) => a + b, 0) / validViabilities.length;
 
-    // Cell density
-    const cellDensity = (avgCount * (avgViab / 100)) / suspensionVol;
+    // FIXED CALCULATION 1: Cell density calculation
+    // Input counts are in 10^6 cells/mL format, so multiply by 1,000,000 to get actual cells/mL
+    // Then apply viability percentage and account for suspension volume
+    const cellDensity = (avgCount * 1000000 * (avgViab / 100)) / suspensionVol;
+    // This gives us viable cells/mL in the suspension
 
-    // Cells per well & total required
+    // FIXED CALCULATION 2: Cells per well calculation
     const cellsPerWell = seeding * area;
-    let requiredCells = cellsPerWell * wells;
-    requiredCells *= 1 + bufferPerc / 100;
 
-    // Volume to seed & plate calculations
-    const volToSeed = requiredCells / cellDensity;
-    const totalMedia = mediaVol * wells;
-    const volPlateTotal = totalMedia * (1 + bufferPerc / 100);
-    const volPlatePerWell = mediaVol;
-    const volDilute = volPlateTotal - volToSeed;
+    // FIXED CALCULATION 3: Total required cells calculation
+    let requiredCells = cellsPerWell * wells;
+    requiredCells *= 1 + bufferPerc / 100; // Apply buffer percentage correctly
+
+    // FIXED CALCULATION 4: Volume calculations
+    const volToSeed = requiredCells / cellDensity; // Volume of cell suspension needed (mL)
+    const totalMediaPerWell = mediaVol; // Media volume per well (mL)
+    const totalMediaNeeded = totalMediaPerWell * wells; // Total media for all wells (mL)
+    const totalMediaWithBuffer = totalMediaNeeded * (1 + bufferPerc / 100); // Add buffer to media
+
+    // FIXED CALCULATION 5: Final dilution volume calculation
+    // Total final volume = cell suspension volume + additional media volume
+    const volDilute = totalMediaWithBuffer - volToSeed; // Additional media needed for dilution (mL)
+
+    // Ensure volDilute is not negative
+    if (volDilute < 0) {
+        console.warn(
+            "Warning: Cell suspension volume exceeds total media volume"
+        );
+    }
+
+    // FIXED CALCULATION 6: Volume per well for final step
+    const volPlatePerWell = totalMediaWithBuffer / wells; // Final volume per well (mL)
 
     // Build calculation warnings (not validation errors)
     const warningsArr = [];
-    if (requiredCells > avgCount) {
+
+    // FIXED WARNING LOGIC: Compare total available cells vs required cells
+    const totalAvailableCells = cellDensity * suspensionVol;
+    if (requiredCells > totalAvailableCells) {
         warningsArr.push(
-            "Please Note that the number of live cells available is insufficient for your experimental design. Please review your setup and consider adjustments, such as reducing the number of wells used in the experiment."
+            "Please note that the number of live cells available is insufficient for your experimental design. Please review your setup and consider adjustments, such as reducing the number of wells used in the experiment."
         );
     }
+
     if (bufferPerc === 0) {
         warningsArr.push(
             "⚠️ It is highly recommended to include a buffer to ensure enough cells and media."
+        );
+    }
+
+    // Check if cell suspension volume is too small for accurate pipetting
+    if (volToSeed < 0.1) {
+        warningsArr.push(
+            "The required cell suspension volume is very small (" +
+                volToSeed.toFixed(3) +
+                " mL). Consider using fewer wells or increasing the suspension volume for more accurate pipetting."
         );
     }
 
@@ -169,7 +200,28 @@ function performCalculation() {
     const formatExponential = (num) => {
         const exp = num.toExponential(2);
         const parts = exp.split("e+");
-        return `${parts[0]} x 10<sup>${parts[1]}</sup>`;
+
+        // Map for converting regular digits to superscript Unicode characters
+        const superscriptMap = {
+            0: "⁰",
+            1: "¹",
+            2: "²",
+            3: "³",
+            4: "⁴",
+            5: "⁵",
+            6: "⁶",
+            7: "⁷",
+            8: "⁸",
+            9: "⁹",
+        };
+
+        // Convert each digit in the exponent to its superscript equivalent
+        const superscriptExp = parts[1]
+            .split("")
+            .map((digit) => superscriptMap[digit])
+            .join("");
+
+        return `${parts[0]} x 10${superscriptExp}`;
     };
 
     // Display results in the side panel with null checks
@@ -190,14 +242,15 @@ function performCalculation() {
     );
 
     if (wellCountEl) wellCountEl.textContent = wells;
-    if (volumeToDiluteEl) volumeToDiluteEl.textContent = volDilute.toFixed(2);
+    if (volumeToDiluteEl)
+        volumeToDiluteEl.textContent = Math.max(0, volDilute).toFixed(2);
     if (volumeToSeedEl) volumeToSeedEl.textContent = volToSeed.toFixed(2);
     if (volumePlatePerWellEl)
-        volumePlatePerWellEl.textContent = (volPlatePerWell * 1000).toFixed(0);
+        volumePlatePerWellEl.textContent = (volPlatePerWell * 1000).toFixed(0); // Convert mL to μL
     if (cellDensityFormattedEl)
-        cellDensityFormattedEl.innerHTML = formatExponential(cellDensity);
+        cellDensityFormattedEl.textContent = formatExponential(cellDensity);
     if (requiredCellsFormattedEl)
-        requiredCellsFormattedEl.innerHTML = formatExponential(requiredCells);
+        requiredCellsFormattedEl.textContent = formatExponential(requiredCells);
     if (cellsPerWellFormattedEl) {
         cellsPerWellFormattedEl.textContent = cellsPerWell.toLocaleString(
             undefined,
@@ -236,4 +289,14 @@ function performCalculation() {
 
     // Check cell count variability when calculating
     checkCellCountVariability();
+}
+
+/**
+ * Helper function to parse decimal input that may use comma as decimal separator
+ */
+function parseDecimalInput(value) {
+    if (!value) return 0;
+    // Replace comma with dot for proper parsing
+    const normalizedValue = value.toString().replace(",", ".");
+    return parseFloat(normalizedValue) || 0;
 }

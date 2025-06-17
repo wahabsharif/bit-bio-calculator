@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row mt-4 md:mt-0 justify-between gap-4 mb-[40px]">
         <!-- Main Calculator Form -->
         <div
-            class="md:w-[75%] w-full table-container bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
+            class="md:w-[70%] w-full table-container bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
