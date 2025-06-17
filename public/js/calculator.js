@@ -1,4 +1,71 @@
 /**
+ * Helper function to parse decimal input that may use comma as decimal separator.
+ * Returns a Number or 0 if parsing fails / empty.
+ */
+function parseDecimalInput(value) {
+    if (!value) return 0;
+    // Replace comma with dot for proper parsing
+    const normalizedValue = value.toString().replace(",", ".");
+    return parseFloat(normalizedValue) || 0;
+}
+
+/**
+ * Helper function to format a volume value based on unit:
+ * - If unit is 'uL', return an integer string (no decimal places).
+ * - If unit is 'mL', return a string with two decimal places.
+ * - Otherwise, just return the value as string.
+ *
+ * @param {number} value - numeric value to format
+ * @param {string} unit  - either 'uL' or 'mL'
+ * @returns {string}
+ */
+function formatVolume(value, unit) {
+    if (unit === "uL") {
+        // Round to nearest integer
+        return Math.round(value).toString();
+    } else if (unit === "mL") {
+        // Always show two decimal places
+        return value.toFixed(2);
+    }
+    // Fallback
+    return value.toString();
+}
+
+/**
+ * Formats a number in exponential notation with superscript exponent.
+ * E.g. 1.23e+06 → "1.23 x 10⁶"
+ *
+ * @param {number} num
+ * @returns {string}
+ */
+function formatExponential(num) {
+    const exp = num.toExponential(2);
+    const parts = exp.split("e+");
+
+    // Map for converting digits to superscript Unicode characters
+    const superscriptMap = {
+        0: "⁰",
+        1: "¹",
+        2: "²",
+        3: "³",
+        4: "⁴",
+        5: "⁵",
+        6: "⁶",
+        7: "⁷",
+        8: "⁸",
+        9: "⁹",
+    };
+
+    // Convert each digit in the exponent to superscript
+    const superscriptExp = parts[1]
+        .split("")
+        .map((digit) => superscriptMap[digit] || "")
+        .join("");
+
+    return `${parts[0]} x 10${superscriptExp}`;
+}
+
+/**
  * Performs all calculations and updates the UI with results
  */
 function performCalculation() {
@@ -81,6 +148,7 @@ function performCalculation() {
         return;
     }
 
+    // Parse input values
     const seeding = parseFloat(seedingEl.value) || 0;
     const wells = parseInt(wellsEl.value) || 0;
     const area = parseFloat(areaEl.value) || 0;
@@ -166,7 +234,7 @@ function performCalculation() {
     if (volToSeed < 0.1) {
         warningsArr.push(
             "The required cell suspension volume is very small (" +
-                volToSeed.toFixed(3) +
+                formatVolume(volToSeed, "mL") +
                 " mL). Consider using fewer wells or increasing the suspension volume for more accurate pipetting."
         );
     }
@@ -196,34 +264,6 @@ function performCalculation() {
         warningsDiv.classList.add("hidden");
     }
 
-    // Format numbers for display
-    const formatExponential = (num) => {
-        const exp = num.toExponential(2);
-        const parts = exp.split("e+");
-
-        // Map for converting regular digits to superscript Unicode characters
-        const superscriptMap = {
-            0: "⁰",
-            1: "¹",
-            2: "²",
-            3: "³",
-            4: "⁴",
-            5: "⁵",
-            6: "⁶",
-            7: "⁷",
-            8: "⁸",
-            9: "⁹",
-        };
-
-        // Convert each digit in the exponent to its superscript equivalent
-        const superscriptExp = parts[1]
-            .split("")
-            .map((digit) => superscriptMap[digit])
-            .join("");
-
-        return `${parts[0]} x 10${superscriptExp}`;
-    };
-
     // Display results in the side panel with null checks
     const wellCountEl = document.getElementById("wellCount");
     const volumeToDiluteEl = document.getElementById("volume_to_dilute");
@@ -242,11 +282,20 @@ function performCalculation() {
     );
 
     if (wellCountEl) wellCountEl.textContent = wells;
-    if (volumeToDiluteEl)
-        volumeToDiluteEl.textContent = Math.max(0, volDilute).toFixed(2);
-    if (volumeToSeedEl) volumeToSeedEl.textContent = volToSeed.toFixed(2);
-    if (volumePlatePerWellEl)
-        volumePlatePerWellEl.textContent = (volPlatePerWell * 1000).toFixed(0); // Convert mL to μL
+    if (volumeToDiluteEl) {
+        // volDilute is in mL → show 2 decimal places
+        const val = Math.max(0, volDilute);
+        volumeToDiluteEl.textContent = formatVolume(val, "mL");
+    }
+    if (volumeToSeedEl) {
+        // volToSeed is in mL → show 2 decimal places
+        volumeToSeedEl.textContent = formatVolume(volToSeed, "mL");
+    }
+    if (volumePlatePerWellEl) {
+        // volPlatePerWell in mL, but display in µL without decimals
+        const ulValue = volPlatePerWell * 1000;
+        volumePlatePerWellEl.textContent = formatVolume(ulValue, "uL");
+    }
     if (cellDensityFormattedEl)
         cellDensityFormattedEl.textContent = formatExponential(cellDensity);
     if (requiredCellsFormattedEl)
@@ -263,9 +312,12 @@ function performCalculation() {
     // Update narrative elements
     const narrativeElements = {
         narrativeWellCount: wells,
-        narrativeVolumeSeed: volToSeed.toFixed(2),
-        narrativeVolumeDilute: Math.max(0, volDilute).toFixed(2),
-        narrativeVolumePerWell: (volPlatePerWell * 1000).toFixed(0),
+        // narrativeVolumeSeed in mL → 2 decimal places
+        narrativeVolumeSeed: formatVolume(volToSeed, "mL"),
+        // narrativeVolumeDilute in mL → 2 decimal places, not negative
+        narrativeVolumeDilute: formatVolume(Math.max(0, volDilute), "mL"),
+        // narrativeVolumePerWell in µL → integer
+        narrativeVolumePerWell: formatVolume(volPlatePerWell * 1000, "uL"),
         narrativeCellDensity: formatExponential(cellDensity),
         narrativeCellsPerWell: cellsPerWell.toLocaleString(undefined, {
             maximumFractionDigits: 0,
@@ -281,6 +333,7 @@ function performCalculation() {
     // Setup click-to-copy functionality
     const narrativeText = document.getElementById("narrativeText");
     if (narrativeText) {
+        // To avoid multiple listeners, consider removing existing listener first in real code.
         narrativeText.addEventListener("click", function () {
             const copyIndicator = document.getElementById("copyIndicator");
 
@@ -332,14 +385,4 @@ function performCalculation() {
 
     // Check cell count variability when calculating
     checkCellCountVariability();
-}
-
-/**
- * Helper function to parse decimal input that may use comma as decimal separator
- */
-function parseDecimalInput(value) {
-    if (!value) return 0;
-    // Replace comma with dot for proper parsing
-    const normalizedValue = value.toString().replace(",", ".");
-    return parseFloat(normalizedValue) || 0;
 }
