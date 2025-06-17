@@ -15,7 +15,17 @@
         <!-- Results content hidden initially, shown after calculation -->
         <div id="resultsContent" class="hidden">
             <h2 class="font-semibold mb-2">Results</h2>
-            <p class="text-sm mb-3">Your results for seeding of <span id="wellCount">XYZ</span> wells</p>
+            <div id="narrativeText"
+                class="text-sm p-2 hover:bg-blue-50 cursor-pointer transition-colors rounded relative"
+                title="Click to copy to clipboard">
+                Your results for seeding <span id="narrativeWellCount">XYZ</span> wells, prepare a dilution by
+                combining <span id="narrativeVolumeSeed">0</span> mL of cell stock with <span
+                    id="narrativeVolumeDilute">0</span> mL of media. Add <span id="narrativeVolumePerWell">0</span>
+                μL of the final dilution to each well for a density of <span id="narrativeCellDensity">0</span>
+                cells/mL, resulting in <span id="narrativeCellsPerWell">0</span> cells per well.
+                <span id="copyIndicator"
+                    class="hidden absolute top-2 right-2 text-xs text-green-600 bg-green-100 px-2 py-1 rounded">Copied!</span>
+            </div>
 
             <div class="mb-4">
                 <label class="font-semibold mb-1 block">Volume of media for dilution</label>
@@ -100,5 +110,10 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>

@@ -260,6 +260,49 @@ function performCalculation() {
         );
     }
 
+    // Update narrative elements
+    const narrativeElements = {
+        narrativeWellCount: wells,
+        narrativeVolumeSeed: volToSeed.toFixed(2),
+        narrativeVolumeDilute: Math.max(0, volDilute).toFixed(2),
+        narrativeVolumePerWell: (volPlatePerWell * 1000).toFixed(0),
+        narrativeCellDensity: formatExponential(cellDensity),
+        narrativeCellsPerWell: cellsPerWell.toLocaleString(undefined, {
+            maximumFractionDigits: 0,
+        }),
+    };
+
+    // Update each narrative element
+    Object.entries(narrativeElements).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    });
+
+    // Setup click-to-copy functionality
+    const narrativeText = document.getElementById("narrativeText");
+    if (narrativeText) {
+        narrativeText.addEventListener("click", function () {
+            const copyIndicator = document.getElementById("copyIndicator");
+
+            navigator.clipboard
+                .writeText(this.textContent.trim().replace("Copied!", ""))
+                .then(() => {
+                    // Show the copy indicator
+                    if (copyIndicator) {
+                        copyIndicator.classList.remove("hidden");
+
+                        // Hide the indicator after 2 seconds
+                        setTimeout(() => {
+                            copyIndicator.classList.add("hidden");
+                        }, 2000);
+                    }
+                })
+                .catch((err) => {
+                    console.error("Failed to copy text: ", err);
+                });
+        });
+    }
+
     // Mark all inputs used in calculations as active
     const inputsUsedInCalculation = [
         "seeding_density",
