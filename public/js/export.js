@@ -2,15 +2,12 @@
  * Downloads the results as an Excel file using the server
  */
 function downloadAsExcel() {
-    console.log("Starting Excel download...");
-
     // Prevent multiple downloads
     if (window.isDownloading) return;
     window.isDownloading = true;
 
     // Get result data
     const resultData = getResultData();
-    console.log("Result data:", resultData);
 
     // Create a form to submit the data
     const form = document.createElement("form");
@@ -21,7 +18,14 @@ function downloadAsExcel() {
     // Add CSRF token
     const csrfToken = document
         .querySelector('meta[name="csrf-token"]')
-        .getAttribute("content");
+        ?.getAttribute("content");
+
+    if (!csrfToken) {
+        console.error("CSRF token not found");
+        window.isDownloading = false;
+        return;
+    }
+
     const csrfInput = document.createElement("input");
     csrfInput.type = "hidden";
     csrfInput.name = "_token";
@@ -29,11 +33,11 @@ function downloadAsExcel() {
     form.appendChild(csrfInput);
 
     // Add well count
+    const wellCountEl = document.getElementById("wellCount");
     const wellCountInput = document.createElement("input");
     wellCountInput.type = "hidden";
     wellCountInput.name = "wellCount";
-    wellCountInput.value =
-        document.getElementById("wellCount").textContent || "0";
+    wellCountInput.value = wellCountEl ? wellCountEl.textContent || "0" : "0";
     form.appendChild(wellCountInput);
 
     // Add all result data
@@ -65,7 +69,6 @@ function downloadAsExcel() {
     document.body.appendChild(form);
     try {
         form.submit();
-        console.log("Form submitted successfully");
     } catch (e) {
         console.error("Error submitting form:", e);
     }
