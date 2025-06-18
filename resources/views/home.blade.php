@@ -319,8 +319,7 @@
                     <label for="culture_vessel" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                viewBox="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
                                 <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                                     font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -336,7 +335,7 @@
                                 <div class="flex justify-between items-start space-x-1">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                            viewBox="http://www.w3.org/2000/svg">
+                                            viewBox="0,0,256,256">
                                             <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
                                                 stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                                 stroke-dasharray="" stroke-dashoffset="0" font-family="none"
@@ -424,8 +423,7 @@
                     <label for="buffer" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                viewBox="http://www.w3.org/2000/svg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
                                 <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                                     font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -441,7 +439,7 @@
                                 <div class="flex justify-between items-start space-x-1">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                            viewBox="http://www.w3.org/2000/svg">
+                                            viewBox="0,0,256,256">
                                             <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
                                                 stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                                 stroke-dasharray="" stroke-dashoffset="0" font-family="none"
