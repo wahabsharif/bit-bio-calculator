@@ -383,8 +383,18 @@ input[type="text"] {
     #viabilityWarning,
     #cellCountWarning,
     .no-print,
-    button {
+    button,
+    #warnings,
+    #warnings.hidden {
         display: none !important;
+        border: none !important;
+    }
+
+    /* Also hide empty warning containers */
+    #warnings:empty,
+    div[id="warnings"]:not(:has(*)) {
+        display: none !important;
+        border: none !important;
     }
 
     /* Show print-only elements */
