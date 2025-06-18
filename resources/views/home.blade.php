@@ -131,14 +131,14 @@
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
                                 <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" required
-                                    class="px-2 pt-1 pb-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    class="px-2 pt-1 pb-1 w-28 text-right bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
                                     cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
                                 <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
-                                    class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
                                 </div>
@@ -146,7 +146,7 @@
                             <div>
                                 <div class="mb-1">Count 3</div>
                                 <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
-                                    class="px-3 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
                                 </div>

@@ -123,7 +123,6 @@ input[type="number"] {
 }
 input[type="text"] {
     padding: 6px 15px;
-    text-align: right;
 }
 
 .search-option {
