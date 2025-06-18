@@ -60,6 +60,20 @@
             </script>
         @endif
 
+        <!-- Sweet Alert Error Message -->
+        @if (session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "{{ session('error') }}",
+                        confirmButtonColor: "#3085d6"
+                    });
+                });
+            </script>
+        @endif
+
         <!-- Header & Controls -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 space-y-4 sm:space-y-0">
             <h1 class="text-xl sm:text-2xl font-semibold text-gray-800">Culture Vessels Management</h1>

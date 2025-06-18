@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Illuminate\Database\QueryException;
 
 class ProductsController extends Controller
 {
@@ -93,10 +94,56 @@ class ProductsController extends Controller
 
             return redirect()->route('dashboard.products')
                 ->with('success', count($importedData) . ' Products imported successfully!');
-        } catch (\Exception $e) {
+        } catch (QueryException $e) {
+            // Format database errors in a user-friendly way
+            $errorMessage = $this->formatDatabaseError($e);
             return redirect()->back()
-                ->with('error', 'Error importing products: ' . $e->getMessage());
+                ->with('error', $errorMessage);
+        } catch (\Exception $e) {
+            // Handle other errors
+            return redirect()->back()
+                ->with('error', 'Error importing products: ' . $this->simplifyErrorMessage($e->getMessage()));
         }
+    }
+
+    /**
+     * Format database errors in a user-friendly way
+     */
+    private function formatDatabaseError(QueryException $e): string
+    {
+        $message = $e->getMessage();
+
+        // Handle numeric value out of range error
+        if (
+            strpos($message, 'Numeric value out of range') !== false &&
+            strpos($message, 'seeding_density') !== false
+        ) {
+            return 'One or more seeding density values are too large. Please use smaller numbers.';
+        }
+
+        // Handle duplicate entry error
+        if (strpos($message, 'Duplicate entry') !== false) {
+            return 'One or more products have duplicate SKUs. Each product must have a unique SKU.';
+        }
+
+        // Generic database error
+        return 'Database error while importing products. Please check your data and try again.';
+    }
+
+    /**
+     * Simplify error messages by removing technical details
+     */
+    private function simplifyErrorMessage(string $message): string
+    {
+        // Remove HTML entities
+        $message = html_entity_decode($message);
+
+        // Remove SQL query details if present
+        if (strpos($message, 'SQL:') !== false) {
+            $message = substr($message, 0, strpos($message, 'SQL:'));
+        }
+
+        return trim($message);
     }
 
     // Helper method to process imported data

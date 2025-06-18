@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Illuminate\Database\QueryException;
 
 class CultureVesselController extends Controller
 {
@@ -130,10 +131,59 @@ class CultureVesselController extends Controller
 
             return redirect()->route('dashboard.culture-vessels')
                 ->with('success', $message);
-        } catch (\Exception $e) {
+        } catch (QueryException $e) {
+            // Format database errors in a user-friendly way
+            $errorMessage = $this->formatDatabaseError($e);
             return redirect()->back()
-                ->with('error', 'Error importing culture-vessels: ' . $e->getMessage());
+                ->with('error', $errorMessage);
+        } catch (\Exception $e) {
+            // Handle other errors
+            return redirect()->back()
+                ->with('error', 'Error importing culture vessels: ' . $this->simplifyErrorMessage($e->getMessage()));
         }
+    }
+
+    /**
+     * Format database errors in a user-friendly way
+     */
+    private function formatDatabaseError(QueryException $e): string
+    {
+        $message = $e->getMessage();
+
+        // Handle numeric value out of range error
+        if (strpos($message, 'Numeric value out of range') !== false) {
+            if (strpos($message, 'surface_area_cm2') !== false) {
+                return 'One or more surface area values are too large. Please use smaller numbers.';
+            }
+            if (strpos($message, 'media_volume_per_well_ml') !== false) {
+                return 'One or more media volume values are too large. Please use smaller numbers.';
+            }
+            return 'One or more numeric values are too large. Please use smaller numbers.';
+        }
+
+        // Handle duplicate entry error
+        if (strpos($message, 'Duplicate entry') !== false) {
+            return 'One or more vessels have duplicate plate formats. Each vessel must have a unique format.';
+        }
+
+        // Generic database error
+        return 'Database error while importing vessels. Please check your data and try again.';
+    }
+
+    /**
+     * Simplify error messages by removing technical details
+     */
+    private function simplifyErrorMessage(string $message): string
+    {
+        // Remove HTML entities
+        $message = html_entity_decode($message);
+
+        // Remove SQL query details if present
+        if (strpos($message, 'SQL:') !== false) {
+            $message = substr($message, 0, strpos($message, 'SQL:'));
+        }
+
+        return trim($message);
     }
 
     // Fixed helper method to process imported data
