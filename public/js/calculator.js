@@ -250,7 +250,7 @@ function performCalculation() {
                     </svg>
                 </div>
                 <p class="flex-grow mx-2">${msg}</p>
-                <button type="button" class="ml-auto text-[#96a5b8]" onclick="document.getElementById('warning-${index}').remove()">
+                <button type="button" class="ml-auto text-[#96a5b8]" onclick="document.getElementById('warning-${index}').remove(); checkRemainingWarnings();">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -385,4 +385,20 @@ function performCalculation() {
 
     // Check cell count variability when calculating
     checkCellCountVariability();
+}
+
+/**
+ * Checks if there are any remaining warnings and hides the container if empty
+ */
+function checkRemainingWarnings() {
+    const warningsDiv = document.getElementById("warnings");
+    if (!warningsDiv) return;
+
+    // Get all warning elements inside the warnings div
+    const remainingWarnings = warningsDiv.querySelectorAll('[id^="warning-"]');
+
+    // If no warnings remain, hide the container
+    if (remainingWarnings.length === 0) {
+        warningsDiv.classList.add("hidden");
+    }
 }
