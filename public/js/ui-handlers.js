@@ -12,6 +12,22 @@ function populateCellTypes(types) {
     const menu = dropdown.find(".menu");
     menu.empty();
 
+    // Check if "Other" exists in API data
+    const hasOtherInAPI = types.some(
+        (type) =>
+            type.product_name && type.product_name.toLowerCase() === "other"
+    );
+
+    // Add hardcoded "Other" option only if not available from API
+    if (!hasOtherInAPI) {
+        const otherOpt = document.createElement("div");
+        otherOpt.className = "item";
+        otherOpt.setAttribute("data-value", "other");
+        otherOpt.setAttribute("data-seeding-density", "");
+        otherOpt.textContent = "Other";
+        menu.append(otherOpt);
+    }
+
     types.forEach((type) => {
         const opt = document.createElement("div");
         opt.className = "item";
@@ -31,14 +47,29 @@ function populateCellTypes(types) {
             const seedingInput = document.getElementById("seeding_density");
             if (
                 value &&
+                value !== "other" &&
                 $selectedItem &&
                 $selectedItem.attr("data-seeding-density")
             ) {
+                // Set flag to prevent manual input logic from triggering
+                seedingInput._programmaticSet = true;
                 seedingInput.value = $selectedItem.attr("data-seeding-density");
                 seedingInput.classList.add("default-input");
                 seedingInput.classList.remove("active-input");
+                // Reset flag after a short delay
+                setTimeout(() => {
+                    seedingInput._programmaticSet = false;
+                }, 50);
+            } else if (value === "other") {
+                // Don't auto-fill seeding density for "Other"
+                seedingInput.classList.remove("default-input");
+                seedingInput.classList.add("active-input");
             } else {
+                seedingInput._programmaticSet = true;
                 seedingInput.value = "";
+                setTimeout(() => {
+                    seedingInput._programmaticSet = false;
+                }, 50);
             }
         },
     });
@@ -58,17 +89,63 @@ function populateCultureVessels(vessels) {
     const menu = dropdown.find(".menu");
     menu.empty();
 
+    // Improved check if "Other" exists in API data - more robust case-insensitive check
+    const hasOtherInAPI = vessels.some(
+        (vessel) =>
+            vessel.plate_format &&
+            (vessel.plate_format.toLowerCase() === "other" ||
+                vessel.plate_format.toLowerCase().includes("other"))
+    );
+
+    // Add hardcoded "Other" option only if not available from API
+    if (!hasOtherInAPI) {
+        const otherOpt = document.createElement("div");
+        otherOpt.className = "item";
+        otherOpt.setAttribute("data-value", "other");
+        otherOpt.setAttribute("data-surface-area", "");
+        otherOpt.setAttribute("data-media-volume", "");
+        otherOpt.textContent = "Other";
+        menu.append(otherOpt);
+    }
+
+    // Track if we've added any option with "other" as the value attribute
+    let hasOtherValue = false;
+
     vessels.forEach((v) => {
         const opt = document.createElement("div");
         opt.className = "item";
-        opt.setAttribute("data-value", v.id);
+
+        // Special handling for "Other" option from API
+        if (v.plate_format && v.plate_format.toLowerCase() === "other") {
+            opt.setAttribute("data-value", "other");
+            hasOtherValue = true;
+        } else {
+            opt.setAttribute("data-value", v.id);
+        }
+
         opt.setAttribute("data-surface-area", v.surface_area_cm2);
         opt.setAttribute("data-media-volume", v.media_volume_per_well_ml);
-        // Display plate_format, but if you want other searchable metadata,
-        // you could include it in text or a data attribute that dropdown can search.
         opt.textContent = v.plate_format;
         menu.append(opt);
     });
+
+    // If we didn't add an "other" value option from the API but we need one
+    if (!hasOtherValue && !hasOtherInAPI) {
+        const otherOpt = document.createElement("div");
+        otherOpt.className = "item";
+        otherOpt.setAttribute("data-value", "other");
+        otherOpt.setAttribute("data-surface-area", "");
+        otherOpt.setAttribute("data-media-volume", "");
+        otherOpt.textContent = "Other";
+        menu.append(otherOpt);
+    }
+
+    // Remove any duplicate "Other" options
+    const otherOptions = menu.find('.item[data-value="other"]');
+    if (otherOptions.length > 1) {
+        // Keep only the first one
+        otherOptions.slice(1).remove();
+    }
 
     const surfaceAreaInput = document.getElementById("surface_area");
     const mediaVolumeInput = document.getElementById("media_volume");
@@ -78,30 +155,263 @@ function populateCultureVessels(vessels) {
         fullTextSearch: true,
         match: "both",
         onChange: function (value, text, $selectedItem) {
-            if (value && $selectedItem) {
+            if (value && value !== "other" && $selectedItem) {
                 const surfaceArea = $selectedItem.attr("data-surface-area");
                 const mediaVolume = $selectedItem.attr("data-media-volume");
 
-                if (surfaceArea !== "null") {
+                if (surfaceArea && surfaceArea !== "null") {
+                    surfaceAreaInput._programmaticSet = true;
                     surfaceAreaInput.value = surfaceArea;
                     surfaceAreaInput.classList.add("default-input");
                     surfaceAreaInput.classList.remove("active-input");
+                    setTimeout(() => {
+                        surfaceAreaInput._programmaticSet = false;
+                    }, 50);
                 } else {
+                    surfaceAreaInput._programmaticSet = true;
                     surfaceAreaInput.value = "";
+                    setTimeout(() => {
+                        surfaceAreaInput._programmaticSet = false;
+                    }, 50);
                 }
 
-                if (mediaVolume !== "null") {
+                if (mediaVolume && mediaVolume !== "null") {
+                    mediaVolumeInput._programmaticSet = true;
                     mediaVolumeInput.value = mediaVolume;
                     mediaVolumeInput.classList.add("default-input");
                     mediaVolumeInput.classList.remove("active-input");
+                    setTimeout(() => {
+                        mediaVolumeInput._programmaticSet = false;
+                    }, 50);
                 } else {
+                    mediaVolumeInput._programmaticSet = true;
                     mediaVolumeInput.value = "";
+                    setTimeout(() => {
+                        mediaVolumeInput._programmaticSet = false;
+                    }, 50);
                 }
+            } else if (value === "other") {
+                // Don't auto-fill surface area and media volume for "Other"
+                surfaceAreaInput.classList.remove("default-input");
+                surfaceAreaInput.classList.add("active-input");
+                mediaVolumeInput.classList.remove("default-input");
+                mediaVolumeInput.classList.add("active-input");
             } else {
+                surfaceAreaInput._programmaticSet = true;
                 surfaceAreaInput.value = "";
+                mediaVolumeInput._programmaticSet = true;
                 mediaVolumeInput.value = "";
+                setTimeout(() => {
+                    surfaceAreaInput._programmaticSet = false;
+                    mediaVolumeInput._programmaticSet = false;
+                }, 50);
             }
         },
+    });
+}
+
+/**
+ * Handles manual input in seeding density field
+ */
+/**
+ * Handles manual input in seeding density field
+ */
+function handleSeedingDensityManualInput() {
+    const seedingInput = document.getElementById("seeding_density");
+    const cellTypeDropdown = $("#cell_type_dropdown");
+
+    let typingTimeout;
+
+    // Track when user starts typing manually
+    seedingInput.addEventListener("input", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // Clear any existing timeout
+        clearTimeout(typingTimeout);
+
+        // Update styling immediately
+        this.classList.remove("default-input");
+        this.classList.add("active-input");
+
+        // Set a timeout to handle the "Other" selection after user stops typing
+        typingTimeout = setTimeout(() => {
+            if (this.value.trim() !== "") {
+                // Set cell type dropdown to "Other"
+                cellTypeDropdown.dropdown("set selected", "other");
+            }
+        }, 50);
+    });
+
+    // Also handle focus event to update styling
+    seedingInput.addEventListener("focus", function () {
+        if (!this._programmaticSet) {
+            this.classList.remove("default-input");
+            this.classList.add("active-input");
+        }
+    });
+
+    // Handle keydown for immediate clearing behavior
+    seedingInput.addEventListener("keydown", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // If a number key is pressed and no text is selected, clear field
+        if (
+            ((e.key >= "0" && e.key <= "9") ||
+                e.key === "." ||
+                e.key === ",") &&
+            this.selectionStart === this.selectionEnd &&
+            this.selectionStart > 0
+        ) {
+            this.value = "";
+        }
+    });
+}
+
+/**
+ * Handles manual input in surface area field
+ */
+function handleSurfaceAreaManualInput() {
+    const surfaceAreaInput = document.getElementById("surface_area");
+    const cultureVesselDropdown = $("#culture_vessel_dropdown");
+
+    let typingTimeout;
+
+    // Track when user starts typing manually
+    surfaceAreaInput.addEventListener("input", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // Clear any existing timeout
+        clearTimeout(typingTimeout);
+
+        // Update styling immediately
+        this.classList.remove("default-input");
+        this.classList.add("active-input");
+
+        // Set a timeout to handle the "Other" selection after user stops typing
+        typingTimeout = setTimeout(() => {
+            if (this.value.trim() !== "") {
+                // Improved approach to set culture vessel dropdown to "Other"
+                // First ensure the "other" option exists
+                const otherExists =
+                    cultureVesselDropdown.find('.item[data-value="other"]')
+                        .length > 0;
+
+                if (otherExists) {
+                    // Set culture vessel dropdown to "Other" - using more direct method
+                    cultureVesselDropdown.dropdown("set selected", "other");
+                } else {
+                    // If "other" option doesn't exist in dropdown, try adding it
+                    const menu = cultureVesselDropdown.find(".menu");
+                    const otherOpt = document.createElement("div");
+                    otherOpt.className = "item";
+                    otherOpt.setAttribute("data-value", "other");
+                    otherOpt.setAttribute("data-surface-area", "");
+                    otherOpt.setAttribute("data-media-volume", "");
+                    otherOpt.textContent = "Other";
+                    menu.append(otherOpt);
+
+                    // Now set it as selected
+                    cultureVesselDropdown.dropdown("refresh");
+                    cultureVesselDropdown.dropdown("set selected", "other");
+                }
+            }
+        }, 50);
+    });
+
+    // Also handle focus event to update styling
+    surfaceAreaInput.addEventListener("focus", function () {
+        if (!this._programmaticSet) {
+            this.classList.remove("default-input");
+            this.classList.add("active-input");
+        }
+    });
+
+    // Handle keydown for immediate clearing behavior
+    surfaceAreaInput.addEventListener("keydown", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // If a number key is pressed and no text is selected, clear field
+        if (
+            ((e.key >= "0" && e.key <= "9") ||
+                e.key === "." ||
+                e.key === ",") &&
+            this.selectionStart === this.selectionEnd &&
+            this.selectionStart > 0
+        ) {
+            this.value = "";
+        }
+    });
+}
+
+/**
+ * Handles manual input in media volume field
+ */
+function handleMediaVolumeManualInput() {
+    const mediaVolumeInput = document.getElementById("media_volume");
+    const cultureVesselDropdown = $("#culture_vessel_dropdown");
+
+    let typingTimeout;
+
+    // Track when user starts typing manually
+    mediaVolumeInput.addEventListener("input", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // Clear any existing timeout
+        clearTimeout(typingTimeout);
+
+        // Update styling immediately
+        this.classList.remove("default-input");
+        this.classList.add("active-input");
+
+        // Set a timeout to handle the "Other" selection after user stops typing
+        typingTimeout = setTimeout(() => {
+            if (this.value.trim() !== "") {
+                // Set culture vessel dropdown to "Other"
+                cultureVesselDropdown.dropdown("set selected", "other");
+            }
+        }, 500); // Wait 500ms after user stops typing
+    });
+
+    // Also handle focus event to update styling
+    mediaVolumeInput.addEventListener("focus", function () {
+        if (!this._programmaticSet) {
+            this.classList.remove("default-input");
+            this.classList.add("active-input");
+        }
+    });
+
+    // Handle keydown for immediate clearing behavior
+    mediaVolumeInput.addEventListener("keydown", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        // If a number key is pressed and no text is selected, clear field
+        if (
+            ((e.key >= "0" && e.key <= "9") ||
+                e.key === "." ||
+                e.key === ",") &&
+            this.selectionStart === this.selectionEnd &&
+            this.selectionStart > 0
+        ) {
+            this.value = "";
+        }
     });
 }
 
@@ -131,9 +441,13 @@ function resetCalculator() {
             }
         });
 
-    // Reset select elements
+    // Reset select elements and Semantic UI dropdowns
     document.getElementById("cell_type").value = "";
     document.getElementById("culture_vessel").value = "";
+
+    // Reset Semantic UI dropdowns
+    $("#cell_type_dropdown").dropdown("clear");
+    $("#culture_vessel_dropdown").dropdown("clear");
 
     // Hide results and show help content
     document.getElementById("resultsContent").classList.add("hidden");
@@ -195,6 +509,11 @@ function setupEventListeners() {
             }
         });
     });
+
+    // Setup manual input handling for all relevant fields
+    handleSeedingDensityManualInput();
+    handleSurfaceAreaManualInput();
+    handleMediaVolumeManualInput();
 
     // Add listeners for calculate, reset, recalculate buttons
     const calculateBtn = document.getElementById("calculateBtn");
