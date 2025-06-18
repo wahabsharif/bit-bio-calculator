@@ -61,3 +61,110 @@ function parseDecimalInput(value) {
     const result = parseFloat(normalized);
     return isNaN(result) ? NaN : result;
 }
+
+/**
+ * Removes error styling from an input field
+ * @param {HTMLElement} input - The input element to clear errors from
+ */
+function clearFieldError(input) {
+    if (!input) return;
+
+    input.classList.remove("border-red-500");
+
+    // Handle dropdown errors based on input ID
+    const inputId = input.id;
+    if (inputId === "cell_type") {
+        const dd = document.querySelector("#cell_type_dropdown");
+        if (dd) dd.classList.remove("error");
+    } else if (inputId === "culture_vessel") {
+        const dd = document.querySelector("#culture_vessel_dropdown");
+        if (dd) dd.classList.remove("error");
+    }
+}
+
+/**
+ * Validates a single field and returns whether it's valid
+ * @param {HTMLElement} input - The input element to validate
+ * @returns {boolean} True if field is valid, false otherwise
+ */
+function isFieldValid(input) {
+    if (!input) return false;
+
+    const rawValue = input.value;
+    const numValue = parseDecimalInput(rawValue);
+
+    // Field is valid if it's not empty, not NaN, and not zero
+    return rawValue.trim() !== "" && !isNaN(numValue) && numValue !== 0;
+}
+
+/**
+ * Initialize real-time validation for all required fields
+ * Call this function when the page loads
+ */
+function initializeFieldValidation() {
+    const requiredFieldIds = [
+        "suspension_volume",
+        "seeding_density",
+        "surface_area",
+        "media_volume",
+        "num_wells",
+        "count1",
+        "viability1",
+    ];
+
+    requiredFieldIds.forEach((fieldId) => {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+
+        // Add event listeners for real-time validation
+        ["input", "change", "keyup"].forEach((eventType) => {
+            input.addEventListener(eventType, function () {
+                // If the field currently has an error and user is typing
+                if (this.classList.contains("border-red-500")) {
+                    // Check if the field is now valid
+                    if (isFieldValid(this)) {
+                        clearFieldError(this);
+                    }
+                }
+            });
+        });
+
+        // Special handling for blur event to re-validate
+        input.addEventListener("blur", function () {
+            if (this.classList.contains("border-red-500")) {
+                if (isFieldValid(this)) {
+                    clearFieldError(this);
+                }
+            }
+        });
+    });
+
+    // Handle dropdown changes for Semantic UI dropdowns
+    // This assumes you're using Semantic UI dropdowns
+    if (typeof $ !== "undefined" && $.fn.dropdown) {
+        $("#cell_type_dropdown").dropdown({
+            onChange: function (value) {
+                if (value && value.trim() !== "") {
+                    const dd = document.querySelector("#cell_type_dropdown");
+                    if (dd) dd.classList.remove("error");
+                }
+            },
+        });
+
+        $("#culture_vessel_dropdown").dropdown({
+            onChange: function (value) {
+                if (value && value.trim() !== "") {
+                    const dd = document.querySelector(
+                        "#culture_vessel_dropdown"
+                    );
+                    if (dd) dd.classList.remove("error");
+                }
+            },
+        });
+    }
+}
+
+// Call this when the DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+    initializeFieldValidation();
+});
