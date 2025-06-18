@@ -203,8 +203,11 @@ class CultureVesselController extends Controller
 
         // Set headers
         $sheet->setCellValue('A1', 'Plate Format');
-        $sheet->setCellValue('B1', 'Surface Area cm2');
-        $sheet->setCellValue('C1', 'Media Volume Per Well ml');
+        $sheet->setCellValue('B1', 'Surface area (cm2)');
+        $sheet->setCellValue('C1', 'Media volume/well (mL)');
+
+        // Format headers - make them bold with font size 12
+        $sheet->getStyle('A1:C1')->getFont()->setBold(true)->setSize(12);
 
         // Add data rows
         $row = 2;
@@ -213,6 +216,11 @@ class CultureVesselController extends Controller
             $sheet->setCellValue('B' . $row, $cultureVessel->surface_area_cm2);
             $sheet->setCellValue('C' . $row, $cultureVessel->media_volume_per_well_ml);
             $row++;
+        }
+
+        // Auto-size columns to fit content
+        foreach (range('A', 'C') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
         }
 
         // Create Excel file

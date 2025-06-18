@@ -158,7 +158,10 @@ class ProductsController extends Controller
         // Set headers
         $sheet->setCellValue('A1', 'Product Name');
         $sheet->setCellValue('B1', 'SKU');
-        $sheet->setCellValue('C1', 'Seeding Density');
+        $sheet->setCellValue('C1', 'Recommended seeding density (cells/cm2)');
+
+        // Format headers - make them bold with font size 12
+        $sheet->getStyle('A1:C1')->getFont()->setBold(true)->setSize(12);
 
         // Add data rows
         $row = 2;
@@ -167,6 +170,17 @@ class ProductsController extends Controller
             $sheet->setCellValue('B' . $row, $product->sku);
             $sheet->setCellValue('C' . $row, $product->seeding_density);
             $row++;
+        }
+
+        // Format numbers in column C with thousands separator (xxx,xxx)
+        $lastRow = $row - 1;
+        if ($lastRow >= 2) {
+            $sheet->getStyle('C2:C' . $lastRow)->getNumberFormat()->setFormatCode('#,##0');
+        }
+
+        // Auto-size columns to fit content
+        foreach (range('A', 'C') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
         }
 
         // Create Excel file
