@@ -15,6 +15,14 @@ function validateRequiredFields() {
     ];
 
     const missingFields = [];
+    const negativeValueFields = [];
+    const percentageOverLimitFields = [];
+    const percentageFields = [
+        "viability1",
+        "viability2",
+        "viability3",
+        "buffer",
+    ];
 
     requiredFields.forEach((field) => {
         const input = document.getElementById(field.id);
@@ -35,18 +43,94 @@ function validateRequiredFields() {
                 if (dd) dd.classList.add("error");
             }
         } else {
-            input.classList.remove("border-red-500");
-            if (field.id === "cell_type") {
-                const dd = document.querySelector("#cell_type_dropdown");
-                if (dd) dd.classList.remove("error");
-            } else if (field.id === "culture_vessel") {
-                const dd = document.querySelector("#culture_vessel_dropdown");
-                if (dd) dd.classList.remove("error");
+            // Check for negative values
+            if (numValue < 0) {
+                negativeValueFields.push(field.name);
+                input.classList.add("border-red-500");
+            }
+            // Check for percentage fields over 100%
+            else if (percentageFields.includes(field.id) && numValue > 100) {
+                percentageOverLimitFields.push(field.name);
+                input.classList.add("border-red-500");
+            } else {
+                input.classList.remove("border-red-500");
+                if (field.id === "cell_type") {
+                    const dd = document.querySelector("#cell_type_dropdown");
+                    if (dd) dd.classList.remove("error");
+                } else if (field.id === "culture_vessel") {
+                    const dd = document.querySelector(
+                        "#culture_vessel_dropdown"
+                    );
+                    if (dd) dd.classList.remove("error");
+                }
             }
         }
     });
 
+    // Check non-required fields as well for negative values and percentage limits
+    const allInputs = document.querySelectorAll(
+        'input[type="number"], input[type="text"][inputmode="decimal"]'
+    );
+    allInputs.forEach((input) => {
+        if (requiredFields.some((field) => field.id === input.id)) return; // Skip required fields, already checked
+
+        const rawValue = input.value;
+        if (rawValue.trim() === "") return; // Skip empty fields
+
+        const numValue = parseDecimalInput(rawValue);
+        if (isNaN(numValue)) return; // Skip non-numeric values
+
+        const fieldName = input.previousElementSibling?.textContent || input.id;
+
+        // Check for negative values
+        if (numValue < 0) {
+            negativeValueFields.push(fieldName);
+            input.classList.add("border-red-500");
+        }
+        // Check for percentage fields over 100%
+        else if (percentageFields.includes(input.id) && numValue > 100) {
+            percentageOverLimitFields.push(fieldName);
+            input.classList.add("border-red-500");
+        }
+    });
+
+    // Display error messages if needed
+    if (negativeValueFields.length > 0) {
+        showValidationError("Please do not include negative numbers");
+        return []; // Return empty to prevent calculation
+    }
+
+    if (percentageOverLimitFields.length > 0) {
+        showValidationError(
+            "Your percentage value is higher than 100%, please confirm your values"
+        );
+        return []; // Return empty to prevent calculation
+    }
+
     return missingFields;
+}
+
+/**
+ * Shows a validation error message
+ * @param {string} message - The error message to display
+ */
+function showValidationError(message) {
+    const validationErrors = document.getElementById("validationErrors");
+    if (!validationErrors) return;
+
+    const errorsList = validationErrors.querySelector("ul");
+    if (!errorsList) return;
+
+    // Clear existing errors
+    errorsList.innerHTML = "";
+
+    // Add the error message
+    const errorItem = document.createElement("li");
+    errorItem.textContent = message;
+    errorsList.appendChild(errorItem);
+
+    // Show the validation errors section
+    validationErrors.classList.remove("hidden");
 }
 
 /**

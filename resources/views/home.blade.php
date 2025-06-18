@@ -58,7 +58,7 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1">
-                        <input id="suspension_volume" type="number" step="0.01" value="1"
+                        <input id="suspension_volume" type="number" step="0.01" min="0" value="1"
                             class="pl-3 w-28 bg-white text-right border px-2 md:px-0 border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL</span>
                     </div>
@@ -190,21 +190,21 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="viability1" type="number" step="0.1" value="100"
+                                <input id="viability1" type="number" step="0.1" min="0" max="100" value="100"
                                     class="px-2 pt-1 pb-1 w-28 text-sm bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 2</div>
-                                <input id="viability2" type="number" step="0.1"
+                                <input id="viability2" type="number" step="0.1" min="0" max="100"
                                     class="px-2 pt-1 pb-1 w-28 text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 3</div>
-                                <input id="viability3" type="number" step="0.1"
+                                <input id="viability3" type="number" step="0.1" min="0" max="100"
                                     class="px-2 pt-1 pb-1 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
@@ -308,7 +308,7 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1">
-                        <input id="seeding_density" type="number"
+                        <input id="seeding_density" type="number" min="0"
                             class="w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">cells/cm²</span>
                     </div>
@@ -388,7 +388,7 @@
                         Surface area <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="surface_area" type="number" step="0.01"
+                        <input id="surface_area" type="number" step="0.01" min="0"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">cm²/well</span>
                     </div>
@@ -400,7 +400,7 @@
                         Volume <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="media_volume" type="number" step="0.01"
+                        <input id="media_volume" type="number" step="0.01" min="0"
                             class=" w-28 bg-white border border-[#d3dbe6] text-right px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL/well</span>
                     </div>
@@ -412,7 +412,7 @@
                         Number of wells to seed <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="num_wells" type="number" value="96"
+                        <input id="num_wells" type="number" value="96" min="1"
                             class="w-28 bg-white text-right border px-2 border-[#d3dbe6] md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">wells</span>
                     </div>
@@ -471,7 +471,7 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="buffer" type="number" step="0.1" value="10"
+                        <input id="buffer" type="number" step="0.1" value="10" min="0" max="100"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm text-left ">%</span>
                     </div>

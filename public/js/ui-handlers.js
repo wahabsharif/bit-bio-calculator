@@ -495,6 +495,25 @@ function setupEventListeners() {
         input.addEventListener("input", function () {
             this.classList.remove("default-input");
             this.classList.add("active-input");
+
+            // Enforce min/max constraints for direct input
+            if (
+                this.hasAttribute("min") &&
+                parseFloat(this.value) < parseFloat(this.getAttribute("min"))
+            ) {
+                this.value = this.getAttribute("min");
+                showValidationError("Please do not include negative numbers");
+            }
+
+            if (
+                this.hasAttribute("max") &&
+                parseFloat(this.value) > parseFloat(this.getAttribute("max"))
+            ) {
+                this.value = this.getAttribute("max");
+                showValidationError(
+                    "Your percentage value is higher than 100%, please confirm your values"
+                );
+            }
         });
 
         input.addEventListener("focus", function () {
@@ -520,21 +539,79 @@ function setupEventListeners() {
         });
     });
 
+    // Handle text inputs with decimal mode (count1, count2, count3)
+    const decimalInputs = document.querySelectorAll(
+        'input[type="text"][inputmode="decimal"]'
+    );
+    decimalInputs.forEach((input) => {
+        input.addEventListener("input", function () {
+            const value = parseDecimalInput(this.value);
+            if (!isNaN(value) && value < 0) {
+                this.value = "0";
+                showValidationError("Please do not include negative numbers");
+            }
+        });
+    });
+
     // Setup manual input handling for all relevant fields
     handleSeedingDensityManualInput();
     handleSurfaceAreaManualInput();
     handleMediaVolumeManualInput();
 
-    // Add listeners for calculate, reset, recalculate buttons
+    // Add calculate button click handler with validation
     const calculateBtn = document.getElementById("calculateBtn");
+    if (calculateBtn) {
+        calculateBtn.addEventListener("click", function () {
+            // First check for negative numbers or percentage over 100
+            const allInputs = document.querySelectorAll(
+                'input[type="number"], input[type="text"][inputmode="decimal"]'
+            );
+            let hasNegative = false;
+            let hasPercentageOverLimit = false;
+            const percentageFields = [
+                "viability1",
+                "viability2",
+                "viability3",
+                "buffer",
+            ];
+
+            allInputs.forEach((input) => {
+                if (input.value.trim() === "") return;
+
+                const value = parseDecimalInput(input.value);
+                if (isNaN(value)) return;
+
+                if (value < 0) {
+                    hasNegative = true;
+                    input.classList.add("border-red-500");
+                } else if (percentageFields.includes(input.id) && value > 100) {
+                    hasPercentageOverLimit = true;
+                    input.classList.add("border-red-500");
+                }
+            });
+
+            if (hasNegative) {
+                showValidationError("Please do not include negative numbers");
+                return;
+            }
+
+            if (hasPercentageOverLimit) {
+                showValidationError(
+                    "Your percentage value is higher than 100%, please confirm your values"
+                );
+                return;
+            }
+
+            // If no validation errors, proceed with calculation
+            performCalculation();
+        });
+    }
+
+    // Add listeners for calculate, reset, recalculate buttons
     const resetBtn = document.getElementById("resetBtn");
     const recalculateBtn = document.getElementById("recalculateBtn");
     const downloadExcelBtn = document.getElementById("downloadExcel");
     const downloadPdfBtn = document.getElementById("downloadPdf");
-
-    if (calculateBtn) {
-        calculateBtn.addEventListener("click", performCalculation);
-    }
 
     if (resetBtn) {
         resetBtn.addEventListener("click", resetCalculator);
