@@ -3,6 +3,14 @@
  * @param {Array} types - Array of cell type objects
  */
 function populateCellTypes(types) {
+    // Sort types array by product_name, case-insensitive
+    types.sort((a, b) => {
+        const nameA = a.product_name || "";
+        const nameB = b.product_name || "";
+        // localeCompare with sensitivity 'base' ignores case
+        return nameA.localeCompare(nameB, undefined, { sensitivity: "base" });
+    });
+
     // Get Semantic UI dropdown
     const dropdown = $("#cell_type_dropdown");
     // Clear existing options & reset dropdown state
@@ -12,7 +20,7 @@ function populateCellTypes(types) {
     const menu = dropdown.find(".menu");
     menu.empty();
 
-    // Check if "Other" exists in API data
+    // Check if "Other" exists in API data (case-insensitive)
     const hasOtherInAPI = types.some(
         (type) =>
             type.product_name && type.product_name.toLowerCase() === "other"
@@ -80,6 +88,13 @@ function populateCellTypes(types) {
  * @param {Array} vessels - Array of culture vessel objects
  */
 function populateCultureVessels(vessels) {
+    // Sort vessels array by plate_format, case-insensitive
+    vessels.sort((a, b) => {
+        const pfA = a.plate_format || "";
+        const pfB = b.plate_format || "";
+        return pfA.localeCompare(pfB, undefined, { sensitivity: "base" });
+    });
+
     // Get Semantic UI dropdown
     const dropdown = $("#culture_vessel_dropdown");
     // Clear existing options & reset dropdown state
@@ -92,9 +107,7 @@ function populateCultureVessels(vessels) {
     // Improved check if "Other" exists in API data - more robust case-insensitive check
     const hasOtherInAPI = vessels.some(
         (vessel) =>
-            vessel.plate_format &&
-            (vessel.plate_format.toLowerCase() === "other" ||
-                vessel.plate_format.toLowerCase().includes("other"))
+            vessel.plate_format && vessel.plate_format.toLowerCase() === "other"
     );
 
     // Add hardcoded "Other" option only if not available from API
@@ -213,9 +226,6 @@ function populateCultureVessels(vessels) {
 /**
  * Handles manual input in seeding density field
  */
-/**
- * Handles manual input in seeding density field
- */
 function handleSeedingDensityManualInput() {
     const seedingInput = document.getElementById("seeding_density");
     const cellTypeDropdown = $("#cell_type_dropdown");
@@ -306,7 +316,7 @@ function handleSurfaceAreaManualInput() {
                         .length > 0;
 
                 if (otherExists) {
-                    // Set culture vessel dropdown to "Other" - using more direct method
+                    // Set culture vessel dropdown to "Other"
                     cultureVesselDropdown.dropdown("set selected", "other");
                 } else {
                     // If "other" option doesn't exist in dropdown, try adding it

@@ -6,13 +6,16 @@ use App\Models\CultureVessel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class CultureVesselController extends Controller
 {
-    // Get all culture vessels
+    // Get all culture vessels, sorted alphabetically by plate_format (case-insensitive)
     public function index(Request $request)
     {
-        $vessels = CultureVessel::orderBy('updated_at', 'desc')->get();
+        // Use LOWER to ensure case-insensitive sort
+        $vessels = CultureVessel::orderByRaw('LOWER(plate_format)')->get();
 
         // return JSON if this is an AJAX request
         if ($request->ajax() || $request->wantsJson()) {
@@ -22,12 +25,10 @@ class CultureVesselController extends Controller
         return view('culture-vessels', compact('vessels'));
     }
 
-
-
-    // Dashboard index method, ordered by updated_at desc
+    // Dashboard index method, sorted alphabetically by plate_format (case-insensitive)
     public function dashboardIndex()
     {
-        $vessels = CultureVessel::orderBy('updated_at', 'desc')->get();
+        $vessels = CultureVessel::orderByRaw('LOWER(plate_format)')->get();
         return view('dashboard.culture-vessels', compact('vessels'));
     }
 
@@ -142,7 +143,7 @@ class CultureVesselController extends Controller
 
         try {
             // Read the file using PhpSpreadsheet
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file->getPathname());
+            $spreadsheet = IOFactory::load($file->getPathname());
             $worksheet = $spreadsheet->getActiveSheet();
             $highestRow = $worksheet->getHighestRow();
 
@@ -190,13 +191,14 @@ class CultureVesselController extends Controller
         return $importedData;
     }
 
-    // New method for Excel export
+    // New method for Excel export, sorted alphabetically by plate_format (case-insensitive)
     public function export()
     {
-        $cultureVessels = CultureVessel::orderBy('created_at', 'desc')->get();
+        // Sort by plate_format case-insensitive
+        $cultureVessels = CultureVessel::orderByRaw('LOWER(plate_format)')->get();
 
         // Prepare spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set headers
@@ -214,12 +216,12 @@ class CultureVesselController extends Controller
         }
 
         // Create Excel file
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 
         // Generate a unique filename
         $filename = 'culture_vessel_export_' . date('Y-m-d_H-i-s') . '.xlsx';
 
-        // Save to output
+        // Send headers and output
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');

@@ -7,13 +7,16 @@ use App\Http\Requests\ProductRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ProductsController extends Controller
 {
-    // GET /products
+    // GET /products (JSON), sorted alphabetically by product_name (case-insensitive)
     public function index(): JsonResponse
     {
-        return response()->json(Products::orderBy('created_at', 'desc')->get());
+        $products = Products::orderByRaw('LOWER(product_name)')->get();
+        return response()->json($products);
     }
 
     // GET /products/{product}
@@ -61,9 +64,10 @@ class ProductsController extends Controller
             ->with('success', 'Product deleted successfully!');
     }
 
+    // Dashboard index, sorted alphabetically by product_name (case-insensitive)
     public function dashboardIndex()
     {
-        $products = Products::orderBy('created_at', 'desc')->get();
+        $products = Products::orderByRaw('LOWER(product_name)')->get();
         return view('dashboard.products', compact('products'));
     }
 
@@ -111,7 +115,7 @@ class ProductsController extends Controller
         }
 
         // Read the file
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
+        $spreadsheet = IOFactory::load($file->getPathname());
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
@@ -142,13 +146,13 @@ class ProductsController extends Controller
         return $importedData;
     }
 
-    // New method for Excel export
+    // New method for Excel export, sorted alphabetically by product_name (case-insensitive)
     public function export()
     {
-        $products = Products::orderBy('created_at', 'desc')->get();
+        $products = Products::orderByRaw('LOWER(product_name)')->get();
 
         // Prepare spreadsheet
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
         // Set headers
@@ -166,12 +170,12 @@ class ProductsController extends Controller
         }
 
         // Create Excel file
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 
         // Generate a unique filename
         $filename = 'products_export_' . date('Y-m-d_H-i-s') . '.xlsx';
 
-        // Save to output
+        // Send headers and output
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
