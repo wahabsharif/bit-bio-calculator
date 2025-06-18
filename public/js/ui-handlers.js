@@ -429,55 +429,83 @@ function handleMediaVolumeManualInput() {
  * Resets the calculator form to its initial state
  */
 function resetCalculator() {
-    // Reset all inputs to default state
-    document
-        .querySelectorAll('input[type="number"], input[type="number"]')
-        .forEach((input) => {
-            // Only reset non-default inputs
-            if (input.id === "suspension_volume") {
-                input.value = "1";
-            } else if (input.id === "viability1") {
-                input.value = "100";
-            } else if (input.id === "buffer") {
-                input.value = "10";
-            } else if (input.id === "num_wells") {
-                input.value = "96";
-            } else {
-                input.value = "";
-            }
-            input.classList.remove("active-input", "border-red-500");
-            if (input.value) {
-                input.classList.add("default-input");
-            }
-        });
+    // Reset all form inputs (including all input types)
+    document.querySelectorAll("input").forEach((input) => {
+        // Set default values for specific inputs
+        if (input.id === "suspension_volume") {
+            input.value = "1";
+        } else if (input.id === "viability1") {
+            input.value = "100";
+        } else if (input.id === "buffer") {
+            input.value = "10";
+        } else if (input.id === "num_wells") {
+            input.value = "96";
+        } else {
+            // Clear all other inputs
+            input.value = "";
+        }
+
+        // Reset styling classes
+        input.classList.remove("active-input", "border-red-500");
+        if (input.value) {
+            input.classList.add("default-input");
+        } else {
+            input.classList.remove("default-input");
+        }
+    });
+
+    // Reset text inputs with inputmode="decimal" (like count1, count2, count3)
+    document.querySelectorAll('input[inputmode="decimal"]').forEach((input) => {
+        input.value = "";
+        input.classList.remove(
+            "active-input",
+            "border-red-500",
+            "default-input"
+        );
+    });
 
     // Reset select elements and Semantic UI dropdowns
-    document.getElementById("cell_type").value = "";
-    document.getElementById("culture_vessel").value = "";
+    const cellTypeElement = document.getElementById("cell_type");
+    const cultureVesselElement = document.getElementById("culture_vessel");
+
+    if (cellTypeElement) cellTypeElement.value = "";
+    if (cultureVesselElement) cultureVesselElement.value = "";
 
     // Reset Semantic UI dropdowns
     $("#cell_type_dropdown").dropdown("clear");
     $("#culture_vessel_dropdown").dropdown("clear");
 
     // Hide results and show help content
-    document.getElementById("resultsContent").classList.add("hidden");
-    document.getElementById("helpContent").classList.remove("hidden");
-    document.getElementById("validationErrors").classList.add("hidden");
-    document.getElementById("warnings").classList.add("hidden");
+    const resultsContent = document.getElementById("resultsContent");
+    const helpContent = document.getElementById("helpContent");
+    const validationErrors = document.getElementById("validationErrors");
+    const warnings = document.getElementById("warnings");
+
+    if (resultsContent) resultsContent.classList.add("hidden");
+    if (helpContent) helpContent.classList.remove("hidden");
+    if (validationErrors) validationErrors.classList.add("hidden");
+    if (warnings) warnings.classList.add("hidden");
 
     // Hide download options and copy/paste info
-    document.getElementById("downloadOptions").classList.add("hidden");
-    if (document.getElementById("copyPasteInfo")) {
-        document.getElementById("copyPasteInfo").classList.add("hidden");
-    }
+    const downloadOptions = document.getElementById("downloadOptions");
+    if (downloadOptions) downloadOptions.classList.add("hidden");
+
+    const copyPasteInfo = document.getElementById("copyPasteInfo");
+    if (copyPasteInfo) copyPasteInfo.classList.add("hidden");
 
     // Show calculate button, hide action buttons
-    document.getElementById("calculateBtn").classList.remove("hidden");
-    document.getElementById("actionButtons").classList.add("hidden");
+    const calculateBtn = document.getElementById("calculateBtn");
+    const actionButtons = document.getElementById("actionButtons");
+
+    if (calculateBtn) calculateBtn.classList.remove("hidden");
+    if (actionButtons) actionButtons.classList.add("hidden");
 
     // Reset any warning messages
-    document.getElementById("cellCountWarning").classList.add("hidden");
-    document.getElementById("viabilityWarning").classList.add("hidden");
+    const cellCountWarning = document.getElementById("cellCountWarning");
+    const viabilityWarning = document.getElementById("viabilityWarning");
+
+    if (cellCountWarning) cellCountWarning.classList.add("hidden");
+    if (viabilityWarning) viabilityWarning.classList.add("hidden");
 }
 
 /**
