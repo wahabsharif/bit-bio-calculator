@@ -291,11 +291,8 @@
                                     </div>
                                     <div class="flex items-start">
                                         <p> Please note that the default seeding density has been optimized by bit.bio for
-                                            ioCELL.
-                                            Changing this value may impact performance. Consider what is needed based on
-                                            your
-                                            assay
-                                            or application.</p>
+                                            ioCELL. Changing this value may impact performance. Consider what is needed
+                                            based on your assay or application.</p>
                                         <button type="button" class=" text-[#96a5b8]">
                                             <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -308,8 +305,8 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1">
-                        <input id="seeding_density" type="number" min="0"
-                            class="w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <input id="seeding_density" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                            class="w-28 bg-white border text-right border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">cells/cm²</span>
                     </div>
                 </div>

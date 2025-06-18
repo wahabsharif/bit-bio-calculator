@@ -1,4 +1,44 @@
 /**
+ * Format number with comma separators
+ * @param {string|number} value - The number to format
+ * @returns {string} - Formatted number string
+ */
+function formatNumberWithCommas(value) {
+    // Remove any existing commas and convert to string
+    const cleanValue = String(value).replace(/,/g, "");
+
+    // Check if it's a valid number
+    if (isNaN(cleanValue) || cleanValue === "") {
+        return cleanValue;
+    }
+
+    // Convert to number and back to string to handle decimal places properly
+    const num = parseFloat(cleanValue);
+
+    // Split into integer and decimal parts
+    const parts = num.toString().split(".");
+    const integerPart = parts[0];
+    const decimalPart = parts[1];
+
+    // Add commas to integer part
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+    // Combine integer and decimal parts
+    return decimalPart
+        ? `${formattedInteger}.${decimalPart}`
+        : formattedInteger;
+}
+
+/**
+ * Remove commas from formatted number for calculation purposes
+ * @param {string} value - The formatted number string
+ * @returns {string} - Clean number string without commas
+ */
+function removeCommasFromNumber(value) {
+    return String(value).replace(/,/g, "");
+}
+
+/**
  * Populates cell types in the dropdown
  * @param {Array} types - Array of cell type objects
  */
@@ -61,7 +101,9 @@ function populateCellTypes(types) {
             ) {
                 // Set flag to prevent manual input logic from triggering
                 seedingInput._programmaticSet = true;
-                seedingInput.value = $selectedItem.attr("data-seeding-density");
+                const seedingValue = $selectedItem.attr("data-seeding-density");
+                // Format the seeding density value with commas
+                seedingInput.value = formatNumberWithCommas(seedingValue);
                 seedingInput.classList.add("default-input");
                 seedingInput.classList.remove("active-input");
                 // Reset flag after a short delay
@@ -224,7 +266,7 @@ function populateCultureVessels(vessels) {
 }
 
 /**
- * Handles manual input in seeding density field
+ * Handles manual input in seeding density field with number formatting
  */
 function handleSeedingDensityManualInput() {
     const seedingInput = document.getElementById("seeding_density");
@@ -242,6 +284,28 @@ function handleSeedingDensityManualInput() {
         // Clear any existing timeout
         clearTimeout(typingTimeout);
 
+        // Store cursor position before formatting
+        const cursorPosition = this.selectionStart;
+        const oldValue = this.value;
+
+        // Format the number with commas
+        const formattedValue = formatNumberWithCommas(this.value);
+
+        // Update the input value
+        this.value = formattedValue;
+
+        // Calculate new cursor position accounting for added/removed commas
+        const commasBefore = (
+            oldValue.substring(0, cursorPosition).match(/,/g) || []
+        ).length;
+        const commasAfter = (
+            formattedValue.substring(0, cursorPosition).match(/,/g) || []
+        ).length;
+        const newCursorPosition = cursorPosition + (commasAfter - commasBefore);
+
+        // Restore cursor position
+        this.setSelectionRange(newCursorPosition, newCursorPosition);
+
         // Update styling immediately
         this.classList.remove("default-input");
         this.classList.add("active-input");
@@ -253,6 +317,28 @@ function handleSeedingDensityManualInput() {
                 cellTypeDropdown.dropdown("set selected", "other");
             }
         }, 50);
+    });
+
+    // Handle paste events
+    seedingInput.addEventListener("paste", function (e) {
+        // Skip if this was a programmatic change
+        if (this._programmaticSet) {
+            return;
+        }
+
+        setTimeout(() => {
+            // Format the pasted content
+            this.value = formatNumberWithCommas(this.value);
+
+            // Update styling
+            this.classList.remove("default-input");
+            this.classList.add("active-input");
+
+            // Set cell type to "Other" if there's a value
+            if (this.value.trim() !== "") {
+                cellTypeDropdown.dropdown("set selected", "other");
+            }
+        }, 0);
     });
 
     // Also handle focus event to update styling
@@ -270,15 +356,25 @@ function handleSeedingDensityManualInput() {
             return;
         }
 
-        // If a number key is pressed and no text is selected, clear field
+        // Only clear the field when starting fresh input (not when adding more digits)
+        // Clear if a number/decimal key is pressed AND the field contains a default value
+        // OR if the entire text is selected
         if (
             ((e.key >= "0" && e.key <= "9") ||
                 e.key === "." ||
                 e.key === ",") &&
-            this.selectionStart === this.selectionEnd &&
-            this.selectionStart > 0
+            (this.classList.contains("default-input") ||
+                (this.selectionStart === 0 &&
+                    this.selectionEnd === this.value.length))
         ) {
             this.value = "";
+        }
+    });
+
+    // Handle blur event to ensure final formatting
+    seedingInput.addEventListener("blur", function () {
+        if (!this._programmaticSet && this.value.trim() !== "") {
+            this.value = formatNumberWithCommas(this.value);
         }
     });
 }
@@ -606,7 +702,13 @@ function setupEventListeners() {
             allInputs.forEach((input) => {
                 if (input.value.trim() === "") return;
 
-                const value = parseDecimalInput(input.value);
+                // For seeding density, remove commas before parsing
+                let valueToCheck = input.value;
+                if (input.id === "seeding_density") {
+                    valueToCheck = removeCommasFromNumber(input.value);
+                }
+
+                const value = parseDecimalInput(valueToCheck);
                 if (isNaN(value)) return;
 
                 if (value < 0) {
