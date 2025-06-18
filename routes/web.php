@@ -7,12 +7,14 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CalculatorDownloadController;
 use App\Models\Products;
 use App\Models\CultureVessel;
+use App\Http\Controllers\ClearCacheController;
 
 // Public routes
-// in routes/web.php
 Route::match(['GET', 'HEAD'], '/', function () {
     return view('home');
 })->name('home');
+
+Route::get('/clear', [ClearCacheController::class, 'clearAll']);
 
 // Calculator download routes
 Route::post('/calculator/download-excel', [CalculatorDownloadController::class, 'downloadExcel'])->name('calculator.download.excel');
