@@ -4,7 +4,7 @@
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <!-- Products List -->
-        <div class="container mx-auto">
+        <div class="w-full mx-auto">
             <!-- Title and Actions -->
             <div
                 class="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 md:mb-4 space-y-4 md:space-y-0">
@@ -12,7 +12,7 @@
             </div>
 
             <!-- Table Wrapper with Horizontal Scroll on Mobile -->
-            <div class="bg-white shadow rounded-lg p-4 h-[60vh] overflow-x-auto relative">
+            <div class="bg-white shadow rounded-lg p-4 h-[40vh] overflow-auto relative">
                 @if ($products->isEmpty())
                     <div class="text-center text-gray-500">No products found.</div>
                 @else
@@ -28,14 +28,14 @@
                         @foreach ($products->take(5) as $product)
                             <div class="flex flex-col md:flex-row py-2 space-y-2 md:space-y-0 md:items-center">
                                 <div class="md:w-1/2"><label class="font-bold text-sm mr-1 block md:hidden">Name:</label>
-                                    <p class="text-xs font-medium">{{ $product->product_name }}</p>
+                                    <p class="text-sm font-medium">{{ $product->product_name }}</p>
                                 </div>
                                 <div class="md:w-1/4"><label class="font-bold text-sm mr-1 block md:hidden">SKU:</label>
-                                    <p class="text-xs font-medium">{{ $product->sku }}</p>
+                                    <p class="text-sm font-medium">{{ $product->sku }}</p>
                                 </div>
                                 <div class="md:w-1/4">
                                     <label class="font-bold text-sm mr-1 block md:hidden">Density:</label>
-                                    <p class="text-xs font-medium">
+                                    <p class="text-sm font-medium">
                                         {{ $product->seeding_density ? number_format($product->seeding_density) : 'N/A' }}
                                     </p>
                                 </div>
@@ -45,7 +45,7 @@
 
                     <!-- Load More Button aligned bottom-right -->
                     @if ($products->count() > 5)
-                        <div class="absolute bottom-4 right-4">
+                        <div class="mt-20 flex justify-end">
                             <a href="{{ url('/dashboard/products') }}"
                                 class="bg-blue-500 text-white text-sm md:text-md px-4 py-2 rounded-lg hover:bg-blue-600">
                                 Load More
@@ -57,7 +57,7 @@
         </div>
 
         <!-- Culture Vessels List -->
-        <div class="container mx-auto">
+        <div class="w-full mx-auto">
             <!-- Title and Actions -->
             <div
                 class="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 md:mb-4 space-y-4 md:space-y-0">
@@ -65,7 +65,7 @@
             </div>
 
             <!-- Table Wrapper with Horizontal Scroll on Mobile -->
-            <div class="bg-white shadow rounded-lg p-4 h-[60vh] overflow-x-auto relative">
+            <div class="bg-white shadow rounded-lg p-4 h-[40vh] overflow-auto relative">
                 @if ($vessels->isEmpty())
                     <div class="text-center text-gray-500">No culture vessels found.</div>
                 @else
@@ -82,15 +82,15 @@
                             <div class="flex flex-col md:flex-row py-2 space-y-2 md:space-y-0 md:items-center">
                                 <div class="md:w-1/2"><label class="font-bold text-sm mr-1 block md:hidden">Plate
                                         Format:</label>
-                                    <p class="text-xs font-medium">{{ $vessel->plate_format }}</p>
+                                    <p class="text-sm font-medium">{{ $vessel->plate_format }}</p>
                                 </div>
                                 <div class="md:w-1/4"><label class="font-bold text-sm mr-1 block md:hidden">Surface
                                         Area:</label>
-                                    <p class="text-xs font-medium">{{ $vessel->surface_area_cm2 }}</p>
+                                    <p class="text-sm font-medium">{{ $vessel->surface_area_cm2 }}</p>
                                 </div>
                                 <div class="md:w-1/4">
                                     <label class="font-bold text-sm mr-1 block md:hidden">Media Volume:</label>
-                                    <p class="text-xs font-medium">{{ $vessel->media_volume_per_well_ml }}</p>
+                                    <p class="text-sm font-medium">{{ $vessel->media_volume_per_well_ml }}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -98,7 +98,7 @@
 
                     <!-- Load More Button aligned bottom-right -->
                     @if ($vessels->count() > 5)
-                        <div class="absolute bottom-4 right-4">
+                        <div class="mt-20 flex justify-end">
                             <a href="{{ url('/dashboard/culture-vessels') }}"
                                 class="bg-blue-500 text-white text-sm md:text-md px-4 py-2 rounded-lg hover:bg-blue-600">
                                 Load More

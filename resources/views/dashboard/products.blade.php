@@ -2,20 +2,20 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="container mx-auto" x-data="{
+    <div class="mx-auto" x-data="{
         showAddModal: false,
         showImportModal: false,
         search: '',
         hasSearchResults() {
             if (this.search.trim() === '') return true;
-    
+
             const searchLower = this.search.toLowerCase();
             return Array.from(document.querySelectorAll('tbody tr')).some(row => {
                 if (!row.hasAttribute('x-show')) return false;
-    
+
                 const productName = row.querySelector('td:nth-child(1)')?.textContent.toLowerCase();
                 const sku = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase();
-    
+
                 return productName?.includes(searchLower) || sku?.includes(searchLower);
             });
         }
@@ -145,7 +145,7 @@
                 class="sm:hidden text-center text-xs text-gray-500 py-2 bg-gray-50 rounded-t-lg border-b-2 border-gray-400">
                 <span>← Swipe →</span>
             </div>
-            <div class="overflow-x-auto w-full" style="max-height: 500px; overflow-y: auto;">
+            <div class="overflow-x-auto w-full" style="max-height: 80vh; overflow-y: auto;">
                 <table class="min-w-full divide-y divide-gray-200 table-auto">
                     <thead class="bg-gray-50 sticky top-0 z-10">
                         <tr>
