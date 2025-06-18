@@ -41,6 +41,12 @@ class CalculatorDownloadController extends Controller
             'mediaVolume'      => 'nullable|string',
             'buffer'           => 'nullable|string',
             'timezone'         => 'nullable|string',
+            'count1'           => 'nullable|string',
+            'count2'           => 'nullable|string',
+            'count3'           => 'nullable|string',
+            'viability1'       => 'nullable|string',
+            'viability2'       => 'nullable|string',
+            'viability3'       => 'nullable|string',
         ]);
 
         // Determine timezone: validate against PHP supported timezones
@@ -80,6 +86,7 @@ class CalculatorDownloadController extends Controller
         $sheet->getStyle('A2')->getFont()->setBold(true)->setSize(14);
         $sheet->getStyle('A2')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
+
         // Generate now timestamp in user's timezone
         $now = Carbon::now($timezone);
         // Format e.g. "17-06-2025 - 2:28 PM"
@@ -91,130 +98,133 @@ class CalculatorDownloadController extends Controller
         $formattedTimestamp = "{$datePart} - {$safeTimePart}";
         $formattedDate = $now->format('Y-m-d H:i:s');
 
-        // Add generation timestamp
-        $sheet->setCellValue('A3', 'Generated on: ' . $formattedDate);
-        $sheet->mergeCells('A3:C3');
-        $sheet->getStyle('A3')->getFont()->setSize(9);
+        // Add generation timestamp (moved from A3 to A4)
+        $sheet->setCellValue('A4', 'Generated on: ' . $formattedDate);
+        $sheet->mergeCells('A4:C4');
+        $sheet->getStyle('A4')->getFont()->setSize(9);
 
+        // Two blank rows added after the timestamp (A5 and A6)
 
         // Set up section headings and columns
-        // INPUT DATA SECTION
-        $sheet->setCellValue('A5', 'Input data');
-        $sheet->setCellValue('B5', 'Value');
-        $sheet->setCellValue('C5', 'Unit');
-        $sheet->getStyle('A5:C5')->getFont()->setBold(true)->setSize(14);
+        // INPUT DATA SECTION (shifted from A5 to A8)
+        $sheet->setCellValue('A8', 'Input data');
+        $sheet->setCellValue('B8', 'Value');
+        $sheet->setCellValue('C8', 'Unit');
+        $sheet->getStyle('A8:C8')->getFont()->setBold(true)->setSize(14);
 
-        // Input Data headers
-        $sheet->setCellValue('A6', 'Cell stock volume');
-        $sheet->setCellValue('B6', $validated['suspensionVolume'] ?? '');
-        $sheet->setCellValue('C6', 'mL');
+        // Input Data headers (all shifted by 3 rows)
+        $sheet->setCellValue('A9', 'Cell stock volume');
+        $sheet->setCellValue('B9', $validated['suspensionVolume'] ?? '');
+        $sheet->setCellValue('C9', 'mL');
 
-        // Live cell counts
-        $sheet->setCellValue('A7', 'Live cell count - 1');
-        $sheet->setCellValue('B7', $this->formatCellCount($validated['liveCellCount'] ?? ''));
-        $sheet->setCellValue('C7', 'cells/mL');
+        // Live cell counts - now correctly handling all three counts
+        $sheet->setCellValue('A10', 'Live cell count - 1');
+        $sheet->setCellValue('B10', $this->formatCellCount($validated['count1'] ?? ''));
+        $sheet->setCellValue('C10', 'cells/mL');
 
-        $sheet->setCellValue('A8', 'Live cell count - 2');
-        $sheet->setCellValue('B8', '');  // This would be empty if count2 is not provided
-        $sheet->setCellValue('C8', 'cells/mL');
+        $sheet->setCellValue('A11', 'Live cell count - 2');
+        $sheet->setCellValue('B11', $this->formatCellCount($validated['count2'] ?? ''));
+        $sheet->setCellValue('C11', 'cells/mL');
 
-        $sheet->setCellValue('A9', 'Live cell count - 3');
-        $sheet->setCellValue('B9', '');  // This would be empty if count3 is not provided
-        $sheet->setCellValue('C9', 'cells/mL');
+        $sheet->setCellValue('A12', 'Live cell count - 3');
+        $sheet->setCellValue('B12', $this->formatCellCount($validated['count3'] ?? ''));
+        $sheet->setCellValue('C12', 'cells/mL');
 
-        // Cell viability
-        $sheet->setCellValue('A10', 'Cell viability - 1');
-        $sheet->setCellValue('B10', $validated['cellViability'] ?? '');
-        $sheet->setCellValue('C10', '%');
+        // Cell viability - now correctly handling all three viability values
+        $sheet->setCellValue('A13', 'Cell viability - 1');
+        $sheet->setCellValue('B13', $validated['viability1'] ?? '');
+        $sheet->setCellValue('C13', '%');
 
-        $sheet->setCellValue('A11', 'Cell viability - 2');
-        $sheet->setCellValue('B11', '');  // This would be empty if viability2 is not provided
-        $sheet->setCellValue('C11', '%');
+        $sheet->setCellValue('A14', 'Cell viability - 2');
+        $sheet->setCellValue('B14', $validated['viability2'] ?? '');
+        $sheet->setCellValue('C14', '%');
 
-        $sheet->setCellValue('A12', 'Cell viability - 3');
-        $sheet->setCellValue('B12', '');  // This would be empty if viability3 is not provided
-        $sheet->setCellValue('C12', '%');
+        $sheet->setCellValue('A15', 'Cell viability - 3');
+        $sheet->setCellValue('B15', $validated['viability3'] ?? '');
+        $sheet->setCellValue('C15', '%');
 
         // Other inputs
-        $sheet->setCellValue('A13', 'Cell type');
-        $sheet->setCellValue('B13', $validated['cellType'] ?? '');
-        $sheet->setCellValue('C13', '');
+        $sheet->setCellValue('A16', 'Cell type');
+        $sheet->setCellValue('B16', $validated['cellType'] ?? '');
+        $sheet->setCellValue('C16', '');
 
-        $sheet->setCellValue('A14', 'Seeding density');
-        $sheet->setCellValue('B14', $validated['seedingDensity'] ?? '');
-        $sheet->setCellValue('C14', 'cells/cm²');
+        $sheet->setCellValue('A17', 'Seeding density');
+        $sheet->setCellValue('B17', $validated['seedingDensity'] ?? '');
+        $sheet->setCellValue('C17', 'cells/cm²');
 
-        $sheet->setCellValue('A15', 'Culture vessel');
-        $sheet->setCellValue('B15', $validated['cultureVessel'] ?? '');
-        $sheet->setCellValue('C15', '');
+        $sheet->setCellValue('A18', 'Culture vessel');
+        $sheet->setCellValue('B18', $validated['cultureVessel'] ?? '');
+        $sheet->setCellValue('C18', '');
 
-        $sheet->setCellValue('A16', 'Surface area');
-        $sheet->setCellValue('B16', $validated['surfaceArea'] ?? '');
-        $sheet->setCellValue('C16', 'cm²/well');
+        $sheet->setCellValue('A19', 'Surface area');
+        $sheet->setCellValue('B19', $validated['surfaceArea'] ?? '');
+        $sheet->setCellValue('C19', 'cm²/well');
 
-        $sheet->setCellValue('A17', 'Volume');
-        $sheet->setCellValue('B17', $validated['mediaVolume'] ?? '');
-        $sheet->setCellValue('C17', 'mL/well');
+        $sheet->setCellValue('A20', 'Volume');
+        $sheet->setCellValue('B20', $validated['mediaVolume'] ?? '');
+        $sheet->setCellValue('C20', 'mL/well');
 
-        $sheet->setCellValue('A18', 'Number of wells to seed');
-        $sheet->setCellValue('B18', $validated['wellCount'] ?? '');
-        $sheet->setCellValue('C18', 'wells');
+        $sheet->setCellValue('A21', 'Number of wells to seed');
+        $sheet->setCellValue('B21', $validated['wellCount'] ?? '');
+        $sheet->setCellValue('C21', 'wells');
 
-        $sheet->setCellValue('A19', 'Dead volume allowance');
-        $sheet->setCellValue('B19', $validated['buffer'] ?? '');
-        $sheet->setCellValue('C19', '%');
+        $sheet->setCellValue('A22', 'Dead volume allowance');
+        $sheet->setCellValue('B22', $validated['buffer'] ?? '');
+        $sheet->setCellValue('C22', '%');
 
-        // RESULTS SECTION
-        $sheet->setCellValue('A21', 'Results');
-        $sheet->setCellValue('B21', 'Value');
-        $sheet->setCellValue('C21', 'Unit');
-        $sheet->getStyle('A21:C21')->getFont()->setBold(true)->setSize(14);
+        // RESULTS SECTION (shifted from A21 to A24)
+        $sheet->setCellValue('A24', 'Results');
+        $sheet->setCellValue('B24', 'Value');
+        $sheet->setCellValue('C24', 'Unit');
+        $sheet->getStyle('A24:C24')->getFont()->setBold(true)->setSize(14);
 
-        // Results data
-        $sheet->setCellValue('A22', 'Volume of media for final seeding solution');
-        $sheet->setCellValue('B22', $validated['volumeToDilute'] ?? '');
-        $sheet->setCellValue('C22', 'mL');
+        // Results data (shifted by 3 rows)
+        $sheet->setCellValue('A25', 'Volume of media for final seeding solution');
+        $sheet->setCellValue('B25', $validated['volumeToDilute'] ?? '');
+        $sheet->setCellValue('C25', 'mL');
 
-        $sheet->setCellValue('A23', 'Cell stock volume for final seeding solution');
-        $sheet->setCellValue('B23', $validated['volumeToSeed'] ?? '');
-        $sheet->setCellValue('C23', 'mL');
+        $sheet->setCellValue('A26', 'Cell stock volume for final seeding solution');
+        $sheet->setCellValue('B26', $validated['volumeToSeed'] ?? '');
+        $sheet->setCellValue('C26', 'mL');
 
-        $sheet->setCellValue('A24', 'Cell density');
-        $sheet->setCellValue('B24', $this->cleanScientificNotation($validated['cellDensity'] ?? ''));
-        $sheet->setCellValue('C24', 'cells/mL');
+        $sheet->setCellValue('A27', 'Cell density');
+        $sheet->setCellValue('B27', $this->cleanScientificNotation($validated['cellDensity'] ?? ''));
+        $sheet->setCellValue('C27', 'cells/mL');
 
-        $sheet->setCellValue('A25', 'Required number of cells (total)');
-        $sheet->setCellValue('B25', $this->cleanScientificNotation($validated['requiredCells'] ?? ''));
-        $sheet->setCellValue('C25', 'cells');
+        $sheet->setCellValue('A28', 'Required number of cells (total)');
+        $sheet->setCellValue('B28', $this->cleanScientificNotation($validated['requiredCells'] ?? ''));
+        $sheet->setCellValue('C28', 'cells');
 
-        $sheet->setCellValue('A26', 'Required number of cells (per well)');
-        $sheet->setCellValue('B26', $this->cleanHtml($validated['cellsPerWell'] ?? ''));
-        $sheet->setCellValue('C26', 'cells');
+        $sheet->setCellValue('A29', 'Required number of cells (per well)');
+        $sheet->setCellValue('B29', $this->cleanHtml($validated['cellsPerWell'] ?? ''));
+        $sheet->setCellValue('C29', 'cells');
 
         // Adjust column widths
         $sheet->getColumnDimension('A')->setWidth(40);
         $sheet->getColumnDimension('B')->setWidth(15);
         $sheet->getColumnDimension('C')->setWidth(12);
 
-        // Add borders
-        $borderRange = 'A6:C19';
+        // Add borders (updated ranges)
+        $borderRange = 'A9:C22';
         $sheet->getStyle($borderRange)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
-        $resultBorderRange = 'A22:C26';
+        $resultBorderRange = 'A25:C29';
         $sheet->getStyle($resultBorderRange)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
-        // Right-align all values in column B (except headers)
-        $sheet->getStyle('B6:B19')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-        $sheet->getStyle('B22:B26')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        // Right-align all values in column B (except headers) (updated ranges)
+        $sheet->getStyle('B9:B22')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyle('B25:B29')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-        // Set font size for data cells to 11
-        $sheet->getStyle('A6:C19')->getFont()->setSize(11);
-        $sheet->getStyle('A22:C26')->getFont()->setSize(11);
+        // Set font size for data cells to 11 (updated ranges)
+        $sheet->getStyle('A9:C22')->getFont()->setSize(11);
+        $sheet->getStyle('A25:C29')->getFont()->setSize(11);
 
-        // Add copyright footer
-        $sheet->setCellValue('A28', 'By using this tool, you agree to bit.bio\'s Cell seeding calculator - Terms and Conditions.');
-        $sheet->setCellValue('A29', 'bit.bio © ' . date('Y'));
-        $sheet->getStyle('A28:A29')->getFont()->setSize(9);
+        // Add 2 blank rows before the copyright footer
+
+        // Add copyright footer (shifted by 5 rows from original position)
+        $sheet->setCellValue('A33', 'By using this tool, you agree to bit.bio\'s Cell seeding calculator - Terms and Conditions.');
+        $sheet->setCellValue('A34', 'bit.bio © ' . date('Y'));
+        $sheet->getStyle('A33:A34')->getFont()->setSize(9);
 
         // Generate a filename with the requested format
         // e.g. "bit.bio - Cell Seeding Calculation - 17-06-2025 - 2-28 PM.xlsx"
@@ -243,39 +253,117 @@ class CalculatorDownloadController extends Controller
     }
 
     /**
-     * Format cell count to match expected format
+     * Format cell count to match expected format with comma separators
      *
      * @param string $value
      * @return string
      */
     private function formatCellCount($value)
     {
-        // If value contains scientific notation like 1.2E6, convert to 1,200,000
-        if (is_numeric($value)) {
-            return number_format((float)$value);
+        // If empty or not set, return empty string
+        if (empty($value)) {
+            return '';
         }
 
+        // Remove any existing commas first
+        $cleanValue = str_replace(',', '', $value);
+
+        // Handle scientific notation like 1.2E6 or 1.2e6
+        if (preg_match('/([0-9.]+)[eE]([+-]?[0-9]+)/', $cleanValue, $matches)) {
+            $base = (float)$matches[1];
+            $exponent = (int)$matches[2];
+            $fullNumber = $base * pow(10, $exponent);
+            return number_format((float)$fullNumber);
+        }
+
+        // Handle "x 10^n" format
+        if (preg_match('/([0-9.]+)\s*x\s*10\^?([0-9]+)/', $cleanValue, $matches)) {
+            $base = (float)$matches[1];
+            $exponent = (int)$matches[2];
+            $fullNumber = $base * pow(10, $exponent);
+            return number_format((float)$fullNumber);
+        }
+
+        // If it's a plain number in string form, multiply by 1,000,000 since UI shows "x 10^6"
+        if (is_numeric($cleanValue)) {
+            // Multiply by 10^6 since the UI shows cell counts in millions
+            $fullNumber = (float)$cleanValue * 1000000;
+            return number_format($fullNumber);
+        }
+
+        // If we can't parse it, just return as is
         return $value;
     }
 
     /**
-     * Clean scientific notation with HTML superscripts to proper format
+     * Clean scientific notation with HTML superscripts or Unicode superscripts to proper format with comma separators
      *
      * @param string $value
      * @return string
      */
     private function cleanScientificNotation($value)
     {
-        // Match pattern like "6.17 x 10<sup>0</sup>" or "6.02 x 10<sup>6</sup>"
+        // First, handle HTML superscript format like "6.17 x 10<sup>6</sup>"
         if (preg_match('/([0-9.]+)\s*x\s*10\<sup\>([+-]?[0-9]+)\<\/sup\>/', $value, $matches)) {
-            $base = $matches[1];    // e.g., 6.17
-            $exponent = $matches[2]; // e.g., 0 or 6
+            $base = (float)$matches[1];    // e.g., 6.17
+            $exponent = (int)$matches[2];  // e.g., 6
 
-            // Format in scientific notation that Excel can understand
-            return $base . 'E' . $exponent;
+            // Convert to a full number (base * 10^exponent)
+            $fullNumber = $base * pow(10, $exponent);
+
+            // Format with comma separators, no decimals for whole numbers
+            return number_format($fullNumber, 0);
         }
 
-        // If no match, just remove HTML tags
+        // Handle Unicode superscript format like "1.23 x 10⁶"
+        if (preg_match('/([0-9.]+)\s*x\s*10([⁰¹²³⁴⁵⁶⁷⁸⁹]+)/', $value, $matches)) {
+            $base = (float)$matches[1];
+            $superscriptExp = $matches[2];
+
+            // Map Unicode superscript characters back to regular numbers
+            $superscriptMap = [
+                '⁰' => '0',
+                '¹' => '1',
+                '²' => '2',
+                '³' => '3',
+                '⁴' => '4',
+                '⁵' => '5',
+                '⁶' => '6',
+                '⁷' => '7',
+                '⁸' => '8',
+                '⁹' => '9'
+            ];
+
+            // Convert superscript exponent to regular number
+            $exponent = '';
+            for ($i = 0; $i < mb_strlen($superscriptExp); $i++) {
+                $char = mb_substr($superscriptExp, $i, 1);
+                $exponent .= $superscriptMap[$char] ?? '';
+            }
+            $exponent = (int)$exponent;
+
+            // Convert to a full number (base * 10^exponent)
+            $fullNumber = $base * pow(10, $exponent);
+
+            // Format with comma separators, no decimals for whole numbers
+            return number_format($fullNumber, 0);
+        }
+
+        // Handle regular scientific notation like "1.23E+06" or "1.23e+06"
+        if (preg_match('/([0-9.]+)[eE]([+-]?[0-9]+)/', $value, $matches)) {
+            $base = (float)$matches[1];
+            $exponent = (int)$matches[2];
+
+            $fullNumber = $base * pow(10, $exponent);
+            return number_format($fullNumber, 0);
+        }
+
+        // If it's just a plain number, format it with commas
+        if (is_numeric($value)) {
+            return number_format((float)$value, 0);
+        }
+
+        // If no match, just remove HTML tags and return as-is
         return strip_tags($value);
     }
 }

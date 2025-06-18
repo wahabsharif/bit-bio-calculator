@@ -166,6 +166,16 @@ function getResultData() {
         surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
         mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
         buffer: bufferEl ? bufferEl.value : "",
+
+        // Individual count values
+        count1: count1El ? count1El.value : "",
+        count2: count2El ? count2El.value : "",
+        count3: count3El ? count3El.value : "",
+
+        // Individual viability values
+        viability1: viability1El ? viability1El.value : "",
+        viability2: viability2El ? viability2El.value : "",
+        viability3: viability3El ? viability3El.value : "",
     };
 }
 
