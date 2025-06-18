@@ -615,6 +615,33 @@ function setupEventListeners() {
             input.classList.add("default-input");
         }
 
+        // Handle increment/decrement for cell count inputs
+        if (
+            input.id === "count1" ||
+            input.id === "count2" ||
+            input.id === "count3"
+        ) {
+            input.addEventListener("change", function () {
+                // Format with commas after using the arrows
+                if (this.value !== "") {
+                    const numValue = parseFloat(this.value);
+                    if (!isNaN(numValue)) {
+                        // Format with up to 1 decimal place if needed
+                        const formatted =
+                            numValue % 1 === 0
+                                ? numValue.toFixed(0)
+                                : numValue.toFixed(1);
+                        this.value = formatted;
+                    }
+                }
+
+                // Ensure value is not negative
+                if (parseFloat(this.value) < 0) {
+                    this.value = "0";
+                }
+            });
+        }
+
         // Update styling when user interacts with the input
         input.addEventListener("input", function () {
             this.classList.remove("default-input");

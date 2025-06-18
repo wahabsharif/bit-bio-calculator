@@ -130,14 +130,16 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" required
+                                <input id="count1" type="number" step="0.1" min="0" inputmode="decimal"
+                                    pattern="[0-9]*[.,]?[0-9]*" required
                                     class="px-2 pt-1 pb-1 w-28 text-right bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
                                     cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
-                                <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                <input id="count2" type="number" step="0.1" min="0" inputmode="decimal"
+                                    pattern="[0-9]*[.,]?[0-9]*"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -145,7 +147,8 @@
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
-                                <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                <input id="count3" type="number" step="0.1" min="0" inputmode="decimal"
+                                    pattern="[0-9]*[.,]?[0-9]*"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -316,7 +319,8 @@
                     <label for="culture_vessel" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                viewBox="http://www.w3.org/2000/svg">
                                 <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                                     font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -332,7 +336,7 @@
                                 <div class="flex justify-between items-start space-x-1">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                            viewBox="0,0,256,256">
+                                            viewBox="http://www.w3.org/2000/svg">
                                             <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
                                                 stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                                 stroke-dasharray="" stroke-dashoffset="0" font-family="none"
@@ -420,7 +424,8 @@
                     <label for="buffer" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
+                                viewBox="http://www.w3.org/2000/svg">
                                 <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
                                     stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
                                     font-family="none" font-weight="none" font-size="none" text-anchor="none"
@@ -436,7 +441,7 @@
                                 <div class="flex justify-between items-start space-x-1">
                                     <div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem"
-                                            viewBox="0,0,256,256">
+                                            viewBox="http://www.w3.org/2000/svg">
                                             <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
                                                 stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
                                                 stroke-dasharray="" stroke-dashoffset="0" font-family="none"
