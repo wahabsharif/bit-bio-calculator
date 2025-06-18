@@ -207,6 +207,7 @@ input[type="text"] {
     &::-webkit-scrollbar-track {
         border-radius: 10px;
         border: 1px solid #d4dbe6;
+        background: transparent;
     }
 
     /* Handle */
@@ -220,7 +221,10 @@ input[type="text"] {
         cursor: pointer;
     }
 }
-
+.ui.selection.dropdown .menu > .item {
+    color: #aaa3af;
+    border-bottom: solid 1px #d4dbe6;
+}
 @media (max-width: 640px) {
     .container {
         padding: 1.5rem;
