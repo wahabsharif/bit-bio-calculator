@@ -47,20 +47,18 @@ function populateCellTypes(types) {
     types.sort((a, b) => {
         const nameA = a.product_name || "";
         const nameB = b.product_name || "";
-        // localeCompare with sensitivity 'base' ignores case
         return nameA.localeCompare(nameB, undefined, { sensitivity: "base" });
     });
 
     // Get Semantic UI dropdown
     const dropdown = $("#cell_type_dropdown");
-    // Clear existing options & reset dropdown state
     dropdown.dropdown("clear");
 
     // Add options to the menu
     const menu = dropdown.find(".menu");
     menu.empty();
 
-    // Check if "Other" exists in API data (case-insensitive)
+    // Check if "Other" exists in API data
     const hasOtherInAPI = types.some(
         (type) =>
             type.product_name && type.product_name.toLowerCase() === "other"
@@ -80,19 +78,24 @@ function populateCellTypes(types) {
         const opt = document.createElement("div");
         opt.className = "item";
         opt.setAttribute("data-value", type.id);
-        // Include seeding density as a custom attribute if present
         opt.setAttribute("data-seeding-density", type.seeding_density || "");
-        // The text to display; if SKU should also be searchable, include in text
         opt.textContent = `${type.product_name} (${type.sku})`;
         menu.append(opt);
     });
 
-    // Initialize dropdown with fullTextSearch enabled
+    // Initialize dropdown with enhanced onChange handler
     dropdown.dropdown({
         fullTextSearch: true,
-        match: "both", // also match value if desired
+        match: "both",
         onChange: function (value, text, $selectedItem) {
             const seedingInput = document.getElementById("seeding_density");
+
+            // Clear dropdown error immediately when selection is made
+            const dd = document.querySelector("#cell_type_dropdown");
+            if (dd && value && value.trim() !== "") {
+                dd.classList.remove("error");
+            }
+
             if (
                 value &&
                 value !== "other" &&
@@ -106,6 +109,10 @@ function populateCellTypes(types) {
                 seedingInput.value = formatNumberWithCommas(seedingValue);
                 seedingInput.classList.add("default-input");
                 seedingInput.classList.remove("active-input");
+
+                // IMPORTANT: Clear validation errors for seeding density
+                validateAndClearField(seedingInput);
+
                 // Reset flag after a short delay
                 setTimeout(() => {
                     seedingInput._programmaticSet = false;
@@ -139,14 +146,13 @@ function populateCultureVessels(vessels) {
 
     // Get Semantic UI dropdown
     const dropdown = $("#culture_vessel_dropdown");
-    // Clear existing options & reset dropdown state
     dropdown.dropdown("clear");
 
     // Add options to the menu
     const menu = dropdown.find(".menu");
     menu.empty();
 
-    // Improved check if "Other" exists in API data - more robust case-insensitive check
+    // Check if "Other" exists in API data
     const hasOtherInAPI = vessels.some(
         (vessel) =>
             vessel.plate_format && vessel.plate_format.toLowerCase() === "other"
@@ -184,7 +190,7 @@ function populateCultureVessels(vessels) {
         menu.append(opt);
     });
 
-    // If we didn't add an "other" value option from the API but we need one
+    // Handle duplicate "Other" options
     if (!hasOtherValue && !hasOtherInAPI) {
         const otherOpt = document.createElement("div");
         otherOpt.className = "item";
@@ -198,18 +204,23 @@ function populateCultureVessels(vessels) {
     // Remove any duplicate "Other" options
     const otherOptions = menu.find('.item[data-value="other"]');
     if (otherOptions.length > 1) {
-        // Keep only the first one
         otherOptions.slice(1).remove();
     }
 
     const surfaceAreaInput = document.getElementById("surface_area");
     const mediaVolumeInput = document.getElementById("media_volume");
 
-    // Initialize dropdown with fullTextSearch enabled
+    // Initialize dropdown with enhanced onChange handler
     dropdown.dropdown({
         fullTextSearch: true,
         match: "both",
         onChange: function (value, text, $selectedItem) {
+            // Clear dropdown error immediately when selection is made
+            const dd = document.querySelector("#culture_vessel_dropdown");
+            if (dd && value && value.trim() !== "") {
+                dd.classList.remove("error");
+            }
+
             if (value && value !== "other" && $selectedItem) {
                 const surfaceArea = $selectedItem.attr("data-surface-area");
                 const mediaVolume = $selectedItem.attr("data-media-volume");
@@ -219,6 +230,10 @@ function populateCultureVessels(vessels) {
                     surfaceAreaInput.value = surfaceArea;
                     surfaceAreaInput.classList.add("default-input");
                     surfaceAreaInput.classList.remove("active-input");
+
+                    // IMPORTANT: Clear validation errors for surface area
+                    validateAndClearField(surfaceAreaInput);
+
                     setTimeout(() => {
                         surfaceAreaInput._programmaticSet = false;
                     }, 50);
@@ -235,6 +250,10 @@ function populateCultureVessels(vessels) {
                     mediaVolumeInput.value = mediaVolume;
                     mediaVolumeInput.classList.add("default-input");
                     mediaVolumeInput.classList.remove("active-input");
+
+                    // IMPORTANT: Clear validation errors for media volume
+                    validateAndClearField(mediaVolumeInput);
+
                     setTimeout(() => {
                         mediaVolumeInput._programmaticSet = false;
                     }, 50);

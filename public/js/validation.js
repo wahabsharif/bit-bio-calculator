@@ -147,7 +147,7 @@ function parseDecimalInput(value) {
 }
 
 /**
- * Removes error styling from an input field
+ * Enhanced function to clear field errors - now handles programmatic changes
  * @param {HTMLElement} input - The input element to clear errors from
  */
 function clearFieldError(input) {
@@ -165,7 +165,33 @@ function clearFieldError(input) {
         if (dd) dd.classList.remove("error");
     }
 }
+/**
+ * Validates a single field and clears errors if valid
+ * @param {HTMLElement} input - The input element to validate
+ * @returns {boolean} True if field is valid, false otherwise
+ */
+function validateAndClearField(input) {
+    if (!input) return false;
 
+    let rawValue = input.value;
+
+    // Handle seeding density with commas
+    if (input.id === "seeding_density") {
+        rawValue = removeCommasFromNumber(rawValue);
+    }
+
+    const numValue = parseDecimalInput(rawValue);
+
+    // Field is valid if it's not empty, not NaN, and not zero
+    const isValid =
+        rawValue.trim() !== "" && !isNaN(numValue) && numValue !== 0;
+
+    if (isValid) {
+        clearFieldError(input);
+    }
+
+    return isValid;
+}
 /**
  * Validates a single field and returns whether it's valid
  * @param {HTMLElement} input - The input element to validate
@@ -203,22 +229,23 @@ function initializeFieldValidation() {
         // Add event listeners for real-time validation
         ["input", "change", "keyup"].forEach((eventType) => {
             input.addEventListener(eventType, function () {
+                // Skip validation clearing if this is a programmatic change
+                if (this._programmaticSet) return;
+
                 // If the field currently has an error and user is typing
                 if (this.classList.contains("border-red-500")) {
-                    // Check if the field is now valid
-                    if (isFieldValid(this)) {
-                        clearFieldError(this);
-                    }
+                    validateAndClearField(this);
                 }
             });
         });
 
         // Special handling for blur event to re-validate
         input.addEventListener("blur", function () {
+            // Skip validation clearing if this is a programmatic change
+            if (this._programmaticSet) return;
+
             if (this.classList.contains("border-red-500")) {
-                if (isFieldValid(this)) {
-                    clearFieldError(this);
-                }
+                validateAndClearField(this);
             }
         });
     });
