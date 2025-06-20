@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row mt-4 md:mt-0 justify-between gap-4 mb-[40px]">
         <!-- Main Calculator Form -->
         <div
-            class="md:w-[70%] w-full table-container bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
+            class="md:w-[75%] w-full table-container bg-[#f3f5f9] px-5 pt-1 justify-between pb-10 mx-auto flex-grow flex flex-col">
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
@@ -47,7 +47,8 @@
                                         <p> Please refer to the ioCELL user manual for your cell type for guidance on
                                             thawing and recommended initial suspension volume.</p>
                                         <button type="button" class=" text-[#96a5b8]">
-                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
@@ -58,8 +59,8 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1">
-                        <input id="suspension_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
-                            min="0" value="1"
+                        <input id="suspension_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                            step="0.1" min="0" value="1"
                             class="pl-3 w-28 bg-white text-right border px-2 md:px-0 border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL</span>
                     </div>
@@ -110,7 +111,8 @@
                                             reflect the viable number of cells only.
                                         </p>
                                         <button type="button" class=" text-[#96a5b8]">
-                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
@@ -124,16 +126,16 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
-                                    min="0" required
+                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0" required
                                     class="px-2 pt-1 pb-1 w-28 text-right bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
                                     cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
-                                <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
-                                    min="0"
+                                <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -141,8 +143,8 @@
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
-                                <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
-                                    min="0"
+                                <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -260,10 +262,10 @@
                         Seeding density <span class="text-black">*</span>
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                                    style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -294,7 +296,8 @@
                                             ioCell monocultures. We recommend adjusting it as needed based on your assay or
                                             application.</p>
                                         <button type="button" class=" text-[#96a5b8]">
-                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
@@ -317,10 +320,10 @@
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                                    style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -354,7 +357,8 @@
                                             according to the supplier’s recommendations.
                                         </p>
                                         <button type="button" class=" text-[#96a5b8]">
-                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
@@ -382,8 +386,8 @@
                         Surface area <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="surface_area" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.01"
-                            min="0"
+                        <input id="surface_area" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                            step="0.01" min="0"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">cm²/well</span>
                     </div>
@@ -395,8 +399,8 @@
                         Volume <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="media_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.01"
-                            min="0"
+                        <input id="media_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                            step="0.01" min="0"
                             class=" w-28 bg-white border border-[#d3dbe6] text-right px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL/well</span>
                     </div>
@@ -421,10 +425,10 @@
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
-                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                                    stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
-                                    font-family="none" font-weight="none" font-size="none" text-anchor="none"
-                                    style="mix-blend-mode: normal">
+                                <g fill="#6d7e93" fill-rule="nonzero" stroke="none" stroke-width="1"
+                                    stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
+                                    stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none"
+                                    font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                                     <g transform="scale(5.12,5.12)">
                                         <path
                                             d="M25,2c-12.703,0 -23,10.297 -23,23c0,12.703 10.297,23 23,23c12.703,0 23,-10.297 23,-23c0,-12.703 -10.297,-23 -23,-23zM25,11c1.657,0 3,1.343 3,3c0,1.657 -1.343,3 -3,3c-1.657,0 -3,-1.343 -3,-3c0,-1.657 1.343,-3 3,-3zM29,38h-2h-4h-2v-2h2v-13h-2v-2h2h4v2v13h2z">
@@ -456,7 +460,8 @@
                                             few extra wells into your experimental plan.
                                         </p>
                                         <button type="button" class=" text-[#96a5b8]">
-                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M6 18L18 6M6 6l12 12"></path>
                                             </svg>
@@ -467,8 +472,8 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="buffer" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1" value="10"
-                            min="0" max="100"
+                        <input id="buffer" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                            step="0.1" value="10" min="0" max="100"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm text-left ">%</span>
                     </div>

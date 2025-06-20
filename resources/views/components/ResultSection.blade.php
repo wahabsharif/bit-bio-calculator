@@ -1,9 +1,9 @@
-<div class="md:w-[30%] w-full p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
+<div class="md:w-[25%] w-full p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
     <div id="results" class="space-y-4">
         <!-- Initial help content shown before calculation -->
-        <div id="helpContent">
-            <h3 class="!text-[16px] font-semibold mb-5">How to get started?</h3>
-            <ul class="list-disc pl-5 space-y-3 text-sm font-medium">
+        <div id="helpContent max-w-[205px]">
+            <h3 class="!text-[14px] !font-medium mb-5">How to get started?</h3>
+            <ul class="list-disc pl-5 space-y-3 text-sm font-light">
                 <li>Start by entering your cell stock volume.</li>
                 <li>Add live cell count and viability, ideally perform your count three times.</li>
                 <li>Select your cell type and adjust the seeding density as needed. The default values are optimised for
@@ -63,18 +63,14 @@
             <div class="mb-4">
                 <label class="font-semibold  mb-1 block">Required number of cells</label>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div>
-                        <div class=" px-3 py-1 border border-blue-100 ">
-                            <p class="mb-1">Total</p>
-                            <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x 10⁶</span>
-                            cells
-                        </div>
+                    <div class=" px-3 py-1 border border-blue-100 ">
+                        <p class="mb-1">Total</p>
+                        <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x 10⁶</span>
+                        cells
                     </div>
-                    <div>
-                        <div class=" px-3 py-1 border border-blue-100 ">
-                            <p class="mb-1">per well</p>
-                            <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
-                        </div>
+                    <div class=" px-3 py-1 border border-blue-100 ">
+                        <p class="mb-1">per well</p>
+                        <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
                     </div>
                 </div>
             </div>
@@ -111,10 +107,4 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
