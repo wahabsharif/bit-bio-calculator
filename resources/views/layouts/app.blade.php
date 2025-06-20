@@ -28,7 +28,7 @@
     <script src="{{ asset('js/export.js') }}"></script>
     <script src="{{ asset('js/ui-handlers.js') }}"></script>
     <script src="{{ asset('js/tooltip.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
+
 
 </head>
 
@@ -37,26 +37,22 @@
 
     <!-- Header -->
     <header class="flex container mx-auto">
-        <div class="md:w-[75%] flex flex-col items-start text-left py-3 pb-8">
+        <div class="md:w-[75%] flex flex-col items-start text-left">
             <!-- Logo -->
-            <div class="flex-shrink-0 mb-5">
+            <div class="flex-shrink-0 mb-2">
                 <img src="{{ asset('assets/images/bitbio-logo.png') }}" alt="Dashboard Logo"
-                    class="md:h-10 h-11 w-auto p-logo">
+                    class="w-[190px] h-[55px] p-logo">
             </div>
 
             <!-- Content -->
             <div class="text-left">
-                <h1 class="md:text-[1.8rem] text-[1.6rem] mb-4 p-heading mt-3 font-bold">Cell seeding
+                <h1 class="md:text-[1.8rem] !text-[32px] p-heading !my-1 !font-semibold">Cell seeding
                     calculator
                 </h1>
                 <p class="no-print">
-                    This calculator helps scientists to quickly determine how much cell stock solution and culture
-                    media
-                    is needed for
-                    seeding cells in a variety of different culture vessels. By following this simple step-by-step
-                    guide,
-                    you can get your
-                    results instantly!
+                    This calculator helps scientists to quickly determine how much cell stock solution and culture media
+                    is needed for seeding cells in a variety of different culture vessels. By following this simple
+                    step-by-step guide, you can get your results instantly!
                 </p>
             </div>
 

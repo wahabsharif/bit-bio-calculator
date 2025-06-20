@@ -10,7 +10,7 @@
             <div>
                 <!-- Cell Stock Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row md:items-center border-b-2 border-white py-2">
-                    <label for="suspension_volume" class="font-semibold w-full sm:w-64  flex items-center sm:mb-0">
+                    <label for="suspension_volume" class="font-medium w-full sm:w-64  flex items-center sm:mb-0">
                         Cell stock volume <span class="text-black">*</span>
                         <span class="tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -58,7 +58,8 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1">
-                        <input id="suspension_volume" type="number" step="0.01" min="0" value="1"
+                        <input id="suspension_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
+                            min="0" value="1"
                             class="pl-3 w-28 bg-white text-right border px-2 md:px-0 border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL</span>
                     </div>
@@ -66,7 +67,7 @@
 
                 <!-- Live Cell Count - Improve responsive layout -->
                 <div class="flex flex-col md:flex-row items-start border-b-2 border-white py-2">
-                    <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">
+                    <label class="font-medium w-full sm:w-64 flex items-center md:mb-2">
                         Live cell count
                         <span class="tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -130,16 +131,16 @@
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div>
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="count1" type="number" step="0.1" min="0" inputmode="decimal"
-                                    pattern="[0-9]*[.,]?[0-9]*" required
+                                <input id="count1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
+                                    min="0" required
                                     class="px-2 pt-1 pb-1 w-28 text-right bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol  items-center justify-start">x 10<sup>6</sup>
                                     cells/mL</div>
                             </div>
                             <div>
                                 <div class="mb-1">Count 2</div>
-                                <input id="count2" type="number" step="0.1" min="0" inputmode="decimal"
-                                    pattern="[0-9]*[.,]?[0-9]*"
+                                <input id="count2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
+                                    min="0"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -147,8 +148,8 @@
                             </div>
                             <div>
                                 <div class="mb-1">Count 3</div>
-                                <input id="count3" type="number" step="0.1" min="0" inputmode="decimal"
-                                    pattern="[0-9]*[.,]?[0-9]*"
+                                <input id="count3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1"
+                                    min="0"
                                     class="px-3 w-28 bg-white text-right border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="mt-1 flex md:hidden symbol items-center justify-start">x 10<sup>6</sup>
                                     cells/mL
@@ -187,28 +188,31 @@
 
                 <!-- Cell Viability - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label class="font-semibold w-full sm:w-64 flex items-center md:mb-2">Cell
+                    <label class="font-medium w-full sm:w-64 flex items-center md:mb-2">Cell
                         viability</label>
                     <div class="flex-1 w-full md:relative">
                         <div class="flex grid-cols-3 md:grid-cols-4 gap-6 items-center">
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 1<span class="text-black">*</span></div>
-                                <input id="viability1" type="number" step="0.1" min="0" max="100" value="100"
-                                    class="px-2 pt-1 pb-1 w-28 text-sm bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <input id="viability1" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0" max="100"
+                                    class="px-2 pt-1 pb-1 w-28 text-sm text-right bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 2</div>
-                                <input id="viability2" type="number" step="0.1" min="0" max="100"
-                                    class="px-2 pt-1 pb-1 w-28 text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <input id="viability2" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0" max="100"
+                                    class="px-2 pt-1 pb-1 w-28 text-right text-sm pr-1 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
                             <div class="xs:flex xs:flex-col xs:items-end">
                                 <div class="mb-1">Count 3</div>
-                                <input id="viability3" type="number" step="0.1" min="0" max="100"
-                                    class="px-2 pt-1 pb-1 text-sm pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                <input id="viability3" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*"
+                                    step="0.1" min="0" max="100"
+                                    class="px-2 pt-1 pb-1 text-sm text-right pr-1 w-28 bg-white border border-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                 <div class="text-sm md:hidden symbol text-right flex items-center justify-end">
                                     %</div>
                             </div>
@@ -243,13 +247,13 @@
 
                 <!-- Cell Type - Improve responsive layout with Semantic UI -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="cell_type" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">Cell
+                    <label for="cell_type" class="font-medium w-full sm:w-64 flex items-center mb-2 sm:mb-0">Cell
                         type</label>
                     <div class="flex-1 relative w-full">
                         <div class="ui fluid search selection dropdown searchable-input" id="cell_type_dropdown">
                             <input type="hidden" id="cell_type">
                             <i class="dropdown icon"></i>
-                            <div class="default text">--Select your cell type--</div>
+                            <div class="default text">- - Select your cell type - -</div>
                             <div class="menu">
                                 <!-- Options will be populated by JS -->
                             </div>
@@ -259,7 +263,7 @@
 
                 <!-- Seeding Density - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="seeding_density" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="seeding_density" class="font-medium w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Seeding density <span class="text-black">*</span>
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -316,7 +320,7 @@
 
                 <!-- Culture Vessel - Improve responsive layout with Semantic UI -->
                 <div class="flex flex-col sm:flex-row items-start border-b-2 border-white py-2">
-                    <label for="culture_vessel" class="font-semibold w-full sm:w-64 flex items-center mb-2 sm:mb-0">
+                    <label for="culture_vessel" class="font-medium w-full sm:w-64 flex items-center mb-2 sm:mb-0">
                         Culture vessel
                         <span class="ml-1 tooltip-container cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -374,7 +378,7 @@
                         <div class="ui fluid search selection dropdown" id="culture_vessel_dropdown">
                             <input type="hidden" id="culture_vessel">
                             <i class="dropdown icon"></i>
-                            <div class="default text">--Select your culture vessel--</div>
+                            <div class="default text">- - Select your culture vessel - -</div>
                             <div class="menu">
                                 <!-- Options will be populated by JS -->
                             </div>
@@ -384,11 +388,12 @@
 
                 <!-- Surface Area - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="surface_area" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="surface_area" class="font-medium w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Surface area <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="surface_area" type="number" step="0.01" min="0"
+                        <input id="surface_area" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.01"
+                            min="0"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">cm²/well</span>
                     </div>
@@ -396,31 +401,33 @@
 
                 <!-- Media Volume - Improve responsive layout -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="media_volume" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="media_volume" class="font-medium w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Volume <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="media_volume" type="number" step="0.01" min="0"
+                        <input id="media_volume" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.01"
+                            min="0"
                             class=" w-28 bg-white border border-[#d3dbe6] text-right px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm ">mL/well</span>
                     </div>
                 </div>
 
-                <!-- Number of Wells - Improve responsive layout -->
+                <!-- Number of Wells - Using number type but with the right step value -->
                 <div class="flex flex-col sm:flex-row items-center border-b-2 border-white py-2">
-                    <label for="num_wells" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="num_wells" class="font-medium w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Number of wells to seed <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="num_wells" type="number" value="96" min="1"
+                        <input id="num_wells" type="number" min="1" step="0.1" value="0"
                             class="w-28 bg-white text-right border px-2 border-[#d3dbe6] md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+
                         <span class="ml-2 text-sm ">wells</span>
                     </div>
                 </div>
 
                 <!-- Dead Volume Allowance - Improve responsive layout -->
                 <div class="md:mb-1 flex flex-col sm:flex-row items-start py-2 pb-0">
-                    <label for="buffer" class="font-semibold w-full sm:w-64  flex items-center mb-2 sm:mb-0">
+                    <label for="buffer" class="font-medium w-full sm:w-64  flex items-center mb-2 sm:mb-0">
                         Dead volume allowance
                         <span class="ml-1 tooltip-container  cursor-help">
                             <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0,0,256,256">
@@ -471,7 +478,8 @@
                         </span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="buffer" type="number" step="0.1" value="10" min="0" max="100"
+                        <input id="buffer" type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" step="0.1" value="10"
+                            min="0" max="100"
                             class="w-28 bg-white text-right border border-[#d3dbe6] px-2 md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         <span class="ml-2 text-sm text-left ">%</span>
                     </div>
