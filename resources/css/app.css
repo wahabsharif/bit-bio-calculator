@@ -161,7 +161,6 @@ input[type="text"] {
     display: none;
     position: absolute;
     z-index: 50;
-    min-width: 30rem;
     left: 0;
     font-weight: 300;
     background-color: white;
