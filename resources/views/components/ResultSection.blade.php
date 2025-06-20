@@ -5,10 +5,11 @@
             <h3 class="!text-[16px] font-semibold mb-5">How to get started?</h3>
             <ul class="list-disc pl-5 space-y-3 text-sm font-medium">
                 <li>Start by entering your cell stock volume.</li>
-                <li>Add your cell count and viability. Ideally perform your count three times.</li>
-                <li>Select your cell type and the recommended seeding density will be populated.</li>
-                <li>Choose your vessel format to automatically fill in the surface area and volume.</li>
-                <li>Include a 10-20% dead volume allowance or adjust based on your workflow.</li>
+                <li>Add live cell count and viability, ideally perform your count three times.</li>
+                <li>Select your cell type and adjust the seeding density as needed. The default values are optimised for
+                    monocultures.</li>
+                <li>Choose your vessel format and enter the number of wells.</li>
+                <li>Include a 10–20% dead volume contingency or add extra wells.</li>
             </ul>
         </div>
 
