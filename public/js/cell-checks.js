@@ -54,16 +54,38 @@ function checkViabilityValues() {
     const viabilityWarning = document.getElementById("viabilityWarning");
     if (!viabilityWarning) return;
 
-    const viabilities = [
-        parseFloat(document.getElementById("viability1")?.value) || 0,
-        parseFloat(document.getElementById("viability2")?.value) || 0,
-        parseFloat(document.getElementById("viability3")?.value) || 0,
-    ].filter((v) => v > 0); // Only consider non-zero values
+    // Get all viability inputs
+    const viability1 = document.getElementById("viability1");
+    const viability2 = document.getElementById("viability2");
+    const viability3 = document.getElementById("viability3");
 
-    // Check if any viability value is below 80%
-    const lowViability = viabilities.some((v) => v < 80);
+    // Check if any input has been filled with a value that would trigger the warning
+    let showWarning = false;
 
-    if (lowViability && viabilities.length > 0) {
+    // Check if any filled field has a value of 0 or below 80%
+    if (viability1 && viability1.value !== "") {
+        const val1 = parseFloat(viability1.value);
+        if (val1 === 0 || (val1 > 0 && val1 < 80)) {
+            showWarning = true;
+        }
+    }
+
+    if (viability2 && viability2.value !== "") {
+        const val2 = parseFloat(viability2.value);
+        if (val2 === 0 || (val2 > 0 && val2 < 80)) {
+            showWarning = true;
+        }
+    }
+
+    if (viability3 && viability3.value !== "") {
+        const val3 = parseFloat(viability3.value);
+        if (val3 === 0 || (val3 > 0 && val3 < 80)) {
+            showWarning = true;
+        }
+    }
+
+    // Update warning visibility
+    if (showWarning) {
         viabilityWarning.classList.remove("hidden");
     } else {
         viabilityWarning.classList.add("hidden");
