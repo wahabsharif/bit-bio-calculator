@@ -1,7 +1,7 @@
 <div class="md:w-[25%] w-full p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
     <div id="results" class="space-y-4">
         <!-- Initial help content shown before calculation -->
-        <div id="helpContent max-w-[205px]">
+        <div id="helpContent" class="max-w-[205px]">
             <h3 class="!text-[14px] !font-medium mb-5">How to get started?</h3>
             <ul class="list-disc pl-5 space-y-3 text-sm font-light">
                 <li>Start by entering your cell stock volume.</li>

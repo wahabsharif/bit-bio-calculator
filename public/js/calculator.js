@@ -402,3 +402,92 @@ function checkRemainingWarnings() {
         warningsDiv.classList.add("hidden");
     }
 }
+
+/**
+ * Checks viability values and shows a warning if values are below 80%
+ * or if there is high variability between measurements
+ */
+function checkViabilityValues() {
+    const viability1El = document.getElementById("viability1");
+    const viability2El = document.getElementById("viability2");
+    const viability3El = document.getElementById("viability3");
+    const viabilityWarning = document.getElementById("viabilityWarning");
+
+    if (!viability1El || !viabilityWarning) return;
+
+    // Get all viability values that are not empty
+    const viabilities = [
+        viability1El ? parseFloat(viability1El.value) || 0 : 0,
+        viability2El && viability2El.value
+            ? parseFloat(viability2El.value) || 0
+            : 0,
+        viability3El && viability3El.value
+            ? parseFloat(viability3El.value) || 0
+            : 0,
+    ].filter((val) => val > 0);
+
+    // Need at least one value to check
+    if (viabilities.length === 0) return;
+
+    // Check if any viability is below 80%
+    const lowViability = viabilities.some((v) => v < 80);
+
+    // Check for high variability (if we have multiple measurements)
+    let highVariability = false;
+    if (viabilities.length > 1) {
+        const max = Math.max(...viabilities);
+        const min = Math.min(...viabilities);
+        const range = max - min;
+
+        // If range is more than 10% of the average, consider it high variability
+        highVariability =
+            range >
+            (viabilities.reduce((a, b) => a + b, 0) / viabilities.length) * 0.1;
+    }
+
+    // Show warning if either condition is met
+    if (lowViability || highVariability) {
+        viabilityWarning.classList.remove("hidden");
+    } else {
+        viabilityWarning.classList.add("hidden");
+    }
+}
+
+/**
+ * Checks cell count variability and shows a warning if it exceeds 10%
+ */
+function checkCellCountVariability() {
+    const count1El = document.getElementById("count1");
+    const count2El = document.getElementById("count2");
+    const count3El = document.getElementById("count3");
+    const cellCountWarning = document.getElementById("cellCountWarning");
+
+    if (!count1El || !cellCountWarning) return;
+
+    // Get all count values that are not empty
+    const counts = [
+        parseDecimalInput(count1El.value),
+        count2El && count2El.value ? parseDecimalInput(count2El.value) : 0,
+        count3El && count3El.value ? parseDecimalInput(count3El.value) : 0,
+    ].filter((val) => val > 0);
+
+    // Need at least two values to check variability
+    if (counts.length < 2) return;
+
+    const average = counts.reduce((a, b) => a + b, 0) / counts.length;
+
+    // Calculate coefficient of variation (standard deviation / mean)
+    // First calculate variance
+    const variance =
+        counts.reduce((sum, val) => sum + Math.pow(val - average, 2), 0) /
+        counts.length;
+    const stdDev = Math.sqrt(variance);
+    const cv = (stdDev / average) * 100; // as percentage
+
+    // Show warning if coefficient of variation exceeds 10%
+    if (cv > 10) {
+        cellCountWarning.classList.remove("hidden");
+    } else {
+        cellCountWarning.classList.add("hidden");
+    }
+}
