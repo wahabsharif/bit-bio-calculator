@@ -314,6 +314,16 @@ function handleNumericKeydown(e) {
             currentValue = parseFloat(maxAttr);
         }
 
+        // Ensure viability fields never exceed 100
+        const isViabilityField = [
+            "viability1",
+            "viability2",
+            "viability3",
+        ].includes(this.id);
+        if (isViabilityField && currentValue > 100) {
+            currentValue = 100;
+        }
+
         // Format based on field type and value
         const isCountField = ["count1", "count2", "count3"].includes(this.id);
 
@@ -396,6 +406,11 @@ function handleNumericInput(e) {
 
     const value = this.value;
     const isCountField = ["count1", "count2", "count3"].includes(this.id);
+    const isViabilityField = [
+        "viability1",
+        "viability2",
+        "viability3",
+    ].includes(this.id);
 
     // For count fields with comma, preserve as decimal separator during typing
     if (isCountField && value.includes(",")) {
@@ -408,6 +423,14 @@ function handleNumericInput(e) {
     if (value !== cleanedValue) {
         this.value = cleanedValue;
     }
+
+    // Immediately cap viability fields at 100 during typing
+    if (isViabilityField && cleanedValue !== "") {
+        const numValue = parseDecimalInput(cleanedValue);
+        if (!isNaN(numValue) && numValue > 100) {
+            this.value = "100";
+        }
+    }
 }
 
 /**
@@ -418,6 +441,11 @@ function handleNumericBlur(e) {
     if (this._programmaticSet) return;
 
     const isCountField = ["count1", "count2", "count3"].includes(this.id);
+    const isViabilityField = [
+        "viability1",
+        "viability2",
+        "viability3",
+    ].includes(this.id);
     const value = this.value;
 
     if (value && value.trim() !== "") {
@@ -431,6 +459,9 @@ function handleNumericBlur(e) {
                 this.value = minAttr;
             } else if (maxAttr !== null && numValue > parseFloat(maxAttr)) {
                 this.value = maxAttr;
+            } else if (isViabilityField && numValue > 100) {
+                // Ensure viability fields never exceed 100
+                this.value = "100";
             } else if (isCountField) {
                 // Format count fields with one decimal place
                 if (value.includes(",") && !value.includes(".")) {
@@ -465,6 +496,14 @@ function initializeNumericInputValidation() {
         // Ensure all numeric inputs have a step attribute
         if (!input.hasAttribute("step")) {
             input.setAttribute("step", "0.1");
+        }
+
+        // Ensure viability fields have max attribute set to 100
+        if (
+            ["viability1", "viability2", "viability3"].includes(input.id) &&
+            !input.hasAttribute("max")
+        ) {
+            input.setAttribute("max", "100");
         }
 
         // Remove any existing event listeners to prevent duplicates

@@ -192,6 +192,11 @@ function addNumericInputValidation(input) {
         if (this._programmaticSet) return;
 
         const value = this.value;
+        const isViabilityField = [
+            "viability1",
+            "viability2",
+            "viability3",
+        ].includes(this.id);
 
         // For all numeric inputs, allow comma formatting
         // Only remove invalid characters, keep commas and periods
@@ -214,6 +219,11 @@ function addNumericInputValidation(input) {
             const maxAttr = this.getAttribute("max");
             if (maxAttr !== null && numValue > parseFloat(maxAttr)) {
                 this.value = maxAttr;
+            }
+
+            // Immediately cap viability fields at 100 during typing
+            if (isViabilityField && numValue > 100) {
+                this.value = "100";
             }
         }
     });
@@ -681,6 +691,16 @@ function handleInputWheelEvent(e) {
         newValue = parseFloat(maxAttr);
     }
 
+    // Ensure viability fields never exceed 100
+    const isViabilityField = [
+        "viability1",
+        "viability2",
+        "viability3",
+    ].includes(this.id);
+    if (isViabilityField && newValue > 100) {
+        newValue = 100;
+    }
+
     // Format the value appropriately
     const isCountField = ["count1", "count2", "count3"].includes(this.id);
 
@@ -1122,6 +1142,33 @@ numericInputs.forEach((input) => {
                         }
                     }
                 }
+            }
+        });
+    }
+    // Add real-time validation for viability fields
+    else if (
+        input.id === "viability1" ||
+        input.id === "viability2" ||
+        input.id === "viability3"
+    ) {
+        input.addEventListener("input", function (e) {
+            if (this._programmaticSet) return;
+
+            this.classList.remove("default-input");
+            this.classList.add("active-input");
+
+            // Remove invalid characters
+            const value = this.value;
+            const cleanedValue = value.replace(/[^0-9.,]/g, "");
+
+            if (value !== cleanedValue) {
+                this.value = cleanedValue;
+            }
+
+            // Immediately cap at 100 during typing
+            const numValue = parseDecimalInput(cleanedValue);
+            if (!isNaN(numValue) && numValue > 100) {
+                this.value = "100";
             }
         });
     }
