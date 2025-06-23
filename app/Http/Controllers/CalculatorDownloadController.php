@@ -89,13 +89,10 @@ class CalculatorDownloadController extends Controller
 
         // Generate now timestamp in user's timezone
         $now = Carbon::now($timezone);
-        // Format e.g. "17-06-2025 - 2:28 PM"
-        // Note: to avoid invalid filename characters (":"), replace ":" with "-" in time.
-        $datePart = $now->format('d-m-Y');
-        $timePart = $now->format('g:i A'); // e.g. "2:28 PM"
-        // Replace colon for filename safety:
-        $safeTimePart = str_replace(':', '-', $timePart); // yields "2-28 PM"
-        $formattedTimestamp = "{$datePart} - {$safeTimePart}";
+        // Format using yyyy-mm-dd hh-mm format
+        $datePart = $now->format('Y-m-d');
+        $timePart = $now->format('H-i'); // 24-hour format with hyphen for minutes
+        $formattedTimestamp = "{$datePart} - {$timePart}";
         $formattedDate = $now->format('Y-m-d H:i:s');
 
         // Add generation timestamp (moved from A3 to A4)
