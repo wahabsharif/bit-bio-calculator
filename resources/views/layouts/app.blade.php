@@ -85,9 +85,11 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Ensure we only attach the event listeners once
+        (function() {
             // Store original document title
             const originalTitle = document.title;
+            let isEventListenersAttached = false;
 
             // Function to format date as DD-MM-YYYY
             function formatDate(date) {
@@ -106,42 +108,72 @@
                 return `${hour12}-${minutes} ${ampm}`;
             }
 
-            // Override the PDF download functionality
-            const pdfButton = document.getElementById('downloadPdf');
-            if (pdfButton) {
-                pdfButton.addEventListener('click', function(e) {
-                    // Get current date and time
-                    const now = new Date();
-                    const formattedDate = formatDate(now);
-                    const formattedTime = formatTime(now);
+            // Set up the print filename functionality
+            function setupPrintFilename() {
+                if (isEventListenersAttached) return;
+                isEventListenersAttached = true;
 
-                    // Set document title to the desired filename format
-                    document.title =
-                        `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
+                // Remove any existing event listeners first
+                window.removeEventListener('beforeprint', handleBeforePrint);
+                window.removeEventListener('afterprint', handleAfterPrint);
 
-                    // Print the page (which allows saving as PDF)
-                    window.print();
+                // Add event listeners with named functions for easier removal
+                window.addEventListener('beforeprint', handleBeforePrint);
+                window.addEventListener('afterprint', handleAfterPrint);
 
-                    // Reset the document title after printing
-                    setTimeout(() => {
-                        document.title = originalTitle;
-                    }, 100);
-                });
+                // Override the PDF download functionality
+                const pdfButton = document.getElementById('downloadPdf');
+                if (pdfButton) {
+                    // Remove existing event listeners if any
+                    pdfButton.replaceWith(pdfButton.cloneNode(true));
+
+                    // Get the button again after replacing it
+                    const newPdfButton = document.getElementById('downloadPdf');
+                    if (newPdfButton) {
+                        newPdfButton.addEventListener('click', handlePdfDownload);
+                    }
+                }
             }
 
-            // Add listener for before print event as a fallback
-            window.addEventListener('beforeprint', function() {
+            // Handle before print event
+            function handleBeforePrint() {
                 const now = new Date();
                 const formattedDate = formatDate(now);
                 const formattedTime = formatTime(now);
                 document.title = `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
-            });
+            }
 
-            // Reset title after printing
-            window.addEventListener('afterprint', function() {
+            // Handle after print event
+            function handleAfterPrint() {
                 document.title = originalTitle;
-            });
-        });
+            }
+
+            // Handle PDF download button click
+            function handlePdfDownload(e) {
+                // Get current date and time
+                const now = new Date();
+                const formattedDate = formatDate(now);
+                const formattedTime = formatTime(now);
+
+                // Set document title to the desired filename format
+                document.title = `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
+
+                // Print the page (which allows saving as PDF)
+                window.print();
+
+                // Reset the document title after printing with a delay to ensure it happens after print dialog is closed
+                setTimeout(() => {
+                    document.title = originalTitle;
+                }, 100);
+            }
+
+            // Set up the event listeners when the DOM is loaded
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupPrintFilename);
+            } else {
+                setupPrintFilename();
+            }
+        })();
     </script>
 </body>
 
