@@ -306,12 +306,16 @@ input[type="text"] {
     div {
         page-break-inside: avoid;
     }
-
+    h1 {
+        font-size: 25px !important;
+    }
     /* Reduce page margins to minimum */
     @page {
         margin: 0.5cm;
     }
-
+    .pb-2 {
+        padding: 0 !important;
+    }
     .mt-10,
     .mt-6 {
         margin-top: 0 !important;

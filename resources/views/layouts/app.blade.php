@@ -46,7 +46,7 @@
 
             <!-- Content -->
             <div class="text-left">
-                <h1 class="md:text-[1.8rem] !text-[32px] p-heading !my-1 !font-semibold">Cell seeding
+                <h1 class="md:text-[1.8rem] text-[32px] p-heading !my-1 !font-semibold">Cell seeding
                     calculator
                 </h1>
                 <p class="no-print">
