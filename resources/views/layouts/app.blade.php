@@ -84,6 +84,65 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Store original document title
+            const originalTitle = document.title;
+
+            // Function to format date as DD-MM-YYYY
+            function formatDate(date) {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            // Function to format time as H-MM AM/PM
+            function formatTime(date) {
+                const hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                const hour12 = hours % 12 || 12;
+                return `${hour12}-${minutes} ${ampm}`;
+            }
+
+            // Override the PDF download functionality
+            const pdfButton = document.getElementById('downloadPdf');
+            if (pdfButton) {
+                pdfButton.addEventListener('click', function(e) {
+                    // Get current date and time
+                    const now = new Date();
+                    const formattedDate = formatDate(now);
+                    const formattedTime = formatTime(now);
+
+                    // Set document title to the desired filename format
+                    document.title =
+                        `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
+
+                    // Print the page (which allows saving as PDF)
+                    window.print();
+
+                    // Reset the document title after printing
+                    setTimeout(() => {
+                        document.title = originalTitle;
+                    }, 100);
+                });
+            }
+
+            // Add listener for before print event as a fallback
+            window.addEventListener('beforeprint', function() {
+                const now = new Date();
+                const formattedDate = formatDate(now);
+                const formattedTime = formatTime(now);
+                document.title = `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
+            });
+
+            // Reset title after printing
+            window.addEventListener('afterprint', function() {
+                document.title = originalTitle;
+            });
+        });
+    </script>
 </body>
 
 </html>
