@@ -1,4 +1,4 @@
-<div class="md:w-[25%] w-full p-6 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
+<div class="md:w-[25%] w-full p-3 bg-[#fdffff] border border-[#d3dbe6] flex-grow flex flex-col">
     <div id="results" class="space-y-4">
         <!-- Initial help content shown before calculation -->
         <div id="helpContent" class="max-w-[205px]">
@@ -15,9 +15,9 @@
 
         <!-- Results content hidden initially, shown after calculation -->
         <div id="resultsContent" class="hidden">
-            <h2 class="font-semibold mb-2">Results</h2>
+            <h2 class="!font-semibold !text-[20px] mb-2">Results</h2>
             <div id="narrativeText"
-                class="text-sm p-2 hover:bg-blue-50 cursor-pointer transition-colors rounded relative"
+                class="!text-[14px] p-2 hover:bg-blue-50 cursor-pointer transition-colors rounded relative"
                 title="Click to copy to clipboard">
                 Your results for seeding <span id="narrativeWellCount">XYZ</span> wells, prepare a dilution by
                 combining <span id="narrativeVolumeSeed">0</span> mL of cell stock with <span
@@ -29,48 +29,51 @@
             </div>
 
             <div class="mb-4">
-                <label class="font-semibold mb-1 block">Volume of media for dilution</label>
-                <div class=" px-3 py-1 border border-blue-100 ">
-                    <span id="volume_to_dilute" class="font-semibold">9.98</span> mL
+                <label class="font-medium text-[14px] mb-1 block">Volume of media for dilution</label>
+                <div class=" px-3 py-1 border border-[#3FD4FF] !w-[110px] !text-right">
+                    <span id="volume_to_dilute" class="!font-medium">9.98</span> mL
                 </div>
             </div>
 
             <div class="mb-4">
-                <label class="font-semibold mb-1 block">From your initial cell stock volume,
+                <label class="!font-medium !text-[14px] mb-1 block">From your initial cell stock volume,
                     pipette</label>
-                <div class=" px-3 py-1 border border-blue-100 ">
-                    <span id="volume_to_seed" class="font-semibold">1.06</span> mL
+                <div class=" px-3 py-1 border border-[#3FD4FF] !w-[110px] !text-right">
+                    <span id="volume_to_seed" class="!font-medium !text-[14px]">1.06</span> mL
                 </div>
             </div>
 
             <div class="mb-4">
-                <label class="font-semibold  mb-1 block">Add <span id="volume_plate_perwell_simple">XYZ</span>
+                <label class="!font-medium !text-[14px] mb-1 block">Add <span
+                        id="volume_plate_perwell_simple">XYZ</span>
                     μL
                     of the final dilution to each well</label>
-                <p class="mt-1">Review the values below and adjust if needed for your
+                <p class="mt-1 !text-[13.5px]">Review the values below and adjust if needed for your
                     experiment</p>
             </div>
 
             <div class="mb-4">
-                <label class="font-semibold  mb-1 block">Cell density</label>
-                <div class=" px-3 py-1 border border-blue-100">
-                    <span id="cell_density_formatted" class="font-semibold">1.00 x 10⁶</span>
+                <label class="!font-medium !text-[14px] mb-1 block">Cell density</label>
+                <div class=" p-1 border text-nowrap border-blue-100 w-[146px] text-right">
+                    <span id="cell_density_formatted" class="!font-medium mr-1">1.00 x 10⁶</span>
                     cells/mL
                 </div>
             </div>
 
             <!-- Required number of cells - Improve grid for mobile -->
             <div class="mb-4">
-                <label class="font-semibold  mb-1 block">Required number of cells</label>
+                <label class="!font-medium text-[14px] mb-1 block">Required number of cells</label>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div class=" px-3 py-1 border border-blue-100 ">
+                    <div class=" px-3 py-1 border border-[#E4EAF0]">
                         <p class="mb-1">Total</p>
-                        <span id="required_cells_total_formatted" class="text-md font-semibold">1.10 x 10⁶</span>
-                        cells
+                        <div class="text-nowrap"><span id="required_cells_total_formatted"
+                                class="text-[14px] !font-medium">1.10 x
+                                10⁶</span>
+                            cells</div>
                     </div>
-                    <div class=" px-3 py-1 border border-blue-100 ">
+                    <div class=" px-3 py-1 border border-[#E4EAF0]">
                         <p class="mb-1">per well</p>
-                        <span id="cells_per_well_formatted" class="text-md font-semibold">9,600</span> cells
+                        <span id="cells_per_well_formatted" class="text-[14px] !font-medium">9,600</span> cells
                     </div>
                 </div>
             </div>
