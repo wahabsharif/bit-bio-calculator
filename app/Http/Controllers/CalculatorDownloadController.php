@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Carbon\Carbon;
 use DateTimeZone;
+use Illuminate\Support\Facades\Http;
 
 class CalculatorDownloadController extends Controller
 {
@@ -67,17 +68,76 @@ class CalculatorDownloadController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $spreadsheet->getDefaultStyle()->getFont()->setName('Arial');
 
+        $logoFound = false;
+        $tempLogoPath = null;
 
-        // Add logo image instead of text
-        $drawing = new Drawing();
-        $drawing->setName('Logo');
-        $drawing->setDescription('bit.bio Logo');
-        $drawing->setPath(public_path('assets/images/bitbio-logo.png'));
-        $drawing->setCoordinates('A1');
-        $drawing->setHeight(25);
-        $drawing->setOffsetX(10);
-        $drawing->setOffsetY(10);
-        $drawing->setWorksheet($spreadsheet->getActiveSheet());
+        // Try to download the logo from URL if we're in production
+        if (str_contains(config('app.url'), 'dev.zeeteck.com')) {
+            try {
+                $logoUrl = rtrim(config('app.url'), '/') . '/assets/images/bitbio-logo.png';
+                $response = Http::get($logoUrl);
+
+                if ($response->successful()) {
+                    $tempLogoPath = tempnam(sys_get_temp_dir(), 'logo_');
+                    file_put_contents($tempLogoPath, $response->body());
+
+                    // Add logo image
+                    $drawing = new Drawing();
+                    $drawing->setName('Logo');
+                    $drawing->setDescription('bit.bio Logo');
+                    $drawing->setPath($tempLogoPath);
+                    $drawing->setCoordinates('A1');
+                    $drawing->setHeight(25);
+                    $drawing->setOffsetX(10);
+                    $drawing->setOffsetY(10);
+                    $drawing->setWorksheet($spreadsheet->getActiveSheet());
+                    $logoFound = true;
+                }
+            } catch (\Exception $e) {
+                // If there's an error downloading the logo, continue with fallback paths
+            }
+        }
+
+        // If we couldn't download the logo, try local file paths as fallback
+        if (!$logoFound) {
+            $potentialPaths = [
+                public_path('assets/images/bitbio-logo.png'),
+                base_path('public/assets/images/bitbio-logo.png'),
+                storage_path('app/public/assets/images/bitbio-logo.png'),
+                '/home/devzeeteck/public_html/projects/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+                '/home/devzeeteck/public_html/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+                '/var/www/html/projects/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+            ];
+
+            foreach ($potentialPaths as $logoPath) {
+                if (file_exists($logoPath)) {
+                    try {
+                        // Add logo image
+                        $drawing = new Drawing();
+                        $drawing->setName('Logo');
+                        $drawing->setDescription('bit.bio Logo');
+                        $drawing->setPath($logoPath);
+                        $drawing->setCoordinates('A1');
+                        $drawing->setHeight(25);
+                        $drawing->setOffsetX(10);
+                        $drawing->setOffsetY(10);
+                        $drawing->setWorksheet($spreadsheet->getActiveSheet());
+                        $logoFound = true;
+                        break;
+                    } catch (\Exception $e) {
+                        // If there's an error with this path, try the next one
+                        continue;
+                    }
+                }
+            }
+        }
+
+        // Fallback to text if logo couldn't be loaded from any path
+        if (!$logoFound) {
+            $sheet->setCellValue('A1', 'bit.bio');
+            $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        }
+
         $sheet->getRowDimension(1)->setRowHeight(35);
 
         // Center Cell seeding calculator title
@@ -231,6 +291,11 @@ class CalculatorDownloadController extends Controller
         $tempFilePath = tempnam(sys_get_temp_dir(), 'excel_');
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFilePath);
+
+        // Clean up the temporary logo file if it was created
+        if ($tempLogoPath && file_exists($tempLogoPath)) {
+            @unlink($tempLogoPath);
+        }
 
         // Return the file as a download
         return response()->download($tempFilePath, $filename, [
