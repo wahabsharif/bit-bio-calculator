@@ -110,7 +110,7 @@
     </div>
 
     <!-- Contact information -->
-    <div class="mt-6 montserrat !text-black font-semibold">
+    <div class="mt-6 !text-black font-semibold">
         {{-- <p class="pb-2 md:p-0">If you have any questions, please contact us at <a class="!text-black"
                 href="mailto:technical@bit.bio">technical@bit.bio</a>.</p> --}}
         <p>If you have any questions or got any issues with the calculate, please contact our team at <a

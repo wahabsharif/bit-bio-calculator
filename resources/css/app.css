@@ -5,24 +5,31 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+/* Font Face Declarations */
+@font-face {
+    font-family: "BitBioSans";
+    src: url("/bit-bio-fonts/web/BitBioSans-Regular.woff") format("woff"),
+        url("/bit-bio-fonts/web/BitBioSans-Regular.woff2") format("woff2"),
+        url("/bit-bio-fonts/web/BitBioSans-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
 /* Theme and Base Styles */
 @theme {
-    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
+    --font-sans: "BitBioSans";
 }
 
 body[class] {
-    font-family: "Lexend", sans-serif;
+    font-family: var(--font-sans) !important;
     font-optical-sizing: auto;
     font-style: normal;
 }
 
 button {
-    font-family: "Lexend", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
     line-height: 1 !important;
+    font-family: var(--font-sans) !important;
 }
 
 h1,
@@ -33,18 +40,13 @@ h5,
 h6,
 ul,
 li {
-    font-family: "Montserrat", sans-serif !important;
     font-optical-sizing: auto;
     font-style: normal;
+    font-family: var(--font-sans) !important;
 }
 p {
     margin: 0 !important;
-}
-
-.montserrat {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+    font-family: var(--font-sans) !important;
 }
 
 .gap-80 {

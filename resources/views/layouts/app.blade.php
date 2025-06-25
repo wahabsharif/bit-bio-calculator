@@ -9,12 +9,6 @@
     @vite('resources/css/app.css')
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.webp') }}">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -67,7 +61,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white container mx-auto mt-10 hidden md:block text-start max-w-4xl border-gray-200 pb-12">
+    <footer class="bg-white container mx-auto mt-10 hidden md:block text-start border-gray-200 pb-12">
         <div class="mx-auto py-2 text-black">
             <p class="pb-2 md:pb-0">
                 Please note that this calculator has been developed by <a class="!text-black"
