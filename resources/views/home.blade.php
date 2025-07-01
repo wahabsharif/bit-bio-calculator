@@ -44,7 +44,7 @@
                                         </svg>
                                     </div>
                                     <div class="flex items-start">
-                                        <p> Please refer to the ioCELL user manual for your cell type for guidance on
+                                        <p> Please refer to the ioCell user manual for your cell type for guidance on
                                             thawing and recommended initial suspension volume.</p>
                                         <button type="button" class=" text-[#96a5b8]">
                                             <svg class="tooltip-icon" fill="none" viewBox="0 0 24 24"
