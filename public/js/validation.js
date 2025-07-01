@@ -5,12 +5,12 @@
 function validateRequiredFields() {
     const requiredFields = [
         { id: "suspension_volume", name: "Cell stock volume" },
+        { id: "count1", name: "Live cell Count 1" },
+        { id: "viability1", name: "Cell viability Count 1" },
         { id: "seeding_density", name: "Seeding density" },
         { id: "surface_area", name: "Surface area" },
         { id: "media_volume", name: "Volume" },
         { id: "num_wells", name: "Number of wells to seed" },
-        { id: "count1", name: "Live cell Count 1" },
-        { id: "viability1", name: "Cell viability Count 1" },
     ];
 
     const missingFields = [];
@@ -544,12 +544,12 @@ function ensureArrowKeyHandling() {
 function initializeFieldValidation() {
     const requiredFieldIds = [
         "suspension_volume",
+        "count1",
+        "viability1",
         "seeding_density",
         "surface_area",
         "media_volume",
         "num_wells",
-        "count1",
-        "viability1",
     ];
 
     requiredFieldIds.forEach((fieldId) => {
