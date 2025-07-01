@@ -485,7 +485,40 @@
                 <!-- Calculate Button - Improve responsive layout -->
                 <div class="mt-6 flex flex-col md:flex-row items-end justify-between gap-3">
                     <p class="text-[12px] hidden md:block relative -bottom-5">* Required field</p>
-                    <div class="md:w-auto w-full">
+                    <div class="md:w-auto w-full relative">
+                        <!-- Missing Fields Popup -->
+                        <div id="missingFieldsPopup"
+                            class="hidden absolute bottom-full left-0 right-0 mb-2 border-[#d7dbe5] border bg-white p-3 shadow-lg z-10">
+                            <div class="flex items-start justify-between">
+                                <div class="flex-1">
+                                    <div class="flex items-start">
+                                        <div class="flex justify-between text-orange-700">
+                                            <svg class="h-5 w-5 text-orange-500 mr-2 flex-shrink-0" viewBox="0 0 24 24"
+                                                fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 11c-.55 0-1-.45-1-1V8c0-.55.45-1 1-1s1 .45 1 1v4c0 .55-.45 1-1 1zm1 4h-2v-2h2v2z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <h4 class="!text-[14px] !font-semibold !m-0 text-[#e1740e]">Please fill in the
+                                            following
+                                            required fields:
+                                        </h4>
+                                        <button type="button" id="closeMissingFieldsPopup" class="ml-2 text-[#9ca5b7]">
+                                            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <ul id="missingFieldsList" class="mt-1 text-sm text-black list-disc list-inside">
+                                        <!-- Missing fields will be populated here -->
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
                         <button id="calculateBtn"
                             class="btn-grad text-sm w-full sm:w-60 text-white px-4 py-[12px] transition">
                             Calculate results

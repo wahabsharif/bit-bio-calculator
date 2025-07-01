@@ -101,7 +101,7 @@ function validateSingleField(
 
     // Treat empty or NaN or zero as missing/invalid
     if (rawValue.trim() === "" || isNaN(numValue) || numValue === 0) {
-        missingFields.push(field.name);
+        missingFields.push(field); // Push the full field object, not just the name
         input.classList.add("border-red-500");
         // Highlight dropdowns if needed
         highlightDropdownIfNeeded(field.id);
@@ -620,6 +620,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Extra call to ensure arrow keys work after everything is loaded
     setTimeout(ensureArrowKeyHandling, 500);
+
+    // Hide missing fields popup when user starts typing in any input
+    const allInputs = document.querySelectorAll("input, select");
+    allInputs.forEach((input) => {
+        input.addEventListener("input", function () {
+            const popup = document.getElementById("missingFieldsPopup");
+            if (popup && !popup.classList.contains("hidden")) {
+                popup.classList.add("hidden");
+            }
+        });
+
+        input.addEventListener("focus", function () {
+            const popup = document.getElementById("missingFieldsPopup");
+            if (popup && !popup.classList.contains("hidden")) {
+                popup.classList.add("hidden");
+            }
+        });
+    });
 });
 
 /**

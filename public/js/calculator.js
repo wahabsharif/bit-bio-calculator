@@ -82,17 +82,24 @@ function performCalculation() {
         return;
     }
 
-    // Silently validate - just return without showing error messages if fields are missing
+    // Silently validate - show popup if fields are missing
     if (missingFields.length > 0) {
         // Clear any previous validation error messages
         if (validationErrorsDiv) {
             validationErrorsDiv.classList.add("hidden");
             validationErrorsDiv.innerHTML = "";
         }
-        return; // Stop execution if validation fails, but don't show any message
-    } else if (validationErrorsDiv) {
-        validationErrorsDiv.classList.add("hidden");
-        validationErrorsDiv.innerHTML = "";
+
+        // Show the missing fields popup
+        showMissingFieldsPopup(missingFields);
+        return; // Stop execution if validation fails
+    } else {
+        // Hide the popup if validation passes
+        hideMissingFieldsPopup();
+        if (validationErrorsDiv) {
+            validationErrorsDiv.classList.add("hidden");
+            validationErrorsDiv.innerHTML = "";
+        }
     }
 
     // Hide help content and show results content
@@ -386,6 +393,56 @@ function performCalculation() {
     // Check cell count variability when calculating
     checkCellCountVariability();
 }
+
+/**
+ * Shows the missing fields popup with a list of missing fields
+ * @param {Array} missingFields - Array of missing field objects with id and name properties
+ */
+function showMissingFieldsPopup(missingFields) {
+    const popup = document.getElementById("missingFieldsPopup");
+    const fieldsList = document.getElementById("missingFieldsList");
+
+    if (!popup || !fieldsList) {
+        console.error("Missing fields popup elements not found");
+        return;
+    }
+
+    // Clear existing list
+    fieldsList.innerHTML = "";
+
+    // Populate the list with missing fields
+    missingFields.forEach((field) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = field.name || field.id;
+        fieldsList.appendChild(listItem);
+    });
+
+    // Show the popup
+    popup.classList.remove("hidden");
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        hideMissingFieldsPopup();
+    }, 5000);
+}
+
+/**
+ * Hides the missing fields popup
+ */
+function hideMissingFieldsPopup() {
+    const popup = document.getElementById("missingFieldsPopup");
+    if (popup) {
+        popup.classList.add("hidden");
+    }
+}
+
+// Add event listener for the close button when DOM is loaded
+document.addEventListener("DOMContentLoaded", function () {
+    const closeButton = document.getElementById("closeMissingFieldsPopup");
+    if (closeButton) {
+        closeButton.addEventListener("click", hideMissingFieldsPopup);
+    }
+});
 
 /**
  * Checks if there are any remaining warnings and hides the container if empty
