@@ -135,16 +135,20 @@ function getResultData() {
               ).toFixed(1)
             : "-";
 
-    // Get selected cell type and culture vessel text
+    // Get selected cell type and culture vessel text from Semantic UI dropdowns
     let cellTypeText = "-";
-    if (cellTypeEl && cellTypeEl.selectedIndex > 0) {
-        cellTypeText = cellTypeEl.options[cellTypeEl.selectedIndex].text;
+    const cellTypeDropdown = $("#cell_type_dropdown");
+    if (cellTypeDropdown.length && cellTypeDropdown.dropdown("get value")) {
+        cellTypeText = cellTypeDropdown.dropdown("get text") || "-";
     }
 
     let cultureVesselText = "-";
-    if (cultureVesselEl && cultureVesselEl.selectedIndex > 0) {
-        cultureVesselText =
-            cultureVesselEl.options[cultureVesselEl.selectedIndex].text;
+    const cultureVesselDropdown = $("#culture_vessel_dropdown");
+    if (
+        cultureVesselDropdown.length &&
+        cultureVesselDropdown.dropdown("get value")
+    ) {
+        cultureVesselText = cultureVesselDropdown.dropdown("get text") || "-";
     }
 
     return {
@@ -165,6 +169,7 @@ function getResultData() {
         cultureVessel: cultureVesselText,
         surfaceArea: surfaceAreaEl ? surfaceAreaEl.value : "",
         mediaVolume: mediaVolumeEl ? mediaVolumeEl.value : "",
+        wellCount: numWellsEl ? numWellsEl.value : "",
         buffer: bufferEl ? bufferEl.value : "",
 
         // Individual count values
@@ -177,6 +182,123 @@ function getResultData() {
         viability2: viability2El ? viability2El.value : "",
         viability3: viability3El ? viability3El.value : "",
     };
+}
+
+/**
+ * Downloads the results as a PDF file using the server
+ */
+function downloadAsPdf() {
+    // Prevent multiple downloads
+    if (window.isDownloading) return;
+    window.isDownloading = true;
+
+    // Get result data
+    const resultData = getResultData();
+
+    // Create a form to submit the data
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "calculator/download-pdf";
+    form.style.display = "none";
+
+    // Add CSRF token
+    const csrfToken = document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute("content");
+
+    if (!csrfToken) {
+        console.error("CSRF token not found");
+        window.isDownloading = false;
+        return;
+    }
+
+    const csrfInput = document.createElement("input");
+    csrfInput.type = "hidden";
+    csrfInput.name = "_token";
+    csrfInput.value = csrfToken;
+    form.appendChild(csrfInput);
+
+    // Add well count - try multiple sources to ensure we get the value
+    let wellCountValue = "0";
+    const wellCountEl = document.getElementById("wellCount");
+    const numWellsEl = document.getElementById("num_wells");
+
+    if (wellCountEl && wellCountEl.textContent) {
+        wellCountValue = wellCountEl.textContent;
+    } else if (numWellsEl && numWellsEl.value) {
+        wellCountValue = numWellsEl.value;
+    } else if (resultData.wellCount) {
+        wellCountValue = resultData.wellCount;
+    }
+
+    const wellCountInput = document.createElement("input");
+    wellCountInput.type = "hidden";
+    wellCountInput.name = "wellCount";
+    wellCountInput.value = wellCountValue;
+    form.appendChild(wellCountInput);
+
+    // Get volume per well value
+    const volumePerWellEl = document.getElementById(
+        "volume_plate_perwell_simple"
+    );
+    const volumePerWellInput = document.createElement("input");
+    volumePerWellInput.type = "hidden";
+    volumePerWellInput.name = "volumePerWell";
+    volumePerWellInput.value = volumePerWellEl
+        ? volumePerWellEl.textContent || "0"
+        : "0";
+    form.appendChild(volumePerWellInput);
+
+    // Add all result data
+    Object.keys(resultData).forEach((key) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = resultData[key] || "";
+        form.appendChild(input);
+    });
+
+    // Detect browser timezone
+    let timezone = "UTC";
+    try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz) {
+            timezone = tz;
+        }
+    } catch (e) {
+        console.warn("Could not detect timezone, defaulting to UTC", e);
+    }
+    const tzInput = document.createElement("input");
+    tzInput.type = "hidden";
+    tzInput.name = "timezone";
+    tzInput.value = timezone;
+    form.appendChild(tzInput);
+
+    // Get any warnings
+    const warningsDiv = document.getElementById("warnings");
+    let warningsText = "";
+    if (warningsDiv && !warningsDiv.classList.contains("hidden")) {
+        warningsText = warningsDiv.textContent || "";
+    }
+    const warningsInput = document.createElement("input");
+    warningsInput.type = "hidden";
+    warningsInput.name = "warnings";
+    warningsInput.value = warningsText;
+    form.appendChild(warningsInput);
+
+    // Submit the form
+    document.body.appendChild(form);
+    try {
+        form.submit();
+    } catch (e) {
+        console.error("Error submitting form:", e);
+    }
+
+    // Reset download flag after a delay
+    setTimeout(() => {
+        document.body.removeChild(form);
+        window.isDownloading = false;
+    }, 2000);
 }
 
 /**

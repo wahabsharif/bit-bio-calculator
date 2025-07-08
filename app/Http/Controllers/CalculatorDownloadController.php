@@ -11,7 +11,9 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Carbon\Carbon;
 use DateTimeZone;
+use Exception;
 use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CalculatorDownloadController extends Controller
 {
@@ -304,6 +306,120 @@ class CalculatorDownloadController extends Controller
     }
 
     /**
+     * Download calculator results as PDF file
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadPdf(Request $request)
+    {
+        // Increase memory limit and execution time for PDF generation
+        ini_set('memory_limit', '512M');
+        ini_set('max_execution_time', 120);
+        set_time_limit(120);
+
+        // Validate the incoming data
+        $validated = $request->validate([
+            'suspensionVolume' => 'nullable|string',
+            'count1' => 'nullable|string',
+            'count2' => 'nullable|string',
+            'count3' => 'nullable|string',
+            'viability1' => 'nullable|string',
+            'viability2' => 'nullable|string',
+            'viability3' => 'nullable|string',
+            'cellType' => 'nullable|string',
+            'seedingDensity' => 'nullable|string',
+            'cultureVessel' => 'nullable|string',
+            'surfaceArea' => 'nullable|string',
+            'mediaVolume' => 'nullable|string',
+            'wellCount' => 'nullable|string',
+            'buffer' => 'nullable|string',
+            'volumeToDilute' => 'nullable|string',
+            'volumeToSeed' => 'nullable|string',
+            'cellDensity' => 'nullable|string',
+            'requiredCells' => 'nullable|string',
+            'cellsPerWell' => 'nullable|string',
+            'volumePerWell' => 'nullable|string',
+            'timezone' => 'nullable|string',
+            'warnings' => 'nullable|string',
+        ]);
+
+        // Determine timezone
+        $tzInput = $validated['timezone'] ?? null;
+        $timezone = config('app.timezone', 'UTC');
+        if (!empty($tzInput)) {
+            try {
+                $timezone = new DateTimeZone($tzInput);
+                $timezone = $tzInput;
+            } catch (Exception $e) {
+                $timezone = config('app.timezone', 'UTC');
+            }
+        }
+
+        // Generate timestamp in user's timezone
+        $now = Carbon::now($timezone);
+        $formattedDate = $now->format('Y-m-d H:i:s');
+        $datePart = $now->format('Y-m-d');
+        $timePart = $now->format('H-i');
+        $formattedTimestamp = "{$datePart} - {$timePart}";
+
+        // Clean and format data for PDF
+        $pdfData = [
+            'timestamp' => $formattedDate,
+            'suspensionVolume' => $validated['suspensionVolume'] ?? '',
+            'count1' => $this->formatCellCount($validated['count1'] ?? ''),
+            'count2' => $this->formatCellCount($validated['count2'] ?? ''),
+            'count3' => $this->formatCellCount($validated['count3'] ?? ''),
+            'viability1' => $validated['viability1'] ?? '',
+            'viability2' => $validated['viability2'] ?? '',
+            'viability3' => $validated['viability3'] ?? '',
+            'cellType' => $validated['cellType'] ?? '',
+            'seedingDensity' => $validated['seedingDensity'] ?? '',
+            'cultureVessel' => $validated['cultureVessel'] ?? '',
+            'surfaceArea' => $validated['surfaceArea'] ?? '',
+            'mediaVolume' => $validated['mediaVolume'] ?? '',
+            'wellCount' => $validated['wellCount'] ?? '',
+            'buffer' => $validated['buffer'] ?? '',
+            'volumeToDilute' => $validated['volumeToDilute'] ?? '',
+            'volumeToSeed' => $validated['volumeToSeed'] ?? '',
+            'cellDensity' => $this->formatScientificNotationForPdf($validated['cellDensity'] ?? ''),
+            'requiredCells' => $this->formatScientificNotationForPdf($validated['requiredCells'] ?? ''),
+            'cellsPerWell' => $this->cleanHtml($validated['cellsPerWell'] ?? ''),
+            'volumePerWell' => $validated['volumePerWell'] ?? '',
+            'warnings' => $validated['warnings'] ?? '',
+        ];
+
+        // Generate the PDF with optimized settings
+        $pdf = Pdf::loadView('pdf.DownloadPDF', $pdfData);
+
+        // Set paper size and orientation for single page layout
+        $pdf->setPaper('A4', 'landscape');
+
+        // Set DomPDF options for better performance
+        $pdf->setOptions([
+            'isPhpEnabled' => false,
+            'isRemoteEnabled' => false,
+            'defaultFont' => 'DejaVu Sans',
+            'dpi' => 72,
+            'isHtml5ParserEnabled' => false,
+            'fontSubsetting' => false,
+            'debugKeepTemp' => false,
+            'debugCss' => false,
+            'debugLayout' => false,
+            'debugLayoutLines' => false,
+            'debugLayoutBlocks' => false,
+            'debugLayoutInline' => false,
+            'debugLayoutPaddingBox' => false,
+        ]);
+
+        // Generate filename
+        $filename = 'bit.bio - Cell Seeding Calculation - ' . $formattedTimestamp . '.pdf';
+
+        // Return the PDF as download
+        return $pdf->download($filename);
+    }
+
+    /**
      * Clean HTML tags from a string
      *
      * @param string $value
@@ -346,10 +462,9 @@ class CalculatorDownloadController extends Controller
             return number_format((float)$fullNumber);
         }
 
-        // If it's a plain number in string form, multiply by 1,000,000 since UI shows "x 10^6"
+        // If it's a plain number, format it with commas (don't multiply by 10^6)
         if (is_numeric($cleanValue)) {
-            // Multiply by 10^6 since the UI shows cell counts in millions
-            $fullNumber = (float)$cleanValue * 1000000;
+            $fullNumber = (float)$cleanValue;
             return number_format($fullNumber);
         }
 
@@ -418,6 +533,78 @@ class CalculatorDownloadController extends Controller
 
             $fullNumber = $base * pow(10, $exponent);
             return number_format($fullNumber, 0);
+        }
+
+        // If it's just a plain number, format it with commas
+        if (is_numeric($value)) {
+            return number_format((float)$value, 0);
+        }
+
+        // If no match, just remove HTML tags and return as-is
+        return strip_tags($value);
+    }
+
+    /**
+     * Format scientific notation for PDF display with HTML superscripts
+     *
+     * @param string $value
+     * @return string
+     */
+    private function formatScientificNotationForPdf($value)
+    {
+        // If empty, return empty string
+        if (empty($value)) {
+            return '';
+        }
+
+        // Handle HTML superscript format like "6.17 x 10<sup>6</sup>" - already in correct format for PDF
+        if (preg_match('/([0-9.]+)\s*x\s*10\<sup\>([+-]?[0-9]+)\<\/sup\>/', $value, $matches)) {
+            return $value; // Already in HTML superscript format
+        }
+
+        // Handle Unicode superscript format like "1.23 x 10⁶" - convert to HTML superscripts
+        if (preg_match('/([0-9.]+)\s*x\s*10([⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+)/', $value, $matches)) {
+            $base = $matches[1];
+            $superscriptExp = $matches[2];
+
+            // Map Unicode superscript characters back to regular numbers
+            $superscriptMap = [
+                '⁰' => '0',
+                '¹' => '1',
+                '²' => '2',
+                '³' => '3',
+                '⁴' => '4',
+                '⁵' => '5',
+                '⁶' => '6',
+                '⁷' => '7',
+                '⁸' => '8',
+                '⁹' => '9',
+                '⁻' => '-',
+                '⁺' => '+'
+            ];
+
+            // Convert superscript exponent to regular number
+            $exponent = '';
+            for ($i = 0; $i < mb_strlen($superscriptExp); $i++) {
+                $char = mb_substr($superscriptExp, $i, 1);
+                $exponent .= $superscriptMap[$char] ?? '';
+            }
+
+            return $base . ' x 10<sup>' . $exponent . '</sup>';
+        }
+
+        // Handle regular scientific notation like "1.23E+06" - convert to HTML superscripts
+        if (preg_match('/([0-9.]+)[eE]([+-]?[0-9]+)/', $value, $matches)) {
+            $base = $matches[1];
+            $exponent = ltrim($matches[2], '+'); // Remove leading + if present
+            return $base . ' x 10<sup>' . $exponent . '</sup>';
+        }
+
+        // Handle caret format like "1.23 x 10^6" - convert to HTML superscripts
+        if (preg_match('/([0-9.]+)\s*x\s*10\^([+-]?[0-9]+)/', $value, $matches)) {
+            $base = $matches[1];
+            $exponent = $matches[2];
+            return $base . ' x 10<sup>' . $exponent . '</sup>';
         }
 
         // If it's just a plain number, format it with commas

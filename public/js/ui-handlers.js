@@ -899,7 +899,7 @@ function setupActionButtons() {
     if (downloadPdfBtn) {
         downloadPdfBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            printScreen();
+            downloadAsPdf();
         });
     }
 }
@@ -1271,7 +1271,7 @@ if (downloadExcelBtn) {
 if (downloadPdfBtn) {
     downloadPdfBtn.addEventListener("click", function (e) {
         e.preventDefault();
-        printScreen();
+        downloadAsPdf();
     });
 }
 

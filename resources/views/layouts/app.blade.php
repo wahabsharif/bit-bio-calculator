@@ -142,21 +142,16 @@
 
             // Handle PDF download button click
             function handlePdfDownload(e) {
-                // Get current date and time
-                const now = new Date();
-                const formattedDate = formatDate(now);
-                const formattedTime = formatTime(now);
+                e.preventDefault();
 
-                // Set document title to the desired filename format
-                document.title = `bit.bio - Cell Seeding Calculation - ${formattedDate} - ${formattedTime}`;
-
-                // Print the page (which allows saving as PDF)
-                window.print();
-
-                // Reset the document title after printing with a delay to ensure it happens after print dialog is closed
-                setTimeout(() => {
-                    document.title = originalTitle;
-                }, 100);
+                // Call the proper PDF download function from export.js
+                if (typeof downloadAsPdf === 'function') {
+                    downloadAsPdf();
+                } else {
+                    console.error('downloadAsPdf function not found');
+                    // Fallback to print if function is not available
+                    window.print();
+                }
             }
 
             // Set up the event listeners when the DOM is loaded

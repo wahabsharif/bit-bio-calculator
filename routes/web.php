@@ -18,6 +18,7 @@ Route::get('/clear', [ClearCacheController::class, 'clearAll']);
 
 // Calculator download routes
 Route::post('/calculator/download-excel', [CalculatorDownloadController::class, 'downloadExcel'])->name('calculator.download.excel');
+Route::post('/calculator/download-pdf', [CalculatorDownloadController::class, 'downloadPdf'])->name('calculator.download.pdf');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
