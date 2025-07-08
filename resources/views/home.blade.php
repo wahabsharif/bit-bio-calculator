@@ -412,7 +412,7 @@
                         Number of wells to seed <span class="text-black">*</span>
                     </label>
                     <div class="flex items-center flex-1 w-full">
-                        <input id="num_wells" type="number" min="1" step="0.1" value="0"
+                        <input id="num_wells" type="number" min="1" step="1" value="0"
                             class="w-28 bg-white text-right border px-2 border-[#d3dbe6] md:px-0-[#d3dbe6] focus:outline-none focus:ring-blue-500 focus:border-blue-500">
 
                         <span class="ml-2 text-sm ">wells</span>
