@@ -363,9 +363,13 @@ class CalculatorDownloadController extends Controller
         $timePart = $now->format('H-i');
         $formattedTimestamp = "{$datePart} - {$timePart}";
 
+        // Process logo for PDF
+        $logoBase64 = $this->getLogoBase64();
+
         // Clean and format data for PDF
         $pdfData = [
             'timestamp' => $formattedDate,
+            'logoBase64' => $logoBase64,
             'suspensionVolume' => $validated['suspensionVolume'] ?? '',
             'count1' => $this->formatCellCount($validated['count1'] ?? ''),
             'count2' => $this->formatCellCount($validated['count2'] ?? ''),
@@ -614,5 +618,56 @@ class CalculatorDownloadController extends Controller
 
         // If no match, just remove HTML tags and return as-is
         return strip_tags($value);
+    }
+
+    /**
+     * Get logo as base64 encoded string for PDF generation
+     */
+    private function getLogoBase64(): ?string
+    {
+        $logoBase64 = null;
+        $logoFound = false;
+
+        // Try to get logo from URL if we're in production
+        if (str_contains(config('app.url'), 'dev.zeeteck.com')) {
+            try {
+                $logoUrl = rtrim(config('app.url'), '/') . '/assets/images/bitbio-logo.png';
+                $response = Http::get($logoUrl);
+
+                if ($response->successful()) {
+                    $logoBase64 = 'data:image/png;base64,' . base64_encode($response->body());
+                    $logoFound = true;
+                }
+            } catch (\Exception $e) {
+                // Continue to fallback paths if URL fails
+            }
+        }
+
+        // If we couldn't get the logo from URL, try local file paths as fallback
+        if (!$logoFound) {
+            $potentialPaths = [
+                public_path('assets/images/bitbio-logo.png'),
+                base_path('public/assets/images/bitbio-logo.png'),
+                storage_path('app/public/assets/images/bitbio-logo.png'),
+                '/home/devzeeteck/public_html/projects/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+                '/home/devzeeteck/public_html/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+                '/var/www/html/projects/bit-bio-calculator/public/assets/images/bitbio-logo.png',
+            ];
+
+            foreach ($potentialPaths as $logoPath) {
+                if (file_exists($logoPath)) {
+                    try {
+                        $logoData = file_get_contents($logoPath);
+                        $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
+                        $logoFound = true;
+                        break;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+            }
+        }
+
+        return $logoBase64;
     }
 }

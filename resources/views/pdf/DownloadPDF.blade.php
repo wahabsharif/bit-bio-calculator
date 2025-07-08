@@ -223,16 +223,7 @@
     <div class="page-content">
         <!-- Header -->
         <div style="text-align: left; margin-bottom: 5px;">
-            @php
-                $logoPath = public_path('assets/images/bitbio-logo.png');
-                $logoBase64 = null;
-                if (file_exists($logoPath)) {
-                    $logoData = file_get_contents($logoPath);
-                    $logoBase64 = 'data:image/png;base64,' . base64_encode($logoData);
-                }
-            @endphp
-
-            @if ($logoBase64)
+            @if (isset($logoBase64) && $logoBase64)
                 <img src="{{ $logoBase64 }}" alt="bit.bio Logo"
                     style="width: 120px; height: 36px; margin-bottom: 6px; display: block;">
             @else
