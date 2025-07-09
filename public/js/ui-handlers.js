@@ -588,6 +588,10 @@ function resetCalculator() {
 
     if (cellCountWarning) cellCountWarning.classList.add("hidden");
     if (viabilityWarning) viabilityWarning.classList.add("hidden");
+
+    // Reset sequential validation states
+    updateCellCountFieldStates();
+    updateViabilityFieldStates();
 }
 
 /**
@@ -635,6 +639,9 @@ function setupEventListeners() {
     handleSeedingDensityManualInput();
     handleSurfaceAreaManualInput();
     handleMediaVolumeManualInput();
+
+    // Setup sequential validation for count and viability fields
+    setupSequentialValidation();
 
     // Add calculate button event handler
     setupCalculateButton();
@@ -953,6 +960,288 @@ function hideValidationErrorsOnFocus() {
 }
 
 /**
+ * Validates that cell count fields are filled sequentially
+ * @param {string} currentFieldId - The current field being typed in
+ * @returns {boolean} - Whether the field should be enabled
+ */
+function validateCellCountSequence(currentFieldId) {
+    const count1 = document.getElementById("count1");
+    const count2 = document.getElementById("count2");
+    const count3 = document.getElementById("count3");
+
+    const count1Value = count1 ? parseDecimalInput(count1.value) : 0;
+    const count2Value = count2 ? parseDecimalInput(count2.value) : 0;
+
+    switch (currentFieldId) {
+        case "count1":
+            return true; // Count1 is always allowed
+        case "count2":
+            return !isNaN(count1Value) && count1Value > 0;
+        case "count3":
+            return (
+                !isNaN(count1Value) &&
+                count1Value > 0 &&
+                !isNaN(count2Value) &&
+                count2Value > 0
+            );
+        default:
+            return true;
+    }
+}
+
+/**
+ * Validates that viability fields are filled sequentially
+ * @param {string} currentFieldId - The current field being typed in
+ * @returns {boolean} - Whether the field should be enabled
+ */
+function validateViabilitySequence(currentFieldId) {
+    const viability1 = document.getElementById("viability1");
+    const viability2 = document.getElementById("viability2");
+    const viability3 = document.getElementById("viability3");
+
+    const viability1Value = viability1
+        ? parseDecimalInput(viability1.value)
+        : 0;
+    const viability2Value = viability2
+        ? parseDecimalInput(viability2.value)
+        : 0;
+
+    switch (currentFieldId) {
+        case "viability1":
+            return true; // Viability1 is always allowed
+        case "viability2":
+            return !isNaN(viability1Value) && viability1Value > 0;
+        case "viability3":
+            return (
+                !isNaN(viability1Value) &&
+                viability1Value > 0 &&
+                !isNaN(viability2Value) &&
+                viability2Value > 0
+            );
+        default:
+            return true;
+    }
+}
+
+/**
+ * Disables a field and shows visual feedback
+ * @param {HTMLElement} field - The field to disable
+ * @param {string} reason - The reason for disabling
+ */
+function disableFieldWithFeedback(field, reason) {
+    if (!field) return;
+
+    field.disabled = true;
+    field.style.backgroundColor = "#f5f5f5";
+    field.style.cursor = "not-allowed";
+    field.placeholder = reason;
+    field.title = reason;
+}
+
+/**
+ * Enables a field and removes visual feedback
+ * @param {HTMLElement} field - The field to enable
+ */
+function enableField(field) {
+    if (!field) return;
+
+    field.disabled = false;
+    field.style.backgroundColor = "";
+    field.style.cursor = "";
+    field.placeholder = "";
+    field.title = "";
+}
+
+/**
+ * Updates the state of cell count fields based on sequential validation
+ */
+function updateCellCountFieldStates() {
+    const count1 = document.getElementById("count1");
+    const count2 = document.getElementById("count2");
+    const count3 = document.getElementById("count3");
+
+    // Count1 is always enabled
+    if (count1) enableField(count1);
+
+    // Count2 depends on count1
+    if (count2) {
+        if (validateCellCountSequence("count2")) {
+            enableField(count2);
+        } else {
+            disableFieldWithFeedback(count2, "");
+            count2.value = ""; // Clear invalid value
+        }
+    }
+
+    // Count3 depends on count1 and count2
+    if (count3) {
+        if (validateCellCountSequence("count3")) {
+            enableField(count3);
+        } else {
+            disableFieldWithFeedback(count3, "");
+            count3.value = ""; // Clear invalid value
+        }
+    }
+}
+
+/**
+ * Updates the state of viability fields based on sequential validation
+ */
+function updateViabilityFieldStates() {
+    const viability1 = document.getElementById("viability1");
+    const viability2 = document.getElementById("viability2");
+    const viability3 = document.getElementById("viability3");
+
+    // Viability1 is always enabled
+    if (viability1) enableField(viability1);
+
+    // Viability2 depends on viability1
+    if (viability2) {
+        if (validateViabilitySequence("viability2")) {
+            enableField(viability2);
+        } else {
+            disableFieldWithFeedback(viability2, "");
+            viability2.value = ""; // Clear invalid value
+        }
+    }
+
+    // Viability3 depends on viability1 and viability2
+    if (viability3) {
+        if (validateViabilitySequence("viability3")) {
+            enableField(viability3);
+        } else {
+            disableFieldWithFeedback(viability3, "");
+            viability3.value = ""; // Clear invalid value
+        }
+    }
+}
+
+/**
+ * Sets up sequential validation for cell count and viability fields
+ */
+function setupSequentialValidation() {
+    // Cell count field validation
+    const cellCountFields = ["count1", "count2", "count3"];
+    cellCountFields.forEach((fieldId) => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            // Add input event listener
+            field.addEventListener("input", function () {
+                updateCellCountFieldStates();
+            });
+
+            // Add change event listener
+            field.addEventListener("change", function () {
+                updateCellCountFieldStates();
+            });
+
+            // Add focus event listener to prevent typing in disabled fields
+            field.addEventListener("focus", function (e) {
+                if (!validateCellCountSequence(fieldId)) {
+                    e.target.blur();
+                    showValidationMessage(
+                        fieldId,
+                        "Please fill the previous cell count field first"
+                    );
+                }
+            });
+
+            // Add keydown event listener to prevent typing in disabled fields
+            field.addEventListener("keydown", function (e) {
+                if (!validateCellCountSequence(fieldId)) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+
+    // Viability field validation
+    const viabilityFields = ["viability1", "viability2", "viability3"];
+    viabilityFields.forEach((fieldId) => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            // Add input event listener
+            field.addEventListener("input", function () {
+                updateViabilityFieldStates();
+            });
+
+            // Add change event listener
+            field.addEventListener("change", function () {
+                updateViabilityFieldStates();
+            });
+
+            // Add focus event listener to prevent typing in disabled fields
+            field.addEventListener("focus", function (e) {
+                if (!validateViabilitySequence(fieldId)) {
+                    e.target.blur();
+                    showValidationMessage(
+                        fieldId,
+                        "Please fill the previous viability field first"
+                    );
+                }
+            });
+
+            // Add keydown event listener to prevent typing in disabled fields
+            field.addEventListener("keydown", function (e) {
+                if (!validateViabilitySequence(fieldId)) {
+                    e.preventDefault();
+                }
+            });
+        }
+    });
+
+    // Initialize field states
+    updateCellCountFieldStates();
+    updateViabilityFieldStates();
+}
+
+/**
+ * Shows a temporary validation message for a field
+ * @param {string} fieldId - The field ID
+ * @param {string} message - The message to show
+ */
+function showValidationMessage(fieldId, message) {
+    // Remove any existing validation message
+    const existingMessage = document.querySelector(".validation-message");
+    if (existingMessage) {
+        existingMessage.remove();
+    }
+
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+
+    // Create validation message element
+    const messageDiv = document.createElement("div");
+    messageDiv.className = "validation-message";
+    messageDiv.style.cssText = `
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fee;
+        border: 1px solid #fcc;
+        color: #c33;
+        padding: 4px 8px;
+        font-size: 12px;
+        border-radius: 4px;
+        z-index: 1000;
+        white-space: nowrap;
+        margin-top: 2px;
+    `;
+    messageDiv.textContent = message;
+
+    // Position the message relative to the field
+    field.parentElement.style.position = "relative";
+    field.parentElement.appendChild(messageDiv);
+
+    // Remove message after 3 seconds
+    setTimeout(() => {
+        if (messageDiv.parentElement) {
+            messageDiv.remove();
+        }
+    }, 3000);
+}
+
+/**
  * Initialize the calculator app
  */
 async function initCalculator() {
@@ -990,326 +1279,6 @@ async function initCalculator() {
 
 // Initialize calculator when document is ready
 document.addEventListener("DOMContentLoaded", initCalculator);
-const numericInputs = document.querySelectorAll(
-    'input[inputmode="decimal"], input[type="number"]'
-);
-numericInputs.forEach((input) => {
-    if (input.value) {
-        input.classList.add("default-input");
-    }
-
-    // Handle stepUp/stepDown for inputs (now that they're type="text")
-    if (input.getAttribute("step")) {
-        // Add custom increment/decrement functionality
-        input.addEventListener("wheel", function (e) {
-            if (document.activeElement === this) {
-                e.preventDefault();
-                const step = parseFloat(this.getAttribute("step") || "0.1");
-                const currentValue = parseDecimalInput(this.value) || 0;
-
-                let newValue;
-                if (e.deltaY < 0) {
-                    // Wheel up - increment
-                    newValue = currentValue + step;
-                } else {
-                    // Wheel down - decrement
-                    newValue = Math.max(0, currentValue - step);
-                }
-
-                // Apply min/max constraints
-                const minAttr = this.getAttribute("min");
-                const maxAttr = this.getAttribute("max");
-
-                if (minAttr !== null && newValue < parseFloat(minAttr)) {
-                    newValue = parseFloat(minAttr);
-                }
-
-                if (maxAttr !== null && newValue > parseFloat(maxAttr)) {
-                    newValue = parseFloat(maxAttr);
-                }
-
-                // Format decimal places
-                const isCountField =
-                    this.id === "count1" ||
-                    this.id === "count2" ||
-                    this.id === "count3";
-
-                if (isCountField) {
-                    // For count fields, check if it's a whole number
-                    if (Number.isInteger(newValue)) {
-                        this.value = newValue.toString();
-                    } else {
-                        this.value = newValue.toFixed(1);
-                    }
-                } else if (newValue % 1 === 0 && step >= 1) {
-                    this.value = newValue.toString();
-                } else {
-                    const decimals =
-                        step < 1 ? String(step).split(".")[1].length : 0;
-                    this.value = newValue.toFixed(decimals);
-                }
-
-                // Trigger events to update UI and calculations
-                this.dispatchEvent(new Event("change", { bubbles: true }));
-                this.dispatchEvent(new Event("input", { bubbles: true }));
-            }
-        });
-    }
-
-    // Handle formatting for cell count inputs
-    if (
-        input.id === "count1" ||
-        input.id === "count2" ||
-        input.id === "count3"
-    ) {
-        // Special handling for cell count inputs
-        input.addEventListener("input", function (e) {
-            if (this._programmaticSet) return;
-
-            // Don't reformat while user is typing
-            this.classList.remove("default-input");
-            this.classList.add("active-input");
-
-            // Only do minimal validation during typing to prevent non-numeric characters
-            const value = this.value;
-            // Allow digits, comma, and period only
-            const cleanedValue = value.replace(/[^0-9.,]/g, "");
-
-            if (value !== cleanedValue) {
-                this.value = cleanedValue;
-            }
-        });
-
-        input.addEventListener("change", function () {
-            if (this._programmaticSet) return;
-
-            // Only format on change, not during typing
-            if (this.value !== "") {
-                const numValue = parseDecimalInput(this.value);
-                if (!isNaN(numValue)) {
-                    // Preserve decimal format based on what user entered
-                    if (this.value.includes(",") && !this.value.includes(".")) {
-                        // User used comma as decimal separator - preserve it
-                        // Extract parts directly from the string to avoid mathematical conversions
-                        const parts = this.value.split(",");
-                        const intPart = parts[0];
-                        // Ensure we have exactly one digit after the comma
-                        let decPart = parts[1] || "0";
-                        decPart = decPart.substring(0, 1).padEnd(1, "0");
-
-                        this.value = intPart + "," + decPart;
-                    } else {
-                        // Check if it's a whole number
-                        if (Number.isInteger(numValue)) {
-                            this.value = numValue.toString();
-                        } else {
-                            this.value = numValue.toFixed(1);
-                        }
-                    }
-                }
-            }
-
-            // Ensure value is not negative
-            if (parseDecimalInput(this.value) < 0) {
-                this.value = "0";
-            }
-        });
-
-        // Handle blur for final formatting
-        input.addEventListener("blur", function () {
-            if (this._programmaticSet) return;
-
-            if (this.value !== "") {
-                const numValue = parseDecimalInput(this.value);
-                if (!isNaN(numValue)) {
-                    // Preserve decimal format based on what user entered
-                    if (this.value.includes(",") && !this.value.includes(".")) {
-                        // User used comma as decimal separator - preserve it
-                        // Extract parts directly from the string to avoid mathematical conversions
-                        const parts = this.value.split(",");
-                        const intPart = parts[0];
-                        // Ensure we have exactly one digit after the comma
-                        let decPart = parts[1] || "0";
-                        decPart = decPart.substring(0, 1).padEnd(1, "0");
-
-                        this.value = intPart + "," + decPart;
-                    } else {
-                        // Check if it's a whole number
-                        if (Number.isInteger(numValue)) {
-                            this.value = numValue.toString();
-                        } else {
-                            this.value = numValue.toFixed(1);
-                        }
-                    }
-                }
-            }
-        });
-    }
-    // Add real-time validation for viability fields
-    else if (
-        input.id === "viability1" ||
-        input.id === "viability2" ||
-        input.id === "viability3"
-    ) {
-        input.addEventListener("input", function (e) {
-            if (this._programmaticSet) return;
-
-            this.classList.remove("default-input");
-            this.classList.add("active-input");
-
-            // Remove invalid characters
-            const value = this.value;
-            const cleanedValue = value.replace(/[^0-9.,]/g, "");
-
-            if (value !== cleanedValue) {
-                this.value = cleanedValue;
-            }
-
-            // Immediately cap at 100 during typing
-            const numValue = parseDecimalInput(cleanedValue);
-            if (!isNaN(numValue) && numValue > 100) {
-                this.value = "100";
-            }
-        });
-    }
-
-    // Update styling when user interacts with the input
-    input.addEventListener("input", function () {
-        this.classList.remove("default-input");
-        this.classList.add("active-input");
-    });
-
-    input.addEventListener("focus", function () {
-        this.classList.remove("default-input");
-        this.classList.add("active-input");
-        // Auto-select all text when input receives focus
-        this.select();
-    });
-});
-
-// Setup manual input handling for all relevant fields
-handleSeedingDensityManualInput();
-handleSurfaceAreaManualInput();
-handleMediaVolumeManualInput();
-
-// Add calculate button click handler with validation
-const calculateBtn = document.getElementById("calculateBtn");
-if (calculateBtn) {
-    calculateBtn.addEventListener("click", function () {
-        // First check for negative numbers or percentage over 100
-        const allInputs = document.querySelectorAll(
-            'input[type="number"], input[type="text"][inputmode="decimal"]'
-        );
-        let hasNegative = false;
-        let hasPercentageOverLimit = false;
-        const percentageFields = [
-            "viability1",
-            "viability2",
-            "viability3",
-            "buffer",
-        ];
-
-        allInputs.forEach((input) => {
-            if (input.value.trim() === "") return;
-
-            // For seeding density, remove commas before parsing
-            let valueToCheck = input.value;
-            if (input.id === "seeding_density") {
-                valueToCheck = removeCommasFromNumber(input.value);
-            }
-
-            const value = parseDecimalInput(valueToCheck);
-            if (isNaN(value)) return;
-
-            if (value < 0) {
-                hasNegative = true;
-                input.classList.add("border-red-500");
-            } else if (percentageFields.includes(input.id) && value > 100) {
-                hasPercentageOverLimit = true;
-                input.classList.add("border-red-500");
-            }
-        });
-
-        if (hasNegative) {
-            showValidationError("Please do not include negative numbers");
-            return;
-        }
-
-        if (hasPercentageOverLimit) {
-            showValidationError(
-                "Your percentage value is higher than 100%, please confirm your values"
-            );
-            return;
-        }
-
-        // If no validation errors, proceed with calculation
-        performCalculation();
-    });
-}
-
-// Add listeners for calculate, reset, recalculate buttons
-const resetBtn = document.getElementById("resetBtn");
-const recalculateBtn = document.getElementById("recalculateBtn");
-const downloadExcelBtn = document.getElementById("downloadExcel");
-const downloadPdfBtn = document.getElementById("downloadPdf");
-
-if (resetBtn) {
-    resetBtn.addEventListener("click", resetCalculator);
-}
-
-if (recalculateBtn) {
-    recalculateBtn.addEventListener("click", performCalculation);
-}
-
-if (downloadExcelBtn) {
-    downloadExcelBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        downloadAsExcel();
-    });
-}
-
-if (downloadPdfBtn) {
-    downloadPdfBtn.addEventListener("click", function (e) {
-        e.preventDefault();
-        downloadAsPdf();
-    });
-}
-
-// Add cell count variability listeners
-const countInputs = ["count1", "count2", "count3"];
-countInputs.forEach((id) => {
-    const input = document.getElementById(id);
-    if (input) {
-        input.addEventListener("input", checkCellCountVariability);
-    }
-});
-
-// Add viability check listeners
-const viabilityInputs = ["viability1", "viability2", "viability3"];
-viabilityInputs.forEach((id) => {
-    const input = document.getElementById(id);
-    if (input) {
-        input.addEventListener("change", checkViabilityValues);
-    }
-});
-
-// Prevent tooltip clicks from selecting inputs
-document.querySelectorAll(".tooltip-container").forEach((tooltip) => {
-    tooltip.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    });
-});
-
-// Hide validation errors when focusing on any input
-document.querySelectorAll("input, select").forEach((el) => {
-    el.addEventListener("focus", function () {
-        const validationErrors = document.getElementById("validationErrors");
-        if (validationErrors) {
-            validationErrors.classList.add("hidden");
-        }
-    });
-});
 
 /**
  * Initialize the calculator app
@@ -1321,26 +1290,29 @@ async function initCalculator() {
     let cellTypes = [];
     let cultureVessels = [];
 
-    // Fetch cell types
+    // Fetch data in parallel
     try {
-        const response = await fetch("products");
-        cellTypes = await response.json();
-        populateCellTypes(cellTypes);
-    } catch (err) {
-        console.error("Failed to fetch cell types", err);
-    }
+        const [typesResponse, vesselsResponse] = await Promise.all([
+            fetch("products"),
+            fetch("culture-vessels", {
+                headers: {
+                    Accept: "application/json",
+                },
+            }),
+        ]);
 
-    // Fetch culture vessels
-    try {
-        const resp2 = await fetch("culture-vessels", {
-            headers: {
-                Accept: "application/json",
-            },
-        });
-        cultureVessels = await resp2.json();
-        populateCultureVessels(cultureVessels);
+        // Process responses
+        if (typesResponse.ok) {
+            cellTypes = await typesResponse.json();
+            populateCellTypes(cellTypes);
+        }
+
+        if (vesselsResponse.ok) {
+            cultureVessels = await vesselsResponse.json();
+            populateCultureVessels(cultureVessels);
+        }
     } catch (err) {
-        console.error("Failed to fetch culture vessels", err);
+        console.error("Failed to fetch data:", err);
     }
 }
 
